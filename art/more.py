@@ -354,7 +354,7 @@ EXTRA2 = [
  ('a vase','M',2,'glass container flower fragile'), ('a clock radio_x','X',0,''), ('an alarm clock','M',1,'electric noise bedroom buttons'), ('a ceiling fan','M',3,'electric noise'),
  ('a heater','M',2,'electric hot'), ('an air conditioner','M',3,'electric cold noise'), ('a thermostat','M',1,'electric buttons'), ('a toothpaste','M',1,'bathroom clean everyday'),
  ('toothpaste','M',1,'bathroom clean everyday smell'), ('shampoo','M',1,'bathroom clean liquid smell'), ('a shower','M',4,'bathroom water clean'), ('a bath mat','V',2,'cloth soft bathroom $made'),
- ('a plunger','M',2,'tool clean tasks long plastic ~wood wet water ~smell rubber_x bathroom handle'), ('a scale','M',1,'bathroom flat'), ('dental floss','M',0,'bathroom clean long'), ('a bandage','M',0,'pocket'),
+ ('a plunger','M',2,'tool clean tasks long plastic ~wood wet water ~smell rubber_x bathroom handle'), ('a scale','M',1,'bathroom flat ~metal ~plastic ~glass hard heavy_x ~kitchen ~doctor_x everyday ~white ~black tasks'), ('dental floss','M',0,'bathroom clean long'), ('a bandage','M',0,'pocket'),
  ('lotion','M',1,'bathroom liquid smell soft'), ('perfume','M',1,'smell liquid glass expensive gift'), ('makeup','M',1,'colorful bathroom'), ('nail polish','M',0,'colorful liquid smell glass'),
  ('a minivan','M',4,'colorful vehicle wheels engine metal'), ('a pickup truck','M',4,'farm heavy vehicle wheels engine metal'), ('a jeep','M',4,'hot_place vehicle wheels engine metal'),
  ('a limousine','M',5,'vehicle wheels engine metal long expensive black'), ('a school bus','M',5,'vehicle wheels engine metal yellow'), ('a race car','M',4,'vehicle wheels engine metal fast noise'),

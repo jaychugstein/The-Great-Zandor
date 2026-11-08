@@ -461,7 +461,7 @@ OBJ = [
  ('money', 'M', 0, 'paper flat green pocket expensive everyday gift'),
  ('a credit card', 'M', 0, 'plastic flat pocket everyday'),
  ('a window', 'M', 4, 'glass flat fragile opens everyday'),
- ('a candle', 'M', 1, 'light hot holiday ~white smell long ~gift'),
+ ('a candle', 'M', 1, 'light hot holiday ~white smell long ~gift ~bathroom ~bedroom ~colorful ~kitchen dangerous ~pretty_x'),
  ('ice', 'M', 1, 'cold watery water ~white fragile ~kitchen shiny'),
  ('snow', 'M', 0, 'cold watery white weather soft cold_place sky_x holiday'),
  ('salt', 'M', 0, 'eat white kitchen everyday ~ocean'),
@@ -723,6 +723,24 @@ def answers(name, cat, size, tags):
     t['$electronic'] = max(t.get('electric', 0), t.get('battery', 0), t.get('screen', 0))
     t['$huge'] = sz(lambda s: s >= 5, lambda s: s == 4)
     t['$movable'] = 0 if not touchable or 'place' in t else sz(lambda s: s <= 2, lambda s: s == 3)
+    g = lambda k: t.get(k, 0); up = lambda k, v: t.__setitem__(k, max(g(k), v))
+    # round 3: small home things are used at home
+    if name in ('a candle', 'a scale', 'a vase', 'a picture frame', 'a mirror', 'a lamp', 'a pillow', 'a blanket', 'a clock', 'a rug', 'a curtain', 'a towel', 'a plant pot_x', 'a light bulb', 'a remote control', 'a box', 'a basket', 'a hanger', 'a bucket', 'a broom'): t['$home'] = 4; up('$household', 4); up('$indoors', 4)
+    if name == 'a candle': t['electric'] = 0; t['$electronic'] = 0; t['plugin'] = 0
+    if name == 'a scale': t['screen'] = 2; t['battery'] = 2; t['electric'] = 2; t['$electronic'] = 2; t['buttons_x'] = 0
+    # player answers, round 2
+    if name in ('a tomato', 'an avocado', 'a pumpkin', 'a cucumber', 'a pepper', 'an eggplant', 'a zucchini', 'an olive', 'a squash'): t['fruit'] = 4; t['veg'] = 2
+    if cat == 'A' and g('pet') >= 3: up('$indoors', 4)
+    if name == 'a car': up('metal', 4)
+    if name in ('a fridge', 'a refrigerator', 'a freezer', 'a stove', 'an oven', 'a washing machine', 'a dryer', 'a dishwasher'): up('metal', 3)
+    if name in ('a TV', 'a television', 'a computer', 'a laptop', 'a phone', 'a microwave'): up('metal', 2)
+    if cat == 'A' and g('pet') >= 3 and name in ('a dog',): up('dangerous', 3)
+    if (g('vehicle') >= 3 and g('engine') >= 3) or name in ('fire', 'a knife', 'a gun', 'a sword', 'an axe', 'a saw', 'a chainsaw', 'scissors', 'a stove', 'lightning', 'a volcano'): up('dangerous', 4)
+    if g('ball') >= 3 or name in ('a kite', 'a video game console', 'a yo-yo', 'a frisbee', 'a jump rope', 'a skateboard', 'a puzzle', 'cards', 'a board game', 'dice', 'a balloon', 'bubbles', 'a top'): up('toy', 4)
+    if name in ('a door', 'a window', 'a drawer', 'a gate'): t['noise'] = 2
+    elif g('vehicle') >= 3 and g('engine') >= 3 or name in ('a phone', 'a dog', 'a cat'): up('noise', 4)
+    if (cat == 'A' and g('fur') >= 3) or name in ('bread', 'a pillow', 'a blanket', 'a teddy bear', 'a bun', 'a muffin', 'a marshmallow'): up('soft', 4)
+    if name in ('a phone', 'a car', 'a dog', 'a ring', 'a cat', 'a horse', 'a laptop', 'a computer', 'a TV', 'a watch', 'a necklace', 'a house'): up('expensive', 4)
     return t
 
 def matrix():
