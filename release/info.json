@@ -1,0 +1,1 @@
+{"schemaVersion":3,"title":"The Great Zandor","description":"A 20 questions guessing game hosted by a creepy fortune teller. Think of something and Zandor reads your mind.","author":"jaychugstein","version":"1.0","genre":"Puzzle","binaries":[{"title":"The Great Zandor","filename":"TheGreatZandor.hex","flashdata":"TheGreatZandor-fxdata.bin","device":"ArduboyFX"}]}
