@@ -9,7 +9,7 @@ Q = [
  ('$small', 'Is it smaller than a loaf of bread?'),
  ('$person', 'Is it bigger than a person?'),
  ('$car', 'Is it bigger than a car?'),
- ('$lift', 'Can you lift it?'),
+ ('$pickup', 'Can you pick it up by yourself?'),
  ('$heavy', 'Is it heavy?'),
  ('pocket', 'Can it fit in a pocket?'),
  # what it is
@@ -164,7 +164,7 @@ Q = [
  ('hasliquid', 'Does it contain a liquid?'),
  ('desk', 'Is it found on a desk?'),
  ('info', 'Does it store information?'),
- ('paint', 'Can it be painted?'),
+ ('paint', 'Do people ever paint it?'),
  ('leaves', 'Does it have leaves?'),
  ('kinds', 'Are there many different sorts?'),
  ('rabbits', 'Do rabbits eat it?'),
@@ -185,7 +185,7 @@ Q = [
  ('$household', 'Is it a common household object?'),
  ('office2', 'Would you find it in an office?'),
  ('$home', 'Do you use it in your home?'),
- ('$steal', 'Can it be stolen?'),
+ ('$steal', 'Would a thief want to steal it?'),
  ('$buy', 'Is it something you can purchase?'),
  ('$joy', 'Does it bring joy to people?'),
  ('public', 'Do you use it in public?'),
@@ -527,9 +527,46 @@ OBJ = [
 ]
 OBJ = [o for o in OBJ if o[1] != 'X']
 from more import MORE
+from more2 import MORE2
+from more3 import Q4, extra_answers
+import json as _json, os as _os
+_lp = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), 'learned.json')
+LEARNED = _json.load(open(_lp)) if _os.path.exists(_lp) else {}
+Q = Q + [(k, t) for k, t, _ in Q4]
+MORE = MORE + MORE2
 _NEWNAMES = set(m[0] for m in MORE)
 _have = set(o[0] for o in OBJ)
 OBJ += [m for m in MORE if m[0] not in _have]
+# Taken out again: family members and vague relations. "A person", "a baby" and "a child" cover them; nobody could tell a brother from a neighbor in 20 questions.
+DROP = ('a mom', 'a dad', 'a grandma', 'a grandpa', 'a brother', 'a sister', 'a neighbor', 'a stranger', 'a friend', 'a bride', 'a boss', 'a babysitter')
+# Careers and job positions are out too (a teacher, a doctor, a plumber, a clown, a cowboy...). Storybook characters stay: a king, a pirate, a witch.
+DROP += ('a teacher', 'a police officer', 'a doctor', 'a firefighter', 'a chef', 'a nurse', 'a farmer', 'a soldier', 'an astronaut', 'a mailman', 'a pilot', 'a dentist', 'a lawyer', 'a judge', 'a magician', 'a singer', 'an actor', 'a hockey player', 'a referee', 'a coach', 'a waiter', 'a cashier', 'a plumber', 'a mechanic', 'a carpenter', 'a janitor', 'a librarian', 'a scientist', 'an artist', 'a bus driver', 'a lifeguard', 'a president', 'a clown', 'a cowboy', 'a ninja', 'a knight')
+# And the ideas nobody can answer questions about (he missed these more than anything else).
+DROP += ('a hole', 'an idea', 'pain', 'night', 'air', 'sadness', 'a name', 'a memory', 'anger', 'luck', 'winter', 'summer', 'gravity', 'a color', 'a wish', 'a holiday', 'fear', 'an echo', 'a lie', 'a massage')
+OBJ = [o for o in OBJ if o[0] not in DROP]
+# More answers for things that were thinly filled in and often missed (found with art/worst.py). Same tag format; added to the thing's own tags.
+PLUS = {
+ 'a brick': 'red $hard $heavy $outdoors old tasks ~rock set ~paint', 'a charger': 'electric plugin long pocket everyday $home $bring withpc ~travel plastic ~black ~white bedroom',
+ 'a bandage': 'pocket bathroom hospital sticky fix flat soft $home box wear ~brown', 'a leash': 'long handle $outdoors $bring ~cloth ~metal $home ~everyday',
+ 'a fish tank': 'glass container water hasliquid $indoors $home wet fragile $heavy ~electric ~light $household', 'a field': 'green flat farm $outdoors ~sport ~flower $huge',
+ 'steam': 'hot watery wet white ~kitchen ~bathroom ~dangerous', 'a purse': 'container opens handle wear $bring public ~cloth ~expensive money ~gift everyday ~strings',
+ 'a peeler': 'sharp handle kitchen tool metal', 'a skeleton': 'white $hard scary holiday science ~pretend face teeth two_legs old',
+ 'concrete': '$hard $heavy $outdoors flat ~rock', 'a fossil': 'old rock $hard underground science ~expensive $outdoors',
+ 'a projector': 'electric light plugin office school ~expensive $indoors', 'a staircase': '$indoors $home $huge long ~wood $household everyday',
+ 'a saddle': 'farm brown ~sport $heavy', 'a lock': 'metal $hard pocket opens tasks $home school ~everyday', 'a paintbrush': 'long handle tool write ~wood',
+ 'a wheelbarrow': 'wheels handle container carry tool $outdoors garage metal', 'a tire': 'round black rolls garage $outdoors $heavy smell',
+ 'a flag': 'cloth colorful $outdoors hang holiday ~school flat', 'a fence': 'long $outdoors $huge ~wood ~metal paint farm',
+ 'a lunchbox': 'container opens handle school $bring kitchen ~plastic ~metal everyday', 'a piggy bank': 'container money toy ~fragile bedroom gift cute',
+ 'a paint roller': 'long handle tool rolls ~wet garage', 'a can': 'metal container round kitchen hasliquid opens', 'a bowl': 'round container kitchen eatwith ~fragile',
+ 'a wedding': 'event holiday enjoy good ~white ~music ~expensive gift ~ontv', 'a sneeze': 'loud ~wet', 'a yawn': '~night good', 'a hiccup': 'funny',
+ 'a number': 'write read writing school science money info kinds', 'a word': 'say write read writing school info kinds',
+ 'a story': 'say read enjoy pretend ontv writing ~school kinds old', 'time': 'old science ~money say everyday',
+ 'a salad': 'green veg kitchen eat cold salad leaves', 'a toy train': 'toy wheels plastic ~electric played set box', 'a snowman': 'cold white watery holiday winter round face $outdoors $made',
+ 'a genie': 'pretend magic_x famous male ~scary old container_x', 'a plant': 'green alive leaves ~flower $indoors ~$outdoors grows $home', 'a bush': 'green alive leaves $outdoors grows ~flower ~thorns',
+ 'a tank top': 'wear cloth clothes ~sport everyday ~bedroom', 'thread': 'long pocket fix cloth strings ~colorful', 'wrapping paper': 'paper gift holiday colorful ~flat',
+ 'a whiteboard': 'white flat write writing office school hang $hard $indoors', 'a diaper': 'wear baby smell white lower soft',
+}
+OBJ = [(n, c, sz_, (tg + ' ' + PLUS[n]) if n in PLUS else tg) for n, c, sz_, tg in OBJ]
 
 EXTRA = {
  'songs': 'a spider;a star;the sun;rain;the moon;a sheep;a duck;a cow;a pig;a horse;a chicken;a mouse;a teddy bear;a bell;Santa Claus;a rainbow;a train;a bus;a boat;love;money;~a dog;~a cat;~a bee;~a butterfly;~a frog;~a monkey;~an elephant;~a fish;~the ocean;~a river;~a flower;~a rose;~a tree;~snow;~wind;~a baby;~a birthday party;~a cake;~a car;~a guitar;~a piano;~a drum;~time;~a dream;~a ghost;~a dragon;~a unicorn;~a crocodile;~a turkey;~a kite;~a balloon;~a phone;~a house;~a castle;~a mountain',
@@ -583,13 +620,14 @@ for _k, _v in EXTRA.items():
 
 ALIVE_CATS = ('A',)
 def answers(name, cat, size, tags):
-    t = {}
+    t = {}; force = {}
     for w in tags.split():
         if w.endswith('_x'): continue                      # (notes, not used)
         v = 4;
         if w[0] == '+': v, w = 3, w[1:]
         elif w[0] == '~': v, w = 2, w[1:]
         elif w[0] == '-': v, w = 1, w[1:]
+        if w[0] == '$' and w not in ('$made', '$madefood', '$natural'): force[w] = v; continue   # (a worked-out answer, set by hand: applied last)
         t[w] = max(t.get(w, 0), v)
     made = t.pop('$made', 0) or t.pop('$madefood', 0)
     for k, v in EX.get(name, {}).items(): t[k] = max(t.get(k, 0), v)
@@ -613,12 +651,15 @@ def answers(name, cat, size, tags):
         for k, v in derive.items():
             if k not in t: t[k] = v
     # worked-out tags
-    if (cat == 'A' or 'person' in t) and 'body' not in t: t.setdefault('alive', 4); t.setdefault('moves', 4); t.setdefault('face', 4)
+    product = t.pop('product', 0)
+    creature = cat == 'A' and 'body' not in t and not product and (not any(k in t for k in ('eat', 'drink', '$x')) or any(k in t for k in ('mammal', 'bird', 'fish', 'reptile', 'insect', 'tail', 'four_legs', 'many_legs', 'wings', 'swims', 'shell', 'wild', 'pet')))
+    if cat == 'A' and 'body' not in t and not creature and made == 0 and name not in ('milk', 'an egg', 'honey'): made = 4   # (bacon, cheese, butter... are made)
+    if (creature or 'person' in t): t.setdefault('alive', 4); t.setdefault('moves', 4); t.setdefault('face', 4)
     if 'plant' in t: t.setdefault('alive', 4)
     for k in ('fruit', 'veg'):
         if t.get(k, 0) >= 3: t.setdefault('eat', 4)
     if cat == 'A' and 'wild' not in t and 'pet' in t: pass
-    if cat == 'A' and 'body' not in t and not any(k in t for k in ('pet', 'farm')): t.setdefault('wild', 4)
+    if creature and not any(k in t for k in ('pet', 'farm')): t.setdefault('wild', 4)
     if 'wood_grows' in t: t.pop('wood_grows'); t['wood'] = 2
     if cat == 'M' and not made: made = 4
     if cat == 'M' and name in ('a rock', 'sand', 'a diamond', 'gold', 'ice', 'snow', 'salt'): made = 0
@@ -639,7 +680,13 @@ def answers(name, cat, size, tags):
     t['$small'] = sz(lambda s: s <= 1, lambda s: s == 2)
     t['$person'] = sz(lambda s: s >= 4, lambda s: s == 3)
     t['$car'] = sz(lambda s: s >= 5, lambda s: s == 4)
-    t['$lift'] = sz(lambda s: s <= 3, lambda s: s == 4)          # (you can lift a person or a couch, with effort)
+    t['$pickup'] = sz(lambda s: s <= 2, lambda s: s == 3)        # (the whole thing, with your own hands, no jack: a chair or a child sometimes, a car never)
+    if size == 3 and t['$pickup']:                               # (person-sized things: it depends what it is)
+        gp = lambda k: t.get(k, 0)
+        t['$pickup'] = 0 if gp('engine') >= 3 else (1 if gp('appliance') >= 3 else (2 if (gp('alive') >= 3 or (gp('furniture') >= 3 and name not in ('a chair', 'a stool', 'a lawn chair', 'a high chair'))) else 3))
+    # long or wide but light: you can still pick these up
+    _PU = {'a ladder': 4, 'a surfboard': 4, 'skis': 4, 'a snowboard': 4, 'a fishing rod': 4, 'a paddle': 4, 'a toboggan': 4, 'a sled': 4, 'a rug': 3, 'a rope': 4, 'a hose': 4, 'a flag': 4, 'a ski pole': 4, 'a hockey stick': 4, 'a tent': 3, 'a hula hoop': 4, 'a pogo stick': 4, 'a crutch': 4, 'a broom': 4, 'a mop': 4, 'a rake': 4, 'a shovel': 4, 'a branch': 3, 'a kite': 4, 'a curtain': 4, 'a hammock': 4, 'a parachute': 3, 'a sleeping bag': 4, 'a shower curtain': 4, 'a canoe': 2, 'a kayak': 2, 'a hockey net': 2, 'a bench': 2, 'a wheelbarrow': 2, 'a wagon': 3, 'a stroller': 3, 'a tricycle': 4, 'a unicycle': 4, 'a scooter': 3, 'a skateboard': 4, 'a lawn chair': 4}
+    if name in _PU: t['$pickup'] = _PU[name]
     t['$heavy'] = sz(lambda s: s >= 3, lambda s: s == 2)          # (heavy = harder to lift than a backpack)
     if 'heavy' in t: t['$heavy'] = max(t['$heavy'], t['heavy'])
     t['$pound'] = sz(lambda s: s >= 2, lambda s: s == 1)
@@ -708,7 +755,13 @@ def answers(name, cat, size, tags):
     t['office2'] = t.get('office', 0)
     t['$home'] = 4 if (t['$indoors'] >= 3 and (madeit or t.get('eat', 0) >= 3 or t.get('drink', 0) >= 3)) else (2 if t['$indoors'] >= 2 and (madeit or t.get('pet', 0) >= 3 or t.get('eat', 0) >= 3) else 0)
     touchable = t['$touch'] >= 3
-    t['$steal'] = 0 if not touchable or 'place' in t or t.get('person', 0) >= 3 else (4 if madeit and s is not None and s <= 4 else (2 if t.get('pet', 0) >= 2 or t.get('farm', 0) >= 2 or t.get('eat', 0) >= 3 or t.get('expensive', 0) >= 3 else 0))
+    # "Would a thief want to steal it?" (not "could it be stolen": anything could)
+    g_ = lambda k: t.get(k, 0)
+    if not touchable or 'place' in t or g_('person') >= 3 or g_('body') >= 3: t['$steal'] = 0
+    elif g_('expensive') >= 3 or name in ('money', 'a coin', 'a wallet', 'a purse', 'a credit card', 'a phone', 'a laptop', 'a tablet', 'a TV', 'a computer', 'a camera', 'a bicycle', 'a car', 'a motorcycle', 'a watch', 'a smartwatch', 'a ring', 'a necklace', 'earrings', 'a bracelet', 'gold', 'silver', 'a diamond', 'a video game console', 'a painting', 'a crown', 'a purse', 'a suitcase', 'a backpack', 'a key', 'a piggy bank', 'headphones', 'earbuds', 'a drone', 'a truck', 'a pickup truck', 'a scooter', 'a snowmobile', 'an ATV', 'a trophy', 'a medal', 'a pearl', 'a ruby', 'an emerald', 'a guitar', 'an electric guitar', 'a present', 'a lottery ticket', 'a ticket', 'a boat', 'a jet ski', 'a toolbox', 'a drill', 'a chainsaw', 'a game controller', 'a GPS', 'a speaker', 'sunglasses', 'a skateboard', 'a statue', 'a crystal ball'): t['$steal'] = 4
+    elif madeit and s is not None and s <= 4 and (g_('electric') >= 3 or g_('vehicle') >= 3 or g_('tool') >= 3 or g_('toy') >= 3 or g_('wear') >= 3 or g_('music') >= 3 or g_('sport') >= 3 or g_('gift') >= 3 or g_('pocket') >= 3): t['$steal'] = 2
+    elif g_('pet') >= 3 or g_('eat') >= 3 or g_('drink') >= 3 or g_('farm') >= 3: t['$steal'] = 2 if (g_('pet') >= 3 or g_('snack') >= 3 or g_('sweet') >= 3) else 1
+    else: t['$steal'] = 0
     t['$buy'] = 0 if not touchable and name not in ('music', 'a song', 'a game', 'the internet') else (4 if madeit or t.get('eat', 0) >= 3 or t.get('drink', 0) >= 3 or t.get('pet', 0) >= 3 or name in ('a house', 'gold', 'a diamond', 'salt', 'ice', 'a flower', 'a rose', 'a tree', 'a cactus', 'water', 'sand', 'a log') else (2 if t.get('farm', 0) >= 2 or name in ('an island', 'a castle', 'a rock', 'a sunflower', 'cotton', 'seaweed', 'grass') else 0))
     if t.get('job', 0) >= 3: t['$buy'] = 0
     if cat == 'A' and t.get('farm', 0) >= 3: t['$buy'] = 4   # (you can legally buy farm animals and pets; not wild ones)
@@ -723,6 +776,16 @@ def answers(name, cat, size, tags):
     t['$electronic'] = max(t.get('electric', 0), t.get('battery', 0), t.get('screen', 0))
     t['$huge'] = sz(lambda s: s >= 5, lambda s: s == 4)
     t['$movable'] = 0 if not touchable or 'place' in t else sz(lambda s: s <= 2, lambda s: s == 3)
+    # "Do people ever paint it?" (not "could it be painted": anything could)
+    PY = ('a fence', 'a house', 'a door', 'a car', 'a fingernail', 'an Easter egg', 'a painting', 'a bench', 'a mailbox', 'a birdhouse', 'a shed', 'a barn', 'a chair', 'a table', 'a dresser', 'a bookshelf', 'a picture frame', 'a toy car', 'a boat', 'a bicycle', 'a kitchen', 'a bedroom', 'a bathroom', 'a gate', 'a doghouse', 'a treehouse', 'a fire hydrant', 'a stop sign', 'a cabinet', 'a shelf', 'a truck', 'a bus', 'an airplane', 'a train', 'a motorcycle', 'a school bus', 'a race car', 'paper', 'clay', 'an artist', 'a garage', 'a closet', 'an apartment', 'a basement', 'a crib', 'a nightstand', 'a coffee table', 'a picnic table', 'a stool', 'a rocking chair', 'a desk', 'a deck', 'a canoe', 'a rowboat', 'a sailboat', 'a wagon', 'a windmill', 'a lighthouse', 'a school', 'a church', 'a sign', 'a billboard', 'an ornament', 'a mask', 'a snowmobile', 'a helicopter', 'a rocket', 'a tank', 'a jet', 'a sports car', 'a convertible', 'a van', 'a minivan', 'a pickup truck', 'a jeep', 'a taxi', 'a fire truck', 'an ambulance', 'a police car', 'a limousine', 'a tractor', 'a go-kart')
+    PS = ('a pumpkin', 'a rock', 'a mug', 'a plate', 'a refrigerator', 'a shoe', 'a piano', 'a drum', 'a ladder', 'a bucket', 'a kite', 'a robot', 'a bed', 'a T-shirt', 'a face', 'a statue', 'a road', 'a bathtub', 'a guitar', 'a skateboard', 'a doll', 'a window', 'a castle', 'a hospital', 'a bridge', 'a skyscraper', 'a vase', 'a pot', 'a bowl', 'a toe', 'a hand', 'a pebble', 'a brick', 'a tire', 'a helmet', 'a surfboard', 'a snowboard', 'a sled', 'a toboggan', 'a boomerang', 'a jack-o-lantern', 'a pine cone', 'a seashell', 'a log', 'a cardboard box', 'a crate', 'a barrel', 'a basket', 'a hockey stick', 'a trophy', 'a flag', 'a poster', 'a clock', 'a lamp', 'a toy train', 'a dollhouse', 'an action figure', 'a puppet', 'a coffin', 'a tombstone', 'a house_x', 'a staircase', 'a chimney', 'a fireplace', 'a radiator', 'a doorknob', 'a mirror', 'a cutting board', 'a wooden spoon', 'a broom', 'a rolling pin', 'a baseball bat', 'a violin', 'a cello', 'a ukulele', 'a banjo', 'a harp', 'an electric guitar', 'a xylophone', 'a submarine', 'a cruise ship', 'a yacht', 'a ferry', 'a speedboat', 'a kayak', 'a hot air balloon', 'a ferris wheel', 'a roller coaster', 'a swing', 'a slide', 'a seesaw', 'a trampoline', 'a lawn chair', 'a barbecue', 'a garbage can', 'a traffic light', 'a street light', 'a parking meter', 'a sidewalk', 'concrete', 'a tile_x', 'a stick', 'a branch', 'a tree stump', 'a leaf', 'an egg', 'a cookie', 'a cake', 'lips', 'a mouth_x', 'an eye_x', 'a spaceship', 'a satellite', 'a crane', 'a bulldozer', 'a forklift', 'an excavator', 'a dump truck', 'a tow truck', 'a garbage truck', 'a snowplow', 'a zamboni', 'a golf cart', 'a scooter', 'a tricycle', 'a unicycle', 'a stroller', 'a shopping cart', 'a trailer', 'a camper', 'a wheelbarrow', 'a lawn mower')
+    t['paint'] = 4 if name in PY else (2 if name in PS else 0)
+    t.update(extra_answers(name, cat, size, t)); t.update(force)
+    # Answers a real player gave in the training survey. One person's answer is evidence, not the truth (the next player may
+    # answer differently), so it moves Zandor to "usually" / "rarely" rather than a flat yes / no, unless he already leaned that way.
+    for k, v in LEARNED.get(name, {}).items():
+        cur = t.get(k, 0)
+        t[k] = (4 if cur >= 3 else 3) if v >= 3 else ((0 if cur <= 1 else 1) if v <= 1 else 2)
     g = lambda k: t.get(k, 0); up = lambda k, v: t.__setitem__(k, max(g(k), v))
     # round 3: small home things are used at home
     if name in ('a candle', 'a scale', 'a vase', 'a picture frame', 'a mirror', 'a lamp', 'a pillow', 'a blanket', 'a clock', 'a rug', 'a curtain', 'a towel', 'a plant pot_x', 'a light bulb', 'a remote control', 'a box', 'a basket', 'a hanger', 'a bucket', 'a broom'): t['$home'] = 4; up('$household', 4); up('$indoors', 4)

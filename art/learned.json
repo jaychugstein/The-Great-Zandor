@@ -1,0 +1,2855 @@
+{
+"Christmas": {
+"$hard": 0
+},
+"LEGO bricks": {
+"$bring": 2
+},
+"Mars": {
+"$hard": 4
+},
+"Santa Claus": {
+"$joy": 4
+},
+"a $hard drive": {
+"plastic": 2
+},
+"a Canada goose": {
+"eats_plants": 4
+},
+"a Christmas tree": {
+"sliced": 4
+},
+"a GPS": {
+"$bring": 4
+},
+"a T-rex": {
+"dangerous": 4
+},
+"a T-shirt": {
+"$small": 2
+},
+"a TV": {
+"kinds": 4
+},
+"a USB stick": {
+"$pound": 0
+},
+"a baby": {
+"$heavy": 2
+},
+"a baby bottle": {
+"$steal": 0
+},
+"a babysitter": {
+"male": 2
+},
+"a backpack": {
+"$pound": 2
+},
+"a backyard": {
+"box": 0
+},
+"a bagel": {
+"sliced": 4
+},
+"a bakery": {
+"noise": 4
+},
+"a balloon": {
+"public": 4
+},
+"a bamboo": {
+"$pound": 2
+},
+"a banana": {
+"sliced": 2
+},
+"a bandana": {
+"soft": 4
+},
+"a banjo": {
+"$pound": 4
+},
+"a bank": {
+"building": 4
+},
+"a barbecue": {
+"$outdoors": 4
+},
+"a barn": {
+"paint": 4
+},
+"a barrel": {
+"$bring": 0
+},
+"a baseball cap": {
+"$pound": 0
+},
+"a basement": {
+"noise": 0
+},
+"a basket": {
+"$hard": 0
+},
+"a basketball": {
+"$steal": 4
+},
+"a bass": {
+"meat": 4
+},
+"a bat": {
+"kinds": 4
+},
+"a bath mat": {
+"$bring": 0
+},
+"a bathroom": {
+"box": 0
+},
+"a battery": {
+"kinds": 4
+},
+"a beach": {
+"box": 0
+},
+"a bear": {
+"fast": 4
+},
+"a beard": {
+"alive": 0
+},
+"a bed": {
+"$hard": 2
+},
+"a bed sheet": {
+"$bring": 2
+},
+"a bee": {
+"claws": 0
+},
+"a beehive": {
+"$pound": 2
+},
+"a beet": {
+"rolls": 4
+},
+"a beetle": {
+"claws": 0
+},
+"a bell pepper": {
+"rolls": 4
+},
+"a belly button": {
+"$pound": 0
+},
+"a belt": {
+"writing": 2
+},
+"a bench": {
+"$outdoors": 4
+},
+"a bib": {
+"washable": 4
+},
+"a billboard": {
+"$indoors": 0
+},
+"a binder": {
+"writing": 4
+},
+"a birch tree": {
+"$buy": 4
+},
+"a bird": {
+"enjoy": 2
+},
+"a birdcage": {
+"$heavy": 2
+},
+"a birthday party": {
+"$indoors": 2
+},
+"a black widow": {
+"$pound": 0
+},
+"a blackberry": {
+"$pound": 0
+},
+"a blanket": {
+"good": 4
+},
+"a blueberry": {
+"rolls": 4
+},
+"a bluejay": {
+"forest": 4
+},
+"a board game": {
+"$small": 0
+},
+"a boat": {
+"metal": 2
+},
+"a bookshelf": {
+"larger": 0
+},
+"a boomerang": {
+"$invented": 4
+},
+"a bottle cap": {
+"$bring": 0
+},
+"a boulder": {
+"$bring": 0
+},
+"a bow and arrow": {
+"noise": 4
+},
+"a bow tie": {
+"$pound": 0
+},
+"a bowl": {
+"metal": 2
+},
+"a bowling alley": {
+"noise": 4
+},
+"a bowling ball": {
+"$outdoors": 0
+},
+"a boxing glove": {
+"$bring": 2
+},
+"a bracelet": {
+"$pound": 0
+},
+"a branch": {
+"rolls": 0
+},
+"a brick": {
+"$bring": 0
+},
+"a bride": {
+"box": 0
+},
+"a bridge": {
+"noise": 0
+},
+"a broom": {
+"$indoors": 2
+},
+"a brother": {
+"male": 4
+},
+"a brownie": {
+"enjoy": 4
+},
+"a bubble": {
+"box": 0
+},
+"a bucket": {
+"kinds": 4
+},
+"a buffalo": {
+"zoo": 4
+},
+"a bug": {
+"bites": 4
+},
+"a bulldozer": {
+"metal": 4
+},
+"a bumblebee": {
+"$pound": 0
+},
+"a bush": {
+"$hard": 2
+},
+"a butter knife": {
+"metal": 2
+},
+"a button": {
+"$pound": 0
+},
+"a cake": {
+"rolls": 0
+},
+"a calculator": {
+"$steal": 0
+},
+"a calendar": {
+"$hard": 0
+},
+"a camel": {
+"zoo": 4
+},
+"a camera": {
+"kinds": 4
+},
+"a camper": {
+"metal": 2
+},
+"a campfire": {
+"metal": 0
+},
+"a can": {
+"$bring": 2
+},
+"a can opener": {
+"metal": 4
+},
+"a candle": {
+"kinds": 4
+},
+"a candy cane": {
+"$outdoors": 0
+},
+"a canoe": {
+"paint": 4
+},
+"a cantaloupe": {
+"rolls": 4
+},
+"a canyon": {
+"science": 2
+},
+"a cape": {
+"$invented": 4
+},
+"a car": {
+"fast": 2
+},
+"a cardboard box": {
+"larger": 4
+},
+"a carrot": {
+"sliced": 4
+},
+"a cartoon": {
+"$hold": 0
+},
+"a cashew": {
+"rolls": 0
+},
+"a cashier": {
+"box": 0
+},
+"a cat": {
+"$pound": 2
+},
+"a catfish": {
+"$livewater": 4
+},
+"a cave": {
+"paint": 2
+},
+"a cemetery": {
+"noise": 0
+},
+"a centaur": {
+"$hard": 4
+},
+"a centipede": {
+"bites": 2
+},
+"a chain": {
+"metal": 4
+},
+"a chair": {
+"larger": 2
+},
+"a chalkboard": {
+"$outdoors": 0
+},
+"a chameleon": {
+"claws": 4
+},
+"a chandelier": {
+"$steal": 4
+},
+"a charger": {
+"$bring": 2
+},
+"a chef": {
+"$outdoors": 0
+},
+"a chestnut": {
+"rolls": 4
+},
+"a chick": {
+"eats_plants": 4
+},
+"a chicken": {
+"$pound": 2
+},
+"a chicken nugget": {
+"$hard": 0
+},
+"a chicken wing": {
+"$pound": 2
+},
+"a child": {
+"$microwave": 2
+},
+"a chimney": {
+"$car": 2
+},
+"a chimpanzee": {
+"claws": 4
+},
+"a chin": {
+"grows": 4
+},
+"a chinchilla": {
+"forest": 0
+},
+"a chipmunk": {
+"claws": 4
+},
+"a chocolate bar": {
+"washable": 0
+},
+"a church": {
+"livein": 2
+},
+"a cinnamon bun": {
+"sliced": 0
+},
+"a circus": {
+"box": 0
+},
+"a city": {
+"paint": 4
+},
+"a clarinet": {
+"$bring": 2
+},
+"a clipboard": {
+"$steal": 0
+},
+"a clock": {
+"desk": 2
+},
+"a closet": {
+"$hard": 4
+},
+"a clothespin": {
+"$hard": 4
+},
+"a coach": {
+"$hard": 2
+},
+"a coat rack": {
+"larger": 0
+},
+"a cobra": {
+"$person": 0
+},
+"a cockroach": {
+"kinds": 4
+},
+"a cocoon": {
+"$pound": 0
+},
+"a cod": {
+"$person": 0
+},
+"a coffee table": {
+"$outdoors": 0
+},
+"a coffin": {
+"noise": 0
+},
+"a coin": {
+"desk": 2
+},
+"a colander": {
+"plastic": 2
+},
+"a color": {
+"$hard": 0
+},
+"a comb": {
+"metal": 2
+},
+"a comic book": {
+"enjoy": 4
+},
+"a compass": {
+"$bring": 4
+},
+"a computer mouse": {
+"metal": 0
+},
+"a concert": {
+"$hold": 0
+},
+"a convertible": {
+"$lift": 0
+},
+"a cooler": {
+"$bring": 4
+},
+"a cork": {
+"$bring": 0
+},
+"a corkscrew": {
+"$bring": 2
+},
+"a costume": {
+"$pound": 2
+},
+"a couch": {
+"comfort": 2
+},
+"a cougar": {
+"$microwave": 4
+},
+"a cowboy": {
+"male": 4
+},
+"a coyote": {
+"$person": 2
+},
+"a crab": {
+"eats_plants": 2
+},
+"a cracker": {
+"$bring": 2
+},
+"a crayon": {
+"kinds": 4
+},
+"a credit card": {
+"public": 4
+},
+"a crib": {
+"larger": 0
+},
+"a cricket": {
+"$pound": 0
+},
+"a crocodile": {
+"zoo": 4
+},
+"a croissant": {
+"washable": 0
+},
+"a crow": {
+"eats_plants": 2
+},
+"a crowbar": {
+"$bring": 2
+},
+"a crutch": {
+"$household": 2
+},
+"a crystal": {
+"box": 2
+},
+"a cucumber": {
+"sliced": 4
+},
+"a cupcake": {
+"$bring": 2
+},
+"a curling iron": {
+"metal": 4
+},
+"a cyclops": {
+"$hard": 4
+},
+"a cymbal": {
+"$heavy": 2
+},
+"a dad": {
+"$hard": 2
+},
+"a daddy longlegs": {
+"$pound": 0
+},
+"a daffodil": {
+"rabbits": 2
+},
+"a daisy": {
+"larger": 2
+},
+"a dartboard": {
+"metal": 2
+},
+"a date": {
+"rolls": 4
+},
+"a deer": {
+"fast": 4
+},
+"a dentist": {
+"enjoy": 2
+},
+"a desert": {
+"foodthere": 0
+},
+"a diaper": {
+"$pound": 2
+},
+"a diary": {
+"$hard": 2
+},
+"a dictionary": {
+"larger": 0
+},
+"a doctor": {
+"enjoy": 2
+},
+"a doghouse": {
+"$outdoors": 4
+},
+"a dollhouse": {
+"paint": 4
+},
+"a donkey": {
+"$car": 0
+},
+"a donut": {
+"rolls": 4
+},
+"a door": {
+"enjoy": 0
+},
+"a doorbell": {
+"$bring": 0
+},
+"a doormat": {
+"$bring": 0
+},
+"a dragon": {
+"box": 0
+},
+"a dream": {
+"good": 2
+},
+"a dress": {
+"$bring": 2
+},
+"a dresser": {
+"larger": 0
+},
+"a drill": {
+"plastic": 2
+},
+"a drone": {
+"$bring": 4
+},
+"a drum": {
+"loud": 4
+},
+"a dryer": {
+"paint": 0
+},
+"a duck": {
+"eats_plants": 4
+},
+"a duckling": {
+"eats_plants": 4
+},
+"a dustpan": {
+"desk": 0
+},
+"a fan": {
+"metal": 2
+},
+"a farm": {
+"box": 0
+},
+"a farmer": {
+"$hard": 2
+},
+"a fart": {
+"$hard": 0
+},
+"a feather": {
+"$pound": 0
+},
+"a fern": {
+"$pound": 2
+},
+"a ferret": {
+"claws": 4
+},
+"a ferris wheel": {
+"$steal": 0
+},
+"a ferry": {
+"$lift": 0
+},
+"a field": {
+"$buy": 4
+},
+"a fig": {
+"rolls": 4
+},
+"a finger": {
+"$pound": 0
+},
+"a fingernail": {
+"$pound": 0
+},
+"a fire extinguisher": {
+"metal": 4
+},
+"a fire hydrant": {
+"$hard": 4
+},
+"a fire station": {
+"box": 0
+},
+"a firefighter": {
+"$hard": 2
+},
+"a firefly": {
+"$pound": 0
+},
+"a fireplace": {
+"metal": 2
+},
+"a fish": {
+"meat": 2
+},
+"a fish tank": {
+"$bring": 0
+},
+"a fishing hook": {
+"metal": 4
+},
+"a fishing rod": {
+"$bring": 4
+},
+"a flag": {
+"$bring": 0
+},
+"a flamingo": {
+"$person": 0
+},
+"a flashlight": {
+"metal": 2
+},
+"a flea": {
+"eats_plants": 0
+},
+"a flower": {
+"enjoy": 4
+},
+"a flute": {
+"metal": 2
+},
+"a foal": {
+"$hold": 2
+},
+"a folder": {
+"box": 2
+},
+"a foot": {
+"$person": 0
+},
+"a football": {
+"kinds": 4
+},
+"a forehead": {
+"$livewater": 0
+},
+"a forest": {
+"$invented": 0
+},
+"a fork": {
+"tool": 4
+},
+"a forklift": {
+"$car": 2
+},
+"a fountain": {
+"paint": 4
+},
+"a fox": {
+"$hold": 2
+},
+"a freckle": {
+"alive": 0
+},
+"a friend": {
+"good": 4
+},
+"a frog": {
+"$livewater": 4
+},
+"a funnel": {
+"$hard": 4
+},
+"a galaxy": {
+"science": 4
+},
+"a game controller": {
+"metal": 0
+},
+"a garbage bag": {
+"$bring": 2
+},
+"a garbage can": {
+"metal": 2
+},
+"a garbage truck": {
+"metal": 4
+},
+"a gas station": {
+"noise": 2
+},
+"a gate": {
+"larger": 0
+},
+"a genie": {
+"$hard": 0
+},
+"a gerbil": {
+"$pound": 0
+},
+"a germ": {
+"$hard": 0
+},
+"a ghost": {
+"$hold": 0
+},
+"a giant": {
+"box": 0
+},
+"a gingerbread man": {
+"cooked": 4
+},
+"a glacier": {
+"box": 0
+},
+"a glass": {
+"kinds": 4
+},
+"a globe": {
+"metal": 2
+},
+"a glue gun": {
+"metal": 2
+},
+"a gnome": {
+"$bring": 0
+},
+"a go-kart": {
+"$car": 0
+},
+"a goblin": {
+"$hard": 0
+},
+"a goldfish": {
+"meat": 4
+},
+"a golf ball": {
+"metal": 0
+},
+"a golf club": {
+"enjoy": 4
+},
+"a goose": {
+"$microwave": 4
+},
+"a granola bar": {
+"$indoors": 2
+},
+"a grapefruit": {
+"rolls": 4
+},
+"a grater": {
+"$bring": 0
+},
+"a greeting card": {
+"$steal": 0
+},
+"a grilled cheese": {
+"enjoy": 4
+},
+"a guinea pig": {
+"$pound": 0
+},
+"a guitar": {
+"$steal": 4
+},
+"a hair dryer": {
+"box": 4
+},
+"a hair tie": {
+"$pound": 0
+},
+"a hairbrush": {
+"$steal": 0
+},
+"a hammer": {
+"set": 2
+},
+"a hamster": {
+"$pound": 0
+},
+"a hand": {
+"$pound": 0
+},
+"a harmonica": {
+"$hard": 4
+},
+"a harp": {
+"$indoors": 4
+},
+"a hat": {
+"kinds": 4
+},
+"a headband": {
+"$pound": 0
+},
+"a heart": {
+"$hold": 4
+},
+"a heater": {
+"$bring": 2
+},
+"a heel": {
+"$pound": 0
+},
+"a helicopter": {
+"hasliquid": 4
+},
+"a helmet": {
+"public": 4
+},
+"a hermit crab": {
+"$pound": 0
+},
+"a heron": {
+"$hold": 0
+},
+"a highlighter": {
+"plastic": 4
+},
+"a hill": {
+"enjoy": 2
+},
+"a hippo": {
+"loud": 4
+},
+"a hockey net": {
+"$lift": 4
+},
+"a hockey player": {
+"$outdoors": 2
+},
+"a hockey stick": {
+"$steal": 4
+},
+"a hole": {
+"writing": 0
+},
+"a honeydew melon": {
+"$pound": 4
+},
+"a hornet": {
+"$pound": 0
+},
+"a hose": {
+"$steal": 0
+},
+"a hospital": {
+"kinds": 4
+},
+"a hot air balloon": {
+"$bring": 0
+},
+"a hot pepper": {
+"veg": 4
+},
+"a hot tub": {
+"noise": 2
+},
+"a hotel": {
+"noise": 2
+},
+"a house": {
+"kinds": 4
+},
+"a hula hoop": {
+"$person": 0
+},
+"a hummingbird": {
+"meat": 0
+},
+"a hurricane": {
+"noise": 4
+},
+"a hyena": {
+"claws": 4
+},
+"a jack-o-lantern": {
+"$small": 0
+},
+"a jacket": {
+"$hard": 2
+},
+"a jaguar": {
+"$microwave": 4
+},
+"a jail": {
+"box": 0
+},
+"a jellyfish": {
+"$pound": 0
+},
+"a jet": {
+"metal": 4
+},
+"a jet ski": {
+"$lift": 0
+},
+"a jump rope": {
+"$bring": 2
+},
+"a kettle": {
+"metal": 2
+},
+"a key": {
+"$pound": 0
+},
+"a kidney": {
+"$pound": 0
+},
+"a kitchen": {
+"$hard": 2
+},
+"a kite": {
+"enjoy": 4
+},
+"a kitten": {
+"claws": 4
+},
+"a kiwi": {
+"sliced": 4
+},
+"a knife": {
+"metal": 2
+},
+"a koala": {
+"zoo": 4
+},
+"a koi": {
+"$pound": 2
+},
+"a komodo dragon": {
+"claws": 4
+},
+"a ladle": {
+"metal": 2
+},
+"a lake": {
+"$hard": 2
+},
+"a lamp": {
+"metal": 2
+},
+"a laptop": {
+"metal": 2
+},
+"a lawn chair": {
+"kinds": 4
+},
+"a leaf": {
+"sliced": 0
+},
+"a leash": {
+"kinds": 4
+},
+"a leech": {
+"$pound": 0
+},
+"a leek": {
+"sliced": 2
+},
+"a leg": {
+"$pound": 4
+},
+"a lemon": {
+"rolls": 4
+},
+"a leopard": {
+"$hold": 2
+},
+"a letter": {
+"$pound": 0
+},
+"a level": {
+"$bring": 0
+},
+"a license plate": {
+"metal": 4
+},
+"a lie": {
+"$joy": 2
+},
+"a life jacket": {
+"played": 0
+},
+"a lifeguard": {
+"uniform": 4
+},
+"a light bulb": {
+"metal": 2
+},
+"a lighthouse": {
+"box": 0
+},
+"a lily": {
+"$pound": 0
+},
+"a lily pad": {
+"$pound": 0
+},
+"a lime": {
+"sliced": 4
+},
+"a lion": {
+"claws": 4
+},
+"a lizard": {
+"eats_plants": 2
+},
+"a llama": {
+"zoo": 4
+},
+"a lobster": {
+"meat": 4
+},
+"a lock": {
+"$hard": 4
+},
+"a log": {
+"sliced": 4
+},
+"a loon": {
+"$livewater": 2
+},
+"a lottery ticket": {
+"$steal": 4
+},
+"a magazine": {
+"$hard": 0
+},
+"a maggot": {
+"claws": 0
+},
+"a magician": {
+"$hard": 2
+},
+"a magnifying glass": {
+"metal": 2
+},
+"a mailbox": {
+"$steal": 2
+},
+"a mailman": {
+"uniform": 4
+},
+"a mammoth": {
+"zoo": 0
+},
+"a manatee": {
+"$huge": 4
+},
+"a maple tree": {
+"larger": 0
+},
+"a marble": {
+"metal": 2
+},
+"a marker": {
+"$bring": 2
+},
+"a mask": {
+"$steal": 0
+},
+"a match": {
+"$pound": 0
+},
+"a measuring cup": {
+"metal": 2
+},
+"a meatball": {
+"$pound": 0
+},
+"a medal": {
+"public": 2
+},
+"a meerkat": {
+"claws": 4
+},
+"a menu": {
+"$bring": 0
+},
+"a mermaid": {
+"box": 0
+},
+"a metal detector": {
+"metal": 2
+},
+"a microphone": {
+"$pound": 0
+},
+"a microscope": {
+"metal": 2
+},
+"a millipede": {
+"public": 0
+},
+"a minivan": {
+"$lift": 2
+},
+"a minnow": {
+"tail": 4
+},
+"a mirror": {
+"metal": 4
+},
+"a mixer": {
+"$hard": 4
+},
+"a mole": {
+"bites": 4
+},
+"a mom": {
+"$hard": 0
+},
+"a monkey": {
+"wild": 4
+},
+"a monster": {
+"box": 2
+},
+"a moose": {
+"claws": 0
+},
+"a mop": {
+"paint": 0
+},
+"a mosquito": {
+"forest": 4
+},
+"a moth": {
+"$livewater": 0
+},
+"a motorcycle": {
+"$car": 0
+},
+"a mountain": {
+"$hard": 4
+},
+"a mouse": {
+"meat": 4
+},
+"a mousetrap": {
+"$bring": 0
+},
+"a muffin": {
+"sliced": 2
+},
+"a mug": {
+"kinds": 4
+},
+"a mussel": {
+"$pound": 0
+},
+"a mustache": {
+"$pound": 0
+},
+"a napkin": {
+"$hard": 0
+},
+"a narwhal": {
+"dangerous": 4
+},
+"a needle": {
+"metal": 4
+},
+"a neighbor": {
+"uniform": 2
+},
+"a newspaper": {
+"info": 4
+},
+"a nightlight": {
+"$pound": 0
+},
+"a nightmare": {
+"box": 0
+},
+"a notebook": {
+"larger": 4
+},
+"a number": {
+"$hard": 0
+},
+"a pacifier": {
+"plastic": 2
+},
+"a paddle": {
+"$outdoors": 4
+},
+"a paintbrush": {
+"desk": 2
+},
+"a panda": {
+"$person": 4
+},
+"a papaya": {
+"rolls": 4
+},
+"a paper airplane": {
+"larger": 4
+},
+"a paper clip": {
+"kinds": 4
+},
+"a paper plate": {
+"$invented": 4
+},
+"a paper towel": {
+"larger": 4
+},
+"a parachute": {
+"$indoors": 0
+},
+"a parakeet": {
+"eats_plants": 4
+},
+"a parrot": {
+"claws": 4
+},
+"a party hat": {
+"$hard": 0
+},
+"a peacock": {
+"$person": 0
+},
+"a peanut": {
+"larger": 4
+},
+"a pear": {
+"$joy": 2
+},
+"a pearl": {
+"$pound": 0
+},
+"a pebble": {
+"$hard": 4
+},
+"a pecan": {
+"enjoy": 4
+},
+"a peeler": {
+"metal": 4
+},
+"a pelican": {
+"$microwave": 4
+},
+"a pen": {
+"metal": 2
+},
+"a pencil": {
+"$pound": 0
+},
+"a phone": {
+"kinds": 4
+},
+"a photo": {
+"$hard": 2
+},
+"a piano": {
+"$outdoors": 0
+},
+"a piglet": {
+"claws": 4
+},
+"a pill": {
+"$bring": 4
+},
+"a pillow": {
+"kinds": 4
+},
+"a pillowcase": {
+"$pound": 2
+},
+"a pilot": {
+"$outdoors": 4
+},
+"a pinball machine": {
+"$lift": 4
+},
+"a pineapple": {
+"smooth": 2
+},
+"a pirate": {
+"box": 0
+},
+"a pistachio": {
+"rolls": 4
+},
+"a pitcher": {
+"$outdoors": 2
+},
+"a pizza": {
+"sliced": 4
+},
+"a pizza cutter": {
+"metal": 4
+},
+"a planet": {
+"box": 0
+},
+"a plant": {
+"$heavy": 2
+},
+"a platypus": {
+"claws": 4
+},
+"a pocket knife": {
+"public": 2
+},
+"a pogo stick": {
+"$steal": 4
+},
+"a poker chip": {
+"$hard": 4
+},
+"a polar bear": {
+"$hold": 2
+},
+"a police car": {
+"$car": 2
+},
+"a pomegranate": {
+"rolls": 4
+},
+"a pony": {
+"$microwave": 4
+},
+"a pool table": {
+"$bring": 0
+},
+"a popsicle": {
+"$indoors": 2
+},
+"a postcard": {
+"enjoy": 4
+},
+"a poster": {
+"$small": 0
+},
+"a potato": {
+"sliced": 4
+},
+"a present": {
+"box": 4
+},
+"a pretzel": {
+"$invented": 4
+},
+"a prince": {
+"uniform": 2
+},
+"a princess": {
+"$hard": 0
+},
+"a printer": {
+"desk": 4
+},
+"a projector": {
+"$bring": 2
+},
+"a puddle": {
+"box": 0
+},
+"a pufferfish": {
+"$pound": 0
+},
+"a pumpkin": {
+"sliced": 4
+},
+"a punching bag": {
+"noise": 4
+},
+"a puppet": {
+"$hard": 0
+},
+"a puppy": {
+"claws": 2
+},
+"a pyramid": {
+"noise": 0
+},
+"a python": {
+"$lift": 2
+},
+"a rabbit": {
+"meat": 0
+},
+"a raccoon": {
+"meat": 4
+},
+"a race car": {
+"$bring": 2
+},
+"a radish": {
+"sliced": 4
+},
+"a rainbow": {
+"box": 0
+},
+"a raisin": {
+"larger": 4
+},
+"a rake": {
+"$steal": 0
+},
+"a raspberry": {
+"larger": 4
+},
+"a rat": {
+"$pound": 2
+},
+"a rattle": {
+"$heavy": 2
+},
+"a rattlesnake": {
+"meat": 4
+},
+"a raven": {
+"$pound": 4
+},
+"a razor": {
+"metal": 4
+},
+"a record player": {
+"$steal": 4
+},
+"a recorder": {
+"$bring": 4
+},
+"a refrigerator": {
+"metal": 2
+},
+"a reindeer": {
+"dangerous": 2
+},
+"a restaurant": {
+"money": 2
+},
+"a rhino": {
+"claws": 0
+},
+"a ribbon": {
+"public": 2
+},
+"a ring": {
+"set": 2
+},
+"a road": {
+"$steal": 0
+},
+"a robe": {
+"$invented": 4
+},
+"a robin": {
+"claws": 4
+},
+"a robot": {
+"metal": 2
+},
+"a rocket": {
+"enjoy": 4
+},
+"a rocking chair": {
+"paint": 4
+},
+"a roller coaster": {
+"metal": 2
+},
+"a rolling pin": {
+"$hard": 4
+},
+"a rooster": {
+"$pound": 4
+},
+"a root": {
+"larger": 4
+},
+"a rope": {
+"$hard": 0
+},
+"a rowboat": {
+"$lift": 4
+},
+"a ruby": {
+"metal": 0
+},
+"a rug": {
+"$bring": 0
+},
+"a ruler": {
+"plastic": 2
+},
+"a safety pin": {
+"public": 2
+},
+"a sailboat": {
+"metal": 2
+},
+"a salamander": {
+"eats_plants": 0
+},
+"a salmon": {
+"$hold": 4
+},
+"a satellite": {
+"paint": 4
+},
+"a saw": {
+"kinds": 4
+},
+"a scarecrow": {
+"ontv": 2
+},
+"a scarf": {
+"$bring": 4
+},
+"a school bus": {
+"metal": 4
+},
+"a scientist": {
+"uniform": 2
+},
+"a scooter": {
+"$bring": 2
+},
+"a screw": {
+"$hard": 4
+},
+"a sea turtle": {
+"$hold": 4
+},
+"a sea urchin": {
+"$livewater": 4
+},
+"a seagull": {
+"meat": 4
+},
+"a seashell": {
+"$outdoors": 4
+},
+"a secret": {
+"$hard": 0
+},
+"a seed": {
+"$pound": 0
+},
+"a seesaw": {
+"$lift": 4
+},
+"a shadow": {
+"$hold": 0
+},
+"a shark": {
+"$microwave": 2
+},
+"a shed": {
+"public": 2
+},
+"a sheep": {
+"$microwave": 2
+},
+"a shelf": {
+"paint": 4
+},
+"a shoe": {
+"metal": 0
+},
+"a shoelace": {
+"washable": 4
+},
+"a shower": {
+"$bring": 0
+},
+"a shower curtain": {
+"$hard": 0
+},
+"a shrimp": {
+"$livewater": 4
+},
+"a sidewalk": {
+"$hard": 4
+},
+"a sippy cup": {
+"$pound": 0
+},
+"a ski pole": {
+"$person": 0
+},
+"a skirt": {
+"$hard": 0
+},
+"a skyscraper": {
+"paint": 4
+},
+"a sleeping bag": {
+"$steal": 0
+},
+"a slide": {
+"$outdoors": 4
+},
+"a slinky": {
+"metal": 2
+},
+"a sloth": {
+"$microwave": 4
+},
+"a slow cooker": {
+"metal": 2
+},
+"a slug": {
+"$livewater": 2
+},
+"a smartwatch": {
+"public": 4
+},
+"a smile": {
+"$hard": 0
+},
+"a smoothie": {
+"good": 2
+},
+"a snake": {
+"claws": 0
+},
+"a sneeze": {
+"good": 2
+},
+"a snow globe": {
+"$bring": 0
+},
+"a snowboard": {
+"$hard": 4
+},
+"a snowflake": {
+"box": 0
+},
+"a snowman": {
+"$hold": 2
+},
+"a snowmobile": {
+"paint": 4
+},
+"a soccer ball": {
+"$heavy": 0
+},
+"a song": {
+"noise": 4
+},
+"a spaceship": {
+"$lift": 0
+},
+"a sparkler": {
+"$bring": 2
+},
+"a sparrow": {
+"meat": 4
+},
+"a spatula": {
+"$steal": 0
+},
+"a speaker": {
+"$steal": 4
+},
+"a spider web": {
+"$pound": 0
+},
+"a spinning top": {
+"$bring": 2
+},
+"a sponge": {
+"$hard": 0
+},
+"a spoon": {
+"metal": 4
+},
+"a sports car": {
+"$lift": 2
+},
+"a sprinkler": {
+"$steal": 0
+},
+"a squash": {
+"veg": 0
+},
+"a squid": {
+"eat": 4
+},
+"a squirrel": {
+"$pound": 2
+},
+"a stamp": {
+"$pound": 0
+},
+"a statue": {
+"metal": 2
+},
+"a steak": {
+"$pound": 2
+},
+"a steering wheel": {
+"metal": 2
+},
+"a stethoscope": {
+"metal": 4
+},
+"a stick": {
+"$joy": 2
+},
+"a sticky note": {
+"larger": 4
+},
+"a stocking": {
+"$bring": 0
+},
+"a stool": {
+"rolls": 2
+},
+"a store": {
+"$hard": 4
+},
+"a stork": {
+"$hold": 2
+},
+"a story": {
+"$hold": 0
+},
+"a stranger": {
+"ontv": 4
+},
+"a strawberry": {
+"sliced": 2
+},
+"a street light": {
+"metal": 4
+},
+"a streetcar": {
+"$lift": 0
+},
+"a stroller": {
+"$person": 2
+},
+"a subway": {
+"$car": 4
+},
+"a suitcase": {
+"$bring": 4
+},
+"a sunflower": {
+"sliced": 0
+},
+"a sunflower seed": {
+"$pound": 0
+},
+"a sunset": {
+"$hard": 0
+},
+"a superhero": {
+"$hold": 0
+},
+"a swan": {
+"kinds": 4
+},
+"a sweater": {
+"$pound": 0
+},
+"a swimsuit": {
+"larger": 0
+},
+"a swing": {
+"paint": 4
+},
+"a syringe": {
+"$pound": 0
+},
+"a tablecloth": {
+"$outdoors": 2
+},
+"a tablet": {
+"metal": 2
+},
+"a tadpole": {
+"$livewater": 4
+},
+"a tambourine": {
+"enjoy": 2
+},
+"a tank": {
+"$car": 4
+},
+"a tank top": {
+"smooth": 2
+},
+"a tape measure": {
+"$steal": 0
+},
+"a teacher": {
+"box": 0
+},
+"a teapot": {
+"metal": 2
+},
+"a tear": {
+"$hard": 0
+},
+"a telephone": {
+"metal": 2
+},
+"a telescope": {
+"$steal": 4
+},
+"a tennis ball": {
+"$bring": 2
+},
+"a tent": {
+"paint": 0
+},
+"a termite": {
+"$pound": 0
+},
+"a thermos": {
+"metal": 2
+},
+"a thermostat": {
+"$bring": 0
+},
+"a thumb": {
+"$pound": 0
+},
+"a tie": {
+"$hard": 0
+},
+"a tiger": {
+"loud": 4
+},
+"a tire": {
+"metal": 0
+},
+"a tissue": {
+"$pound": 0
+},
+"a toad": {
+"meat": 2
+},
+"a toaster": {
+"metal": 2
+},
+"a toboggan": {
+"rolls": 0
+},
+"a toe": {
+"$pound": 0
+},
+"a toilet": {
+"smooth": 4
+},
+"a tombstone": {
+"metal": 0
+},
+"a toolbox": {
+"$bring": 4
+},
+"a tooth": {
+"$pound": 0
+},
+"a toothpick": {
+"sliced": 0
+},
+"a toque": {
+"$hard": 0
+},
+"a tortilla": {
+"$pound": 0
+},
+"a tortoise": {
+"$person": 2
+},
+"a toucan": {
+"meat": 4
+},
+"a towel": {
+"smooth": 4
+},
+"a toy car": {
+"$pound": 2
+},
+"a toy train": {
+"$bring": 2
+},
+"a traffic light": {
+"$indoors": 0
+},
+"a trailer": {
+"paint": 4
+},
+"a tree": {
+"larger": 0
+},
+"a tree stump": {
+"rolls": 0
+},
+"a treehouse": {
+"paint": 4
+},
+"a trombone": {
+"loud": 4
+},
+"a trophy": {
+"$small": 2
+},
+"a trout": {
+"meat": 4
+},
+"a truck": {
+"$car": 4
+},
+"a trumpet": {
+"$bring": 2
+},
+"a tumbleweed": {
+"$indoors": 0
+},
+"a tunnel": {
+"box": 0
+},
+"a turkey": {
+"wild": 4
+},
+"a turnip": {
+"rolls": 4
+},
+"a unicorn": {
+"$lift": 0
+},
+"a unicycle": {
+"$indoors": 0
+},
+"a vampire": {
+"ontv": 4
+},
+"a vase": {
+"$pound": 2
+},
+"a vein": {
+"$pound": 0
+},
+"a venus flytrap": {
+"$hard": 0
+},
+"a vest": {
+"public": 4
+},
+"a video game": {
+"noise": 4
+},
+"a vine": {
+"$pound": 0
+},
+"a violin": {
+"metal": 0
+},
+"a volcano": {
+"box": 0
+},
+"a volleyball": {
+"$bring": 2
+},
+"a vulture": {
+"claws": 4
+},
+"a waffle": {
+"$pound": 0
+},
+"a waffle iron": {
+"metal": 4
+},
+"a wagon": {
+"paint": 4
+},
+"a walkie-talkie": {
+"$hard": 4
+},
+"a wallet": {
+"$hard": 2
+},
+"a walrus": {
+"loud": 4
+},
+"a war": {
+"$hold": 0
+},
+"a wasp": {
+"kinds": 4
+},
+"a water bottle": {
+"$bring": 4
+},
+"a water gun": {
+"$bring": 2
+},
+"a watermelon": {
+"rolls": 4
+},
+"a weasel": {
+"$joy": 2
+},
+"a wedding": {
+"enjoy": 4
+},
+"a werewolf": {
+"noise": 4
+},
+"a whale": {
+"loud": 4
+},
+"a wheelbarrow": {
+"metal": 2
+},
+"a wheelchair": {
+"metal": 4
+},
+"a whisk": {
+"metal": 2
+},
+"a whistle": {
+"metal": 2
+},
+"a whiteboard": {
+"$hard": 4
+},
+"a wild boar": {
+"$person": 2
+},
+"a willow tree": {
+"$lift": 0
+},
+"a windmill": {
+"paint": 4
+},
+"a window": {
+"smooth": 4
+},
+"a wine glass": {
+"$steal": 0
+},
+"a wish": {
+"$hold": 0
+},
+"a witch": {
+"$hard": 0
+},
+"a wizard": {
+"male": 4
+},
+"a woodpecker": {
+"$pound": 2
+},
+"a word": {
+"$hold": 0
+},
+"a worm": {
+"kinds": 4
+},
+"a wrench": {
+"$pound": 2
+},
+"a wrist": {
+"wet": 4
+},
+"a yacht": {
+"metal": 2
+},
+"a yo-yo": {
+"plastic": 2
+},
+"a zoo": {
+"payuse": 4
+},
+"aluminum foil": {
+"box": 4
+},
+"an ATV": {
+"kinds": 4
+},
+"an accordion": {
+"$pound": 4
+},
+"an acorn": {
+"$hard": 4
+},
+"an actor": {
+"uniform": 2
+},
+"an air conditioner": {
+"$bring": 0
+},
+"an air fryer": {
+"$hard": 4
+},
+"an airplane": {
+"kinds": 4
+},
+"an alarm clock": {
+"kinds": 4
+},
+"an alien": {
+"$hard": 0
+},
+"an alligator": {
+"claws": 4
+},
+"an almond": {
+"$invented": 0
+},
+"an amusement park": {
+"paint": 4
+},
+"an ankle": {
+"alive": 2
+},
+"an ant": {
+"kinds": 4
+},
+"an antelope": {
+"$microwave": 4
+},
+"an apricot": {
+"sliced": 4
+},
+"an apron": {
+"larger": 0
+},
+"an arm": {
+"$pound": 4
+},
+"an armadillo": {
+"claws": 4
+},
+"an artist": {
+"box": 0
+},
+"an astronaut": {
+"uniform": 4
+},
+"an avocado": {
+"sliced": 4
+},
+"an axe": {
+"$steal": 0
+},
+"an eagle": {
+"$hold": 2
+},
+"an ear": {
+"forest": 0
+},
+"an earthquake": {
+"box": 0
+},
+"an echo": {
+"$hold": 0
+},
+"an eel": {
+"claws": 0
+},
+"an eggplant": {
+"larger": 0
+},
+"an elbow": {
+"$pound": 0
+},
+"an electric guitar": {
+"paint": 2
+},
+"an elevator": {
+"metal": 4
+},
+"an elf": {
+"$hard": 0
+},
+"an emu": {
+"$hold": 0
+},
+"an envelope": {
+"$pound": 0
+},
+"an eraser": {
+"box": 2
+},
+"an excavator": {
+"$car": 4
+},
+"an extension cord": {
+"plastic": 4
+},
+"an eye": {
+"$pound": 0
+},
+"an eyebrow": {
+"$pound": 0
+},
+"an ice cream scoop": {
+"$bring": 2
+},
+"an ice cube tray": {
+"plastic": 2
+},
+"an iceberg": {
+"wet": 4
+},
+"an icicle": {
+"box": 0
+},
+"an idea": {
+"noise": 0
+},
+"an igloo": {
+"shop": 0
+},
+"an iguana": {
+"$livewater": 2
+},
+"an iron": {
+"metal": 4
+},
+"an octopus": {
+"meat": 4
+},
+"an olive": {
+"rolls": 4
+},
+"an omelette": {
+"salty": 2
+},
+"an onion": {
+"smooth": 4
+},
+"an opossum": {
+"eats_plants": 4
+},
+"an orangutan": {
+"$hold": 2
+},
+"an orca": {
+"fast": 4
+},
+"an orchid": {
+"$pound": 0
+},
+"an otter": {
+"$livewater": 4
+},
+"an owl": {
+"$livewater": 0
+},
+"anger": {
+"$hard": 0
+},
+"apple pie": {
+"sliced": 4
+},
+"bacon": {
+"$pound": 2
+},
+"bagpipes": {
+"metal": 2
+},
+"bark": {
+"$invented": 0
+},
+"basil": {
+"$invented": 0
+},
+"beans": {
+"$pound": 2
+},
+"beer": {
+"$joy": 4
+},
+"bleach": {
+"$bring": 2
+},
+"blood": {
+"$pound": 2
+},
+"bones": {
+"meat": 0
+},
+"boots": {
+"metal": 0
+},
+"bread": {
+"sliced": 4
+},
+"broccoli": {
+"cooked": 4
+},
+"brussels sprouts": {
+"sliced": 0
+},
+"cabbage": {
+"sliced": 4
+},
+"candy": {
+"larger": 4
+},
+"caramel": {
+"sliced": 0
+},
+"cereal": {
+"larger": 4
+},
+"chocolate": {
+"smooth": 4
+},
+"chopsticks": {
+"$hard": 4
+},
+"cinnamon": {
+"$hard": 0
+},
+"clover": {
+"leaves": 4
+},
+"coal": {
+"$steal": 0
+},
+"coffee": {
+"smooth": 4
+},
+"concrete": {
+"$steal": 0
+},
+"contact lenses": {
+"metal": 0
+},
+"corn": {
+"sliced": 0
+},
+"cotton candy": {
+"sticky": 4
+},
+"dental floss": {
+"$bring": 2
+},
+"deodorant": {
+"kinds": 4
+},
+"dice": {
+"plastic": 2
+},
+"dirt": {
+"box": 0
+},
+"dominoes": {
+"envelope": 4
+},
+"earbuds": {
+"public": 4
+},
+"earrings": {
+"metal": 2
+},
+"electricity": {
+"good": 0
+},
+"eyelashes": {
+"$pound": 0
+},
+"fear": {
+"enjoy": 0
+},
+"fire": {
+"$hard": 0
+},
+"fireworks": {
+"$outdoors": 4
+},
+"flour": {
+"$hard": 0
+},
+"fog": {
+"$hard": 0
+},
+"french fries": {
+"box": 4
+},
+"french toast": {
+"sliced": 4
+},
+"garlic": {
+"sliced": 4
+},
+"garlic bread": {
+"$hard": 2
+},
+"gasoline": {
+"$hard": 0
+},
+"glasses": {
+"kinds": 4
+},
+"gloves": {
+"$hard": 0
+},
+"glue": {
+"$steal": 0
+},
+"gold": {
+"$bring": 2
+},
+"grapes": {
+"sliced": 0
+},
+"gravity": {
+"$hold": 0
+},
+"green beans": {
+"rolls": 4
+},
+"hair": {
+"$pound": 0
+},
+"ham": {
+"$pound": 2
+},
+"hay": {
+"$indoors": 0
+},
+"headphones": {
+"kinds": 4
+},
+"hockey": {
+"noise": 4
+},
+"holly": {
+"leaves": 4
+},
+"honey": {
+"claws": 0
+},
+"ice": {
+"$bring": 2
+},
+"ice cream": {
+"$hard": 2
+},
+"ice skates": {
+"metal": 2
+},
+"iron": {
+"$steal": 0
+},
+"jam": {
+"larger": 4
+},
+"kale": {
+"sliced": 2
+},
+"ketchup": {
+"$invented": 4
+},
+"lasagna": {
+"smooth": 2
+},
+"lavender": {
+"sliced": 0
+},
+"leather": {
+"$pound": 2
+},
+"lemonade": {
+"washable": 0
+},
+"lightning": {
+"noise": 4
+},
+"lip balm": {
+"$bring": 4
+},
+"lipstick": {
+"public": 4
+},
+"lotion": {
+"$hard": 0
+},
+"luck": {
+"$hard": 2
+},
+"macaroni and cheese": {
+"$hard": 0
+},
+"magic": {
+"$hard": 0
+},
+"maple syrup": {
+"$hard": 0
+},
+"maracas": {
+"metal": 2
+},
+"milk": {
+"$pound": 2
+},
+"mistletoe": {
+"leaves": 4
+},
+"mittens": {
+"$pound": 0
+},
+"money": {
+"$bring": 4
+},
+"moss": {
+"$pound": 0
+},
+"mouthwash": {
+"$bring": 2
+},
+"mud": {
+"$hold": 4
+},
+"music": {
+"smooth": 2
+},
+"mustard": {
+"larger": 4
+},
+"nachos": {
+"$hard": 2
+},
+"nail clippers": {
+"public": 2
+},
+"nail polish": {
+"kinds": 4
+},
+"oatmeal": {
+"larger": 4
+},
+"oil": {
+"$hard": 0
+},
+"orange juice": {
+"larger": 4
+},
+"outer space": {
+"box": 0
+},
+"paper": {
+"enjoy": 2
+},
+"peanut butter": {
+"larger": 4
+},
+"peas": {
+"sliced": 0
+},
+"pepper": {
+"veg": 0
+},
+"pepperoni": {
+"salty": 2
+},
+"playing cards": {
+"$bring": 2
+},
+"pliers": {
+"metal": 4
+},
+"poison ivy": {
+"larger": 0
+},
+"popcorn": {
+"sliced": 0
+},
+"rhubarb": {
+"$pound": 2
+},
+"rice": {
+"sliced": 0
+},
+"roller skates": {
+"metal": 2
+},
+"salsa": {
+"washable": 0
+},
+"sandals": {
+"$steal": 0
+},
+"sandpaper": {
+"$invented": 4
+},
+"scissors": {
+"kinds": 4
+},
+"seaweed": {
+"leaves": 4
+},
+"shampoo": {
+"$hard": 0
+},
+"silver": {
+"$pound": 2
+},
+"skin": {
+"claws": 0
+},
+"skis": {
+"$steal": 4
+},
+"sneakers": {
+"$hard": 0
+},
+"snow": {
+"$indoors": 0
+},
+"socks": {
+"kinds": 4
+},
+"soda": {
+"$bring": 4
+},
+"soup": {
+"sliced": 0
+},
+"sour cream": {
+"$pound": 2
+},
+"soy sauce": {
+"larger": 4
+},
+"spaghetti": {
+"public": 2
+},
+"spinach": {
+"rabbits": 4
+},
+"steel": {
+"$bring": 0
+},
+"string": {
+"$hard": 0
+},
+"sugar": {
+"sweet": 4
+},
+"summer": {
+"good": 4
+},
+"sunglasses": {
+"$hard": 4
+},
+"sushi": {
+"$hard": 0
+},
+"tape": {
+"$bring": 2
+},
+"tea": {
+"kinds": 4
+},
+"the devil": {
+"box": 0
+},
+"the internet": {
+"$hold": 0
+},
+"the moon": {
+"box": 0
+},
+"the northern lights": {
+"$joy": 4
+},
+"the ocean": {
+"$hard": 0
+},
+"the sky": {
+"$invented": 0
+},
+"the sun": {
+"kinds": 0
+},
+"thread": {
+"public": 0
+},
+"time": {
+"$hold": 0
+},
+"tofu": {
+"$hard": 2
+},
+"toilet paper": {
+"$hard": 0
+},
+"tongs": {
+"metal": 2
+},
+"toothpaste": {
+"kinds": 4
+},
+"trail mix": {
+"rolls": 0
+},
+"tweezers": {
+"$bring": 2
+},
+"underwear": {
+"$heavy": 0
+},
+"vinegar": {
+"$invented": 4
+},
+"water": {
+"$hard": 2
+},
+"wheat": {
+"larger": 4
+},
+"whiskey": {
+"$invented": 4
+},
+"wind": {
+"$hard": 2
+},
+"winter": {
+"good": 0
+},
+"wool": {
+"claws": 0
+},
+"wrapping paper": {
+"washable": 0
+},
+"yarn": {
+"$pound": 0
+},
+"yogurt": {
+"$pound": 2
+}
+}

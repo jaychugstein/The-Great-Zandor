@@ -5,10 +5,12 @@ M = matrix(); N = len(OBJ); NQ = len(Q)
 CATS = 'AVMO'
 DV = os.environ.get('DV','-4,-2,1,2,4'); _d=[int(x) for x in DV.split(',')]
 _n=[int(x) for x in os.environ.get('DN',','.join(str(v) for v in _d[::-1])).split(',')]
-D = {'Y': _d, 'N': _n, 'U': [0] * 5, 'S': [-2, 1, 3, 1, -2]}
+D = {'Y': _d, 'N': _n, 'U': [0] * 5, 'S': [-3, 1, 4, 1, -3]}
 import os
-K, MARGIN, EARLY = int(os.environ.get('K',16)), int(os.environ.get('MG',12)), int(os.environ.get('EA',10))
-WB = int(os.environ.get('WB',16))
+K, MARGIN, EARLY = int(os.environ.get('K',24)), int(os.environ.get('MG',20)), int(os.environ.get('EA',10))
+WB = int(os.environ.get('WB',12))
+from pack import GROUPS
+SPARSE = [max(0, min(4, (18 - sum(1 for v in M[i] if v >= 3)) // 3)) for i in range(N)]
 
 def pick(score, asked, rnd):
     top = sorted(range(N), key=lambda i: -score[i])[:K]; t = score[top[0]]
@@ -41,13 +43,15 @@ def answer(v, rnd, noise):
 def game(target, rnd, noise=0.05):
     score = [0] * N; asked = [False] * NQ; banned = set()
     cat = OBJ[target][1]
-    if rnd.random() < noise: cat = rnd.choice(CATS)
-    CS = int(os.environ.get('CS', 8))
-    for i in range(N): score[i] = CS if OBJ[i][1] == cat else -CS
+    if rnd.random() < 0.25: cat = rnd.choice(sorted(GROUPS[target]))     # (people don't agree on the group)
+    if rnd.random() < noise: cat = rnd.choice('AVO')
+    if cat == 'M': cat = 'O'                                  # (no Mineral box any more)
+    CS = int(os.environ.get('CS', 5))
+    for i in range(N): score[i] = (CS if (cat in GROUPS[i] or (cat == 'O' and 'M' in GROUPS[i])) else -CS) - 2 * SPARSE[i]
     qn = 1
     while qn < 25:
         order = sorted(range(N), key=lambda i: -score[i]); a, b = order[0], order[1]
-        guess = (qn == 19) or (qn >= EARLY and score[a] - score[b] >= MARGIN) or (qn > 20 and score[a] - score[b] >= MARGIN // 2) or qn == 24
+        guess = (qn == 20) or (qn >= EARLY and score[a] - score[b] >= MARGIN) or (qn > 21 and score[a] - score[b] >= MARGIN // 2) or qn == 24
         qn += 1
         if guess:
             if a == target: return qn
@@ -64,7 +68,7 @@ if __name__ == '__main__':
         for r in range(int(os.environ.get('R',4))):
             g = game(t, rnd, noise); res.append(g)
             if g is None: fails.append(OBJ[t][0])
-    w20 = sum(1 for g in res if g and g <= 20); w25 = sum(1 for g in res if g)
-    print('noise %.2f: won by 20: %.0f%%, by 25: %.0f%%, avg question %.1f' % (noise, 100 * w20 / len(res), 100 * w25 / len(res), sum(g for g in res if g) / max(1, w25)))
+    w20 = sum(1 for g in res if g and g <= 21); w25 = sum(1 for g in res if g)
+    print('noise %.2f: won by 21: %.0f%%, by 25: %.0f%%, avg question %.1f' % (noise, 100 * w20 / len(res), 100 * w25 / len(res), sum(g for g in res if g) / max(1, w25)))
     from collections import Counter
     print('hardest:', Counter(fails).most_common(15))

@@ -3,7 +3,7 @@
 from PIL import Image, ImageDraw
 W, H, S = 48, 64, 6
 def P(*pts): return [(x * S, y * S) for x, y in pts]
-def portrait(glow=True):
+def portrait(glow=True, blink=False):
     im = Image.new('L', (W * S, H * S), 0); d = ImageDraw.Draw(im)
     cx = 24
     # robe: dark, with a bright collar edge
@@ -19,6 +19,7 @@ def portrait(glow=True):
     # eyes: hollow black sockets under sharp brows, small bright pupils
     d.line(P((cx - 10, 22), (cx - 3, 25)), fill=0, width=2 * S); d.line(P((cx + 10, 22), (cx + 3, 25)), fill=0, width=2 * S)
     for ex in (cx - 6, cx + 6):
+        if blink: d.line(P((ex - 3.5, 28.5), (ex + 3.5, 28.5)), fill=0, width=S); continue   # (eyes shut: just the lid line)
         d.ellipse(P((ex - 3.5, 25), (ex + 3.5, 30)), fill=0)
         if glow: d.ellipse(P((ex - 1, 26.5), (ex + 1, 28.5)), fill=255)
     # nose shadow, moustache curling up, thin mouth, beard split
@@ -38,6 +39,6 @@ def portrait(glow=True):
         d.polygon(P((cx + sd * 23, 47), (cx + sd * 18, 47), (cx + sd * 18, 60), (cx + sd * 23, 62)), fill=255)
     small = im.resize((W, H), Image.BOX).point(lambda v: 255 if v >= 128 else 0).convert('1')
     return small
-p = portrait(); p.save('zandor.png')
+p = portrait(); p.save('zandor.png'); portrait(blink=True).save('zandor_blink.png')
 big = Image.new('L', (W * 2 + 8, H), 40); big.paste(p.convert('L'), (0, 0)); big.paste(portrait(False).convert('L'), (W + 8, 0))
 big.resize(((W * 2 + 8) * 5, H * 5), Image.NEAREST).save('zandor_check.png')

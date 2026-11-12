@@ -2,10 +2,10 @@
 
 ![The Great Zandor](images/banner.png)
 
-Think of something. Anything. The Great Zandor will pull it from your mind in 20 questions... or fewer.
+Think of something. Anything. The Great Zandor will pull it from your mind in 21 questions... or fewer.
 
-A 20 questions mind-reading game played like the classic 2000s 20Q handheld, hosted by a creepy fortune teller
-who sees all. He knows over 750 things: animals, foods, household items, clothing, vehicles, tools, places and more.
+A 21 questions mind-reading game in the spirit of the 2000s handheld guessing toys, hosted by a creepy fortune teller
+who sees all. He knows over 1,300 things: animals, foods, household items, clothing, vehicles, tools, places, creatures, feelings and more.
 
 By **jaychugstein** · MIT License · Made for the **Arduboy FX and FX-C** (it uses the FX flash chip).
 I made it with hopes of one day seeing it enjoyed on the **POOM** too.
@@ -20,9 +20,9 @@ I made it with hopes of one day seeing it enjoyed on the **POOM** too.
 ## How to play
 
 1. Think of something.
-2. Tell Zandor if it's an ANIMAL, VEGETABLE, MINERAL or OTHER.
+2. Tell Zandor if it's an ANIMAL, a VEGETABLE or OTHER.
 3. Answer his questions: YES, NO, SOMETIMES or UNKNOWN.
-4. He guesses along the way when the spirits are sure. If his guess at question 20 is wrong, he keeps going up to 25.
+4. He guesses along the way when the spirits are sure. If his guess at question 21 is wrong, he keeps going up to 25.
 
 One wrong answer won't throw him off.
 
@@ -57,7 +57,9 @@ python3 pack.py       # the questions, the things and the answer table -> TheGre
 python3 sim.py        # optional: plays thousands of pretend games and reports how often he wins
 ```
 
-`art/data.py` and `art/more.py` hold the questions and the things he knows, with their answers.
+`art/data.py`, `art/more.py`, `art/more2.py` and `art/more3.py` hold the questions and the things he knows, with their answers.
+`art/learned.json` holds the answers real players gave in the training survey (they override the rest).
+`art/fastsim.py` is a quicker copy of the simulator, and `art/mkqueue.py` builds the question list for the training survey.
 
 ## Browser version
 
