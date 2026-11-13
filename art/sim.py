@@ -3,11 +3,11 @@ import random, sys, os
 from data import Q, OBJ, matrix
 M = matrix(); N = len(OBJ); NQ = len(Q)
 CATS = 'AVMO'
-DV = os.environ.get('DV','-4,-2,1,2,4'); _d=[int(x) for x in DV.split(',')]
+DV = os.environ.get('DV','-4,0,0,3,4'); _d=[int(x) for x in DV.split(',')]
 _n=[int(x) for x in os.environ.get('DN',','.join(str(v) for v in _d[::-1])).split(',')]
-D = {'Y': _d, 'N': _n, 'U': [-1, 0, 2, 0, -1] * 5, 'S': [-4, 1, 5, 1, -4]}
+D = {'Y': _d, 'N': _n, 'U': [-2, -2, 2, -2, -2], 'S': [-5, 0, 3, 0, -5]}   # (as in the Arduboy code)
 import os
-K, MARGIN, EARLY = int(os.environ.get('K',24)), int(os.environ.get('MG',20)), int(os.environ.get('EA',10))
+K, MARGIN, EARLY = int(os.environ.get('K',48)), int(os.environ.get('MG',20)), int(os.environ.get('EA',10))
 WB = int(os.environ.get('WB',12))
 from pack import GROUPS, PRIMARY
 SPARSE = [max(0, min(4, (18 - sum(1 for v in M[i] if v >= 3)) // 3)) for i in range(N)]

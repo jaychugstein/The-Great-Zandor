@@ -5,8 +5,8 @@ from data import Q, OBJ, matrix
 from pack import GROUPS, PRIMARY
 M = np.array(matrix(), dtype=np.int16); N, NQ = M.shape
 E = lambda k, d: int(os.environ.get(k, d))
-K, MG, EA, WB, CS, MG2 = E('K', 32), E('MG', 20), E('EA', 10), E('WB', 12), E('CS', 5), E('MG2', 10); XT = E('XT', 3)
-D = {'Y': np.array([int(x) for x in os.environ.get('DV', '-4,-2,1,2,4').split(',')]), 'U': np.array([int(x) for x in os.environ.get('DU', '-1,0,2,0,-1').split(',')]), 'S': np.array([int(x) for x in os.environ.get('DS', '-4,1,5,1,-4').split(',')])}
+K, MG, EA, WB, CS, MG2 = E('K', 48), E('MG', 20), E('EA', 10), E('WB', 12), E('CS', 5), E('MG2', 10); XT = E('XT', 3)
+D = {'Y': np.array([int(x) for x in os.environ.get('DV', '-4,0,0,3,4').split(',')]), 'U': np.array([int(x) for x in os.environ.get('DU', '-2,-2,2,-2,-2').split(',')]), 'S': np.array([int(x) for x in os.environ.get('DS', '-5,0,3,0,-5').split(',')])}
 D['N'] = D['Y'][::-1].copy()
 SP = np.array([max(0, min(4, (18 - int((M[i] >= 3).sum())) // 3)) for i in range(N)])
 INGRP = {c: np.array([c in GROUPS[i] for i in range(N)]) for c in 'AVMO'}
@@ -45,7 +45,7 @@ def game(target, rnd, noise, log=None):
         score = score + D[answer(int(M[target, q]), rnd, noise)][M[:, q]]
     return None
 if __name__ == '__main__':
-    rnd = random.Random(1); noise = float(sys.argv[1]) if len(sys.argv) > 1 else 0.15; R = E('R', 2)
+    rnd = random.Random(E('SEED', 1)); noise = float(sys.argv[1]) if len(sys.argv) > 1 else 0.15; R = E('R', 2)
     res = []; fails = {}
     for t in range(N):
         for r in range(R):

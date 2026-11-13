@@ -68,7 +68,27 @@ Q4 += [
  ('grocery', 'Would a grocery store sell it?', 'toilet_paper paper_towel napkin garbage_bag dish_soap laundry_detergent bleach aluminum_foil plastic_wrap sponge match:3 candle:3 light_bulb:3 battery:3 flower:3 rose:2 magazine:3 toothpaste:3 shampoo:3 soap:3 diaper:3 paper_plate straw:3 toothpick tea_bag charcoal greeting_card:3 lottery_ticket paper_bag:3 gum candy tissue:3 deodorant:2 lotion:2 razor:2 toothbrush:3 dental_floss:2 mouthwash:2 bandage:2 pill:2 balloon:2 plant:1 newspaper:3 water_bottle:2 baby_bottle:1 pacifier:1 cigarette:2 oven_mitt:1 can_opener:1 cutting_board:1 mug:1 pumpkin:3 christmas_tree:1 wrapping_paper:2 tape:2 pen:1 crayon:1 dog_food cat_food ice:3 firewood'),
 ]
 
-Q4 += [('burn', 'Would it burn in a campfire?', '')]
+# Round 6: sixteen questions for his weakest groups (tools, toys, nature, electronics, body parts, everyday things, food).
+Q4 += [
+ ('bounce', 'Does it bounce?', 'ball soccer_ball basketball football:3 baseball:3 tennis_ball volleyball golf_ball:3 beach_ball balloon:2 trampoline:3 pogo_stick:3 kangaroo:3 frog:2 marble:2 hockey_puck:1 jello:2 slinky:2 yo-yo:3 rubber_band:2 dice:2 hula_hoop:1 frisbee:1 rubber_duck:1 bubble:1 bowling_ball:0'),
+ ('team', 'Is it used in a team sport?', 'soccer_ball basketball football baseball volleyball hockey_stick hockey_puck hockey_net baseball_bat helmet:3 whistle:3 trophy:3 medal:2 baseball_cap:2 net:3 ball:3 ice_skates:2 sneakers:2 water_bottle:2 shorts:1 paddle:1 rowboat:1 canoe:1 tennis_racket:1 tennis_ball:1 bowling_ball:1 golf_ball:0'),
+ ('blade', 'Does it have a blade or a sharp point?', 'knife pocket_knife scissors saw axe chainsaw razor peeler grater:3 pizza_cutter lawn_mower:3 ice_skates blender:3 drill:3 screwdriver:3 needle safety_pin nail screw:3 fork:3 dart toothpick pencil pen:2 pencil_sharpener tweezers:2 nail_clippers:3 corkscrew can_opener:3 fishing_hook cactus rose:2 shark:1 icicle:2 compass:2 syringe tooth:2 crab:1 shovel:2 rake:2 stapler:2 hedgehog:2 sea_urchin pine_cone:2 butter_knife:2 marker:1 highlighter:1 crayon:1 fan:2 ceiling_fan:2 glue_gun:1 thermometer:1'),
+ ('beltloop', 'Would a handyman hang it on his belt?', 'hammer screwdriver wrench pliers tape_measure level:3 pocket_knife flashlight:3 nail:2 screw:2 pencil:3 drill:2 saw:1 crowbar:2 walkie-talkie:2 key:2 phone:2 glue_gun:1 scissors:2 chalk:2 marker:2 gloves:3 tape:2 bandana:2 lighter:2 compass:1 whistle:1'),
+ ('bath', 'Would it die if you dropped it in the bath?', 'phone laptop tablet tv computer radio camera hair_dryer curling_iron speaker headphones earbuds remote_control calculator video_game_console game_controller toaster microwave clock:3 watch:2 smartwatch:2 lamp alarm_clock charger extension_cord router printer keyboard computer_mouse hard_drive drone record_player projector walkie-talkie gps electric_guitar vacuum_cleaner fan blender coffee_maker kettle:3 iron flashlight:2 nightlight light_bulb:2 book:3 newspaper:3 magazine:3 paper:3 money:2 letter:3 photo:3 envelope:3 greeting_card:3 postcard:3 tissue:3 toilet_paper:3 paper_towel:3 cardboard_box:3 match:3 cigarette:3 notebook:3 diary:3 comic_book:3 ticket:3 receipt:3 bread:2 cracker:2 fire:4 campfire:4 candle:2 usb_stick:2 monitor thermostat smoke_alarm doorbell:3 telephone cash_register vending_machine treadmill microphone'),
+ ('hotwhen', "Does it get hot when it's switched on?", 'toaster microwave oven stove toaster_oven air_fryer hair_dryer curling_iron iron kettle coffee_maker slow_cooker rice_cooker waffle_iron light_bulb lamp:3 heater fireplace barbecue laptop:3 tv:2 computer:2 phone:2 charger:2 dryer:3 dishwasher:2 glue_gun hot_tub candle:3 lantern:2 flashlight:1 car:3 engine motorcycle:3 projector:3 video_game_console:3 christmas_lights:2 nightlight:1 hand_dryer:3 vacuum_cleaner:2 blender:1 drill:2 chainsaw:2 lawn_mower:3 refrigerator:1 monitor:2 printer:2 treadmill:2 snowmobile:2 atv:3'),
+ ('speaker', 'Does it have a speaker in it?', 'speaker radio tv phone laptop computer:3 tablet headphones earbuds alarm_clock video_game_console:2 record_player walkie-talkie gps:3 smoke_alarm:3 doorbell:3 microwave:2 car:3 game_controller:1 smartwatch:2 camera:1 microphone:1 telephone electric_guitar:2 robot:3 cash_register:2 vending_machine:2 police_car fire_truck ambulance monitor:2 treadmill:2 drone:1 thermostat:1 hand_dryer:0'),
+ ('fallsky', 'Does it fall from the sky?', 'rain snow snowflake hail lightning leaf:3 feather:2 acorn:2 pine_cone:2 apple:2 coconut:2 icicle:2 parachute:3 fog:1 balloon:1 paper_airplane:2 frisbee:1 kite:1 seed:2 dandelion:2 bug:1 spider:1 water:2 puddle:2 confetti:3 bird:1 cloud:1 sun:0'),
+ ('melt', 'Would it melt in the sun?', 'ice ice_cream snow snowflake snowman icicle popsicle chocolate chocolate_bar candle crayon:3 butter cheese:2 marshmallow:2 jello:2 cotton_candy:2 gum:2 candy:2 lip_balm:3 lipstick:3 caramel:2 milkshake:3 whipped_cream:2 cake:1 cupcake:1 hail jelly_beans:1 plastic_wrap:1 lollipop:1 yogurt:2 pudding:2 sour_cream:2 mayonnaise:1 honey:1 peanut_butter:1 glue_gun:1 hot_chocolate:0'),
+ ('beach', 'Could you find it on a beach?', 'sand seashell crab seagull ocean wave beach towel:3 sunscreen sunglasses swimsuit sandals:3 beach_ball surfboard umbrella:3 bucket:3 shovel:2 starfish seaweed pebble rock:3 log:2 shark:1 jellyfish:3 dolphin:1 boat:2 sailboat:2 kayak:2 life_jacket:2 cooler:3 frisbee:3 kite:2 hat:2 baseball_cap:2 water:3 bird:3 coconut:2 palm_tree:3 dock:2 buoy pelican:2 sea_turtle:1 lobster:1 shrimp:1 popsicle:2 ice_cream:2 sun:3 sky:3 cloud:3 water_bottle:3 soda:2 lawn_chair:3 net:2 fishing_rod:2 volleyball:3 person:3 child:3 dog:2 sandwich:2 bottle:2'),
+ ('zipper', 'Does it have a zipper?', 'jacket coat hoodie:3 jeans backpack suitcase purse:3 wallet:3 sleeping_bag tent boots:3 dress:2 skirt:2 sweater:1 sneakers:1 lunchbox:2 cooler:1 pillowcase:1 shorts:2 briefcase:2 shopping_bag:1 makeup:2 toolbox:1 leggings:0 robe:1 pajamas:1 life_jacket:2 car_seat:1 couch:1'),
+ ('hole', 'Does it have a hole right through it?', 'button:3 needle donut bagel ring bracelet:3 key:3 colander:3 straw hose ladder:2 hula_hoop tire:3 wheel:3 cd necklace:2 earrings:2 belt:3 sponge:2 net fence:2 basket:2 tunnel funnel flute recorder:3 harmonica:2 whistle:2 trumpet:3 paper_clip:1 safety_pin:1 hair_tie rubber_band piggy_bank:2 toilet:3 sink:2 bathtub:2 shower:2 telescope binoculars glasses:2 mask:3 shoe:2 boots:2 mug:2 bucket:1 bicycle:2 pretzel:3 yo-yo:1 bowling_ball:3 doughnut lifesaver vacuum_cleaner:2 garden_hose saxophone tuba trombone clarinet bagpipes'),
+ ('shoebox', 'Would it fit in a shoebox?', ''),
+ ('fingers', 'Do you eat it with your fingers?', 'pizza sandwich hamburger hot_dog french_fry apple banana grape cookie cracker potato_chip popcorn pretzel donut bagel muffin cupcake chicken_nugget chicken_wing taco burrito sushi:3 nacho candy gum chocolate chocolate_bar carrot:3 strawberry cherry orange:3 peach pear plum blueberry:3 raspberry:3 blackberry:3 granola_bar candy_cane lollipop jelly_bean marshmallow cotton_candy popsicle ice_cream:1 peanut almond cashew pistachio pecan walnut sunflower_seed trail_mix beef_jerky bacon:3 croissant baguette:3 toast garlic_bread:3 cinnamon_bun:3 brownie corn:3 celery:3 cucumber:2 pickle:3 radish:2 olive:3 kiwi:2 mango:2 lemon:1 lime:1 coconut:1 avocado:1 watermelon:3 cantaloupe:2 pineapple:2 egg:2 cheese:3 pepperoni:3 ham:2 tortilla:3 cracker:4 pea:1 green_bean:2 bell_pepper:2 tomato:3 apricot:3 nectarine:3 date:3 raisin fig:3 gingerbread_man waffle:2 pancake:1 cake:2 pie:1 grilled_cheese:3 pudding:0 soup:0 spaghetti:0 cereal:0 oatmeal:0 rice:0 salad:0 steak:0 lasagna:0 poutine:1 meatball:1'),
+ ('crunchy', 'Is it crunchy?', 'potato_chip cracker pretzel popcorn nacho carrot celery apple cucumber:3 cookie:3 toast cereal granola_bar:3 almond peanut cashew pistachio pecan walnut sunflower_seed taco:3 french_fry:2 bacon:3 pickle:3 lettuce:3 radish bell_pepper:3 candy_cane:3 ice:3 snow:2 chicken_nugget:2 chicken_wing:2 waffle:2 croissant:2 baguette:3 bagel:1 corn:2 broccoli:2 cauliflower:2 cabbage:2 onion:2 pear:2 watermelon:2 beef_jerky:1 trail_mix:3 leaf:3 pine_cone:2 acorn:3 gingerbread_man:3 garlic_bread:3 grilled_cheese:2 asparagus:2 green_bean:2 pea:1 brussels_sprout:2 kale:2 lollipop:3 jelly_bean:1 chocolate_bar:2 hail:3 icicle:3 gravel snowflake:1'),
+ ('selfsee', 'Could you see it on you without a mirror?', 'hand arm leg foot knee finger thumb fingernail toe stomach belly_button chest:3 elbow:2 shoulder:3 skin hair:2 mustache:1 beard:2 nose:2 lips:1 eyelash:1 eye:0 ear:0 back:0 head:1 forehead:0 chin:1 tooth:0 tongue:1 neck:1 eyebrow:0 wrist ankle heel:2 freckle:3'),
+]
+
+Q4 += [('burn', 'Would it catch fire from a match?', '')]   # (what it is made of, whatever its size: a wooden house yes, a metal pot no)
 
 def bare(name):
     n = name.lower()
@@ -83,9 +103,10 @@ for key, text, spec in Q4:
         n, _, v = w.partition(':'); d[n.replace('_', ' ')] = int(v) if v else 4
     LISTS[key] = d
 
-def extra_answers(name, cat, size, t):
-    g = lambda k: t.get(k, 0); b = bare(name); out = {}
-    for key, d in LISTS.items(): out[key] = max(d.get(b, 0), t.get(key, 0))   # (the lists above, or a tag on the thing itself)
+def extra_answers(name, cat, size, t, alias=None):
+    g = lambda k: t.get(k, 0); b = bare(name); b2 = bare(alias or name); out = {}
+    has = lambda k: b in LISTS[k] or b2 in LISTS[k]           # (a list may name the thing as he says it: "french fry" for french fries)
+    for key, d in LISTS.items(): out[key] = max(d.get(b, 0), d.get(b2, 0), t.get(key, 0))   # (the lists above, or a tag on the thing itself)
     up = lambda k, v: out.__setitem__(k, max(out[k], v))
     person = g('person') >= 3; food = g('eat') >= 3 or g('drink') >= 3; creature = cat == 'A' and g('alive') >= 3 and g('body') < 3
     if person:
@@ -94,14 +115,14 @@ def extra_answers(name, cat, size, t):
     if creature: up('grows', 4)
     if g('plant') >= 3 or g('fruit') >= 3 or g('veg') >= 3: up('grows', 4)
     if g('body') >= 3: up('grows', 2)
-    if b not in LISTS['good']:
+    if not has('good'):
         if g('comfort') >= 3: up('good', 3)
         elif g('enjoy') >= 3 or g('soft') >= 3: up('good', 2)
-    if food and b not in LISTS['mouth']: out['mouth'] = 4
+    if food and not has('mouth'): out['mouth'] = 4
     if g('weather') >= 3: up('science', 2)
     if g('space') >= 3: up('science', 3)
     if g('insidebody') >= 3: up('science', 2)
-    if b not in LISTS['loud']:
+    if not has('loud'):
         if g('noise') >= 3 and g('engine') >= 3: up('loud', 3)
         elif g('noise') >= 3: up('loud', 2)
     if g('ball') >= 3: up('throw', 4); up('hit', 3)
@@ -109,22 +130,22 @@ def extra_answers(name, cat, size, t):
     if g('job') >= 3: up('money', 2)
     if g('expensive') >= 3 or g('payuse') >= 3: up('money', 2)
     if g('tool') >= 3: up('fix', 2)
-    if g('building') >= 3 and b not in LISTS['shop'] and g('payuse') >= 3: up('shop', 2)
+    if g('building') >= 3 and not has('shop') and g('payuse') >= 3: up('shop', 2)
     if g('vehicle') >= 3 and g('four_legs') >= 3: up('offroad', 4)
     if g('holiday') >= 3 and g('cold_place') >= 3: up('winter', 3)
-    if g('music') >= 3 and g('played') >= 3 and b not in LISTS['loud']: up('loud', 3)
-    if food and g('sweet') < 3 and g('fruit') < 3 and g('drink') < 3 and b not in LISTS['salty']: out['salty'] = 1
+    if g('music') >= 3 and g('played') >= 3 and not has('loud'): up('loud', 3)
+    if food and g('sweet') < 3 and g('fruit') < 3 and g('drink') < 3 and not has('salty'): out['salty'] = 1
     if g('office') >= 3 and g('desk') >= 3: up('school', 2)
     made = g('$made') >= 3; small = size != 'x' and size <= 1; big = size != 'x' and size >= 4
     if food:
-        if b not in LISTS['grocery']: out['grocery'] = 4
+        if not has('grocery'): out['grocery'] = 4
         for k in ('drawer', 'floor', 'wall', 'cord', 'carpart', 'lid', 'grooming', 'game', 'hardware', 'decor'):
-            if b not in LISTS[k]: out[k] = 0
-        if b not in LISTS['float']: out['float'] = 2 if g('fruit') >= 3 or g('veg') >= 3 else 1
-        if b not in LISTS['drugstore'] and (g('snack') >= 3 or g('drink') >= 3): out['drugstore'] = 2
+            if not has(k): out[k] = 0
+        if not has('float'): out['float'] = 2 if g('fruit') >= 3 or g('veg') >= 3 else 1
+        if not has('drugstore') and (g('snack') >= 3 or g('drink') >= 3): out['drugstore'] = 2
     if g('electric') >= 3 and g('plugin') >= 3: up('cord', 3)
-    if g('glass') >= 3 and b not in LISTS['seethrough']: up('seethrough', 2)
-    if b not in LISTS['float']:
+    if g('glass') >= 3 and not has('seethrough'): up('seethrough', 2)
+    if not has('float'):
         if g('alive') >= 3: out['float'] = 3 if (g('swims') >= 3 or g('water') >= 3) else 1
         elif g('wood') >= 3 or (g('plastic') >= 3 and g('electric') < 3) or g('paper') >= 3: out['float'] = 3 if g('wood') >= 3 else 2
         else: out['float'] = 0
@@ -141,11 +162,23 @@ def extra_answers(name, cat, size, t):
     if g('furniture') >= 3 or (g('appliance') >= 3 and size != 'x' and size >= 3): up('floor', 3)
     if g('alive') >= 3 or g('place') >= 3 or big:
         for k in ('drawer', 'lid', 'tube', 'disposable', 'grooming', 'drugstore', 'grocery'):
-            if b not in LISTS[k]: out[k] = 0
+            if not has(k): out[k] = 0
     if g('alive') >= 3:
         for k in ('wall', 'cord', 'carpart', 'hardware', 'game', 'fold', 'seethrough'):
-            if b not in LISTS[k]: out[k] = 0
+            if not has(k): out[k] = 0
+    # round 6 rules
+    if not has('bounce') and g('ball') >= 3: out['bounce'] = 3
+    if not has('blade') and g('sharp') >= 3: out['blade'] = 3
+    if not has('bath'):
+        if g('electric') >= 3 and (g('plugin') >= 3 or g('battery') >= 3): out['bath'] = 3
+        elif g('paper') >= 3: out['bath'] = 3
+    if not has('hotwhen') and g('appliance') >= 3 and (g('cook') >= 3 or g('hot') >= 3): out['hotwhen'] = 4
+    out['shoebox'] = 0 if (size == 'x' or g('place') >= 3) else (4 if size <= 1 and g('long') < 3 else (2 if size <= 1 or (size == 2 and g('long') < 3 and g('$small') >= 3) else (1 if size == 2 and g('long') < 3 else 0)))
+    if not has('fingers') and food:
+        out['fingers'] = 0 if (g('drink') >= 3 or g('liquid') >= 3 or g('eatwith') >= 3) else (3 if (g('snack') >= 3 or g('fruit') >= 3) else 1)
+    if not has('crunchy') and food and g('snack') >= 3 and g('soft') < 3 and g('drink') < 3: out['crunchy'] = 2
+    if not has('selfsee') and g('body') >= 3: out['selfsee'] = 2
     if g('place') >= 3 or size == 'x':
         for k in ('mouth', 'lower', 'hit', 'throw', 'strings', 'sticky', 'hang'):
-            if b not in LISTS[k]: out[k] = 0
+            if not has(k): out[k] = 0
     return out

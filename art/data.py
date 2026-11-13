@@ -614,10 +614,11 @@ _gone = _OUT - set(_bare(o[0]) for o in OBJ)
 OBJ = _keep
 
 # Questions that no longer tell anything apart (they were about people, ideas and make-believe), or were too vague to answer the same way twice.
-QDROP = set("""job pretend abstract space royal uniform female male family bodydoes event say famous ontv science songs insidebody room good enjoy $joy kinds
+QDROP = set("""paint job pretend abstract space royal uniform female male family bodydoes event say famous ontv science songs insidebody room good enjoy $joy kinds
  tasks $invented $buy africa jungle larger old addictive funny office $huge person""".split())
 # The wording Zandor uses. Same meaning as the plain question it replaces, but his own: stranger, funnier, nothing lifted from the old toy.
 QTEXT = {
+ '$hold': 'Would it fit in your two hands?',
  '$small': 'Is it smaller than a human head?', '$person': 'Is it bigger than a coffin?', '$car': 'Is it bigger than a hearse?', '$microwave': 'Is it bigger than a case of beer?',
  '$pound': 'Is it heavier than a pound of ground beef?', '$small2': 'Is it bigger than a hamster?', '$heavy': 'Would you need both hands to carry it?',
  'pocket': 'Could you sneak it out in your pocket?', 'envelope': 'Could you mail it in an envelope?', '$made': 'Did human hands make it?',
@@ -861,6 +862,8 @@ def answers(name, cat, size, tags):
     small = s is not None and s <= 2
     # hold = anything two hands can hold (clothes, a cat, a pizza); bigger things sometimes; can't touch it = no
     t['$hold'] = 0 if (size == 'x' or t['$touch'] == 0) else (4 if size <= 2 else (2 if size == 3 else 0))
+    # "Would it fit in your two hands?": cupped or held together, not hugged. A mug or a phone yes, a cat or a pizza sometimes, a chair or a building no.
+    if t['$hold']: t['$hold'] = 4 if size <= 1 else (2 if size == 2 else 0)
     if t['$hold'] and (g('liquid') >= 3 or g('gas') >= 3 or name in ('fire', 'smoke', 'a cloud', 'lightning', 'the moon')): t['$hold'] = 2 if g('liquid') >= 3 else 0
     t['$household'] = 4 if (madeit and cat in 'MV' and t['$indoors'] >= 3 and t.get('vehicle', 0) < 3) else (2 if madeit and cat in 'MV' and t['$indoors'] >= 2 and t.get('vehicle', 0) < 3 else 0)
     if isfood: t['$household'] = 4
@@ -892,7 +895,7 @@ def answers(name, cat, size, tags):
     PY = ('a fence', 'a house', 'a door', 'a car', 'a fingernail', 'an Easter egg', 'a painting', 'a bench', 'a mailbox', 'a birdhouse', 'a shed', 'a barn', 'a chair', 'a table', 'a dresser', 'a bookshelf', 'a picture frame', 'a toy car', 'a boat', 'a bicycle', 'a kitchen', 'a bedroom', 'a bathroom', 'a gate', 'a doghouse', 'a treehouse', 'a fire hydrant', 'a stop sign', 'a cabinet', 'a shelf', 'a truck', 'a bus', 'an airplane', 'a train', 'a motorcycle', 'a school bus', 'a race car', 'paper', 'clay', 'an artist', 'a garage', 'a closet', 'an apartment', 'a basement', 'a crib', 'a nightstand', 'a coffee table', 'a picnic table', 'a stool', 'a rocking chair', 'a desk', 'a deck', 'a canoe', 'a rowboat', 'a sailboat', 'a wagon', 'a windmill', 'a lighthouse', 'a school', 'a church', 'a sign', 'a billboard', 'an ornament', 'a mask', 'a snowmobile', 'a helicopter', 'a rocket', 'a tank', 'a jet', 'a sports car', 'a convertible', 'a van', 'a minivan', 'a pickup truck', 'a jeep', 'a taxi', 'a fire truck', 'an ambulance', 'a police car', 'a limousine', 'a tractor', 'a go-kart')
     PS = ('a pumpkin', 'a rock', 'a mug', 'a plate', 'a refrigerator', 'a shoe', 'a piano', 'a drum', 'a ladder', 'a bucket', 'a kite', 'a robot', 'a bed', 'a T-shirt', 'a face', 'a statue', 'a road', 'a bathtub', 'a guitar', 'a skateboard', 'a doll', 'a window', 'a castle', 'a hospital', 'a bridge', 'a skyscraper', 'a vase', 'a pot', 'a bowl', 'a toe', 'a hand', 'a pebble', 'a brick', 'a tire', 'a helmet', 'a surfboard', 'a snowboard', 'a sled', 'a toboggan', 'a boomerang', 'a jack-o-lantern', 'a pine cone', 'a seashell', 'a log', 'a cardboard box', 'a crate', 'a barrel', 'a basket', 'a hockey stick', 'a trophy', 'a flag', 'a poster', 'a clock', 'a lamp', 'a toy train', 'a dollhouse', 'an action figure', 'a puppet', 'a coffin', 'a tombstone', 'a house_x', 'a staircase', 'a chimney', 'a fireplace', 'a radiator', 'a doorknob', 'a mirror', 'a cutting board', 'a wooden spoon', 'a broom', 'a rolling pin', 'a baseball bat', 'a violin', 'a cello', 'a ukulele', 'a banjo', 'a harp', 'an electric guitar', 'a xylophone', 'a submarine', 'a cruise ship', 'a yacht', 'a ferry', 'a speedboat', 'a kayak', 'a hot air balloon', 'a ferris wheel', 'a roller coaster', 'a swing', 'a slide', 'a seesaw', 'a trampoline', 'a lawn chair', 'a barbecue', 'a garbage can', 'a traffic light', 'a street light', 'a parking meter', 'a sidewalk', 'concrete', 'a tile_x', 'a stick', 'a branch', 'a tree stump', 'a leaf', 'an egg', 'a cookie', 'a cake', 'lips', 'a mouth_x', 'an eye_x', 'a spaceship', 'a satellite', 'a crane', 'a bulldozer', 'a forklift', 'an excavator', 'a dump truck', 'a tow truck', 'a garbage truck', 'a snowplow', 'a zamboni', 'a golf cart', 'a scooter', 'a tricycle', 'a unicycle', 'a stroller', 'a shopping cart', 'a trailer', 'a camper', 'a wheelbarrow', 'a lawn mower')
     t['paint'] = 4 if name in PY else (2 if name in PS else 0)
-    t.update(extra_answers(name, cat, size, t)); t.update(force)
+    t.update(extra_answers(name, cat, size, t, globals().get('DISPLAY', {}).get(name))); t.update(force)
     # Answers a real player gave in the training survey. One person's answer is evidence, not the truth (the next player may
     # answer differently), so it moves Zandor to "usually" / "rarely" rather than a flat yes / no, unless he already leaned that way.
     # lighter than a hot dog: pocket things mostly are, unless they are dense; paper and cloth things up to a mug's size are too
@@ -902,6 +905,12 @@ def answers(name, cat, size, tags):
     if name in ('a feather', 'a leaf', 'a tissue', 'a napkin', 'a balloon', 'a straw', 'a paper airplane', 'an envelope', 'a stamp', 'a ticket', 'a receipt', 'a sticky note', 'a paper clip', 'a button', 'a coin', 'a key', 'a match', 'a toothpick', 'a needle', 'a hair tie', 'a rubber band', 'a bubble', 'a snowflake', 'a butterfly', 'a fly', 'a mosquito', 'an ant', 'a ladybug', 'a bee'): t['$light'] = 4
     if name in MASS:
         for k in ('$small', '$small2', '$pound', '$duck', '$heavy', '$light', '$microwave', '$pickup', '$hold', 'pocket'): t[k] = 2
+        if name in ('fire', 'smoke', 'lightning', 'fog'): t['$hold'] = 0; t['$pickup'] = 0; t['pocket'] = 0   # (you can't hold these at all)
+    # A container with something in it (a bag of trail mix, a glass of milk, a bowl of soup): the bag or glass is one thing and
+    # what is inside is another, so "is it hard?" and "is it soft?" have no single answer. Both are "sometimes".
+    _shown = globals().get('DISPLAY', {}).get(name, '')
+    if _shown.split(' of ')[0] in ('a bag', 'a bowl', 'a plate', 'a glass', 'a cup', 'a mug', 'a bottle', 'a jar', 'a can', 'a tub', 'a jug', 'a tube', 'a pack'):
+        t['$hard'] = 2; t['soft'] = 2
     for k, v in LEARNED.get(name, {}).items():
         cur = t.get(k, 0)
         t[k] = (4 if cur >= 3 else 3) if v >= 3 else ((0 if cur <= 1 else 1) if v <= 1 else 2)

@@ -68,16 +68,16 @@ uint8_t wrap(int16_t x, int16_t y, uint8_t cols, uint8_t rows, uint8_t pg = 0) {
 // and the scores are worked out fresh from them each time, a slice of the table at a time, keeping only the leaders.
 uint8_t asked[(NQ + 7) / 8];                                   // the questions already asked
 bool wasAsked(uint8_t q) { return asked[q >> 3] >> (q & 7) & 1; }
-const int8_t DELTA[4][5] PROGMEM = {                           // how an answer moves a thing's score, by how that thing answers (no .. yes)
-  { -4, -2, 1, 2, 4 },                                         // YES
-  { 4, 2, 1, -2, -4 },                                         // NO
-  { -1, 0, 2, 0, -1 },                                         // UNKNOWN (people say it when a thing is neither one nor the other)
-  { -4, 1, 5, 1, -4 } };                                       // SOMETIMES
+const int8_t DELTA[4][5] PROGMEM = {                           // how an answer moves a thing's score, by how that thing answers (no, rarely, sometimes, usually, yes)
+  { -4, 0, 0, 3, 4 },                                          // YES (a "rarely" thing is not punished: people often say yes to those)
+  { 4, 3, 0, 0, -4 },                                          // NO
+  { -2, -2, 2, -2, -2 },                                       // UNKNOWN (people say it when a thing is neither one nor the other)
+  { -5, 0, 3, 0, -5 } };                                       // SOMETIMES (tuned in art/fastsim.py)
 const uint8_t MAXH = 26, MAXW = 10;
 uint8_t hq[MAXH], ha[MAXH], nh;                                // the questions answered so far, and the answers
 uint16_t wrong[MAXW]; bool wrongOut[MAXW]; uint8_t nw;         // things he guessed wrongly (ruled out, or just doubted)
 uint8_t cat;                                                   // the group picked at the start (0 animal .. 3 other)
-const uint8_t K = 32;                                          // how many leaders a question is judged on
+const uint8_t K = 48;                                          // how many leaders a question is judged on
 const uint8_t WGT[19] PROGMEM = { 64, 51, 40, 32, 25, 20, 16, 13, 10, 8, 6, 5, 4, 3, 3, 2, 2, 2, 1 };   // a leader's say in picking the question: it halves for every 3 points it trails the best (tuned in art/fastsim.py)
 uint16_t top[K]; int16_t tops[K]; uint8_t nTop;
 
