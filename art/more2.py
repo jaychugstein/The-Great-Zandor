@@ -227,7 +227,7 @@ MORE2 += grp('M', 'office desk', [
  ('a highlighter', 0, 'write long yellow pocket plastic'), ('an eraser', 0, 'soft pocket ~write'), ('a pencil sharpener', 0, 'sharp pocket tool'),
  ('a binder', 1, 'plastic opens container paper_x'), ('a folder', 1, 'flat opens container paper'), ('a clipboard', 1, 'flat write_x'),
  ('a telephone', 1, 'electric talk noise rings buttons plastic old'), ('a monitor', 2, 'electric screen flat withpc plugin'),
- ('a $hard drive', 1, 'electric info withpc metal'), ('a router', 1, 'electric internet withpc light plugin'), ('a globe', 2, 'round map_x colorful info rolls_x'),
+ ('a hard drive', 1, 'electric info withpc metal'), ('a router', 1, 'electric internet withpc light plugin'), ('a globe', 2, 'round map_x colorful info rolls_x'),
 ])
 # ---- electronics and gadgets
 MORE2 += grp('M', 'electric', [
@@ -388,5 +388,27 @@ MORE2 += [
  ('a lottery ticket', 'V', 0, '$made paper flat pocket writing read payuse addictive envelope'), ('a jackhammer', 'M', 3, 'tool electric_x noise $heavy metal $outdoors tasks'),
  ('a butter knife', 'M', 0, 'metal kitchen eatwith long shiny -sharp'), ('a coat rack', 'V', 3, '$made wood furniture long'),
  ('a massage', 'O', 'x', 'abstract comfort enjoy payuse'),
+]
+# things you are likely to be looking at in an office, a waiting room, an airport, a mall, a washroom, or down by the lake
+MORE2 += [
+ ('a wall', 'M', 6, '$made $hard flat white paint $indoors ~$outdoors $home everyday $household'), ('a floor', 'M', 6, '$made $hard flat $indoors $home everyday floor ~wood $household washable'),
+ ('a ceiling', 'M', 6, '$made $hard flat white $indoors $home everyday sky_x paint'), ('an outlet', 'M', 0, '$made electric wall plastic white $indoors $home $household everyday dangerous plugin'),
+ ('a vent', 'M', 1, '$made metal wall ~floor $indoors $home hot cold noise'), ('a sign', 'M', 2, '$made writing read flat $outdoors public ~metal colorful info ~wall'),
+ ('a pole', 'M', 5, '$made long metal $outdoors $hard public round'), ('a vending machine', 'M', 4, '$made electric plugin public payuse money container $heavy glass buttons light floor snack_x hasliquid noise'),
+ ('an exit sign', 'M', 1, '$made electric light red writing read wall public $indoors'), ('a filing cabinet', 'M', 3, '$made metal office2 container opens floor $heavy $indoors furniture'),
+ ('a briefcase', 'M', 2, '$made container opens handle office2 $bring travel ~black lid'), ('a name tag', 'M', 0, '$made writing read wear pocket office2 plastic flat public'),
+ ('a locker', 'M', 3, '$made metal container opens school public $indoors $heavy wall'), ('a soap dispenser', 'M', 1, '$made bathroom plastic hasliquid wall public clean tube grooming'),
+ ('a hand dryer', 'M', 2, '$made bathroom electric wall public noise hot ~metal'), ('a urinal', 'M', 3, '$made bathroom wall public white water wet $hard smell'),
+ ('a shopping bag', 'M', 2, '$made container handle public $bring ~plastic ~paper fold disposable'), ('a mannequin', 'M', 3, '$made plastic face two_legs public $indoors clothes_x scary $hard'),
+ ('a cash register', 'M', 2, '$made electric money public buttons screen opens container noise plugin'), ('a price tag', 'M', 0, '$made paper writing read money pocket public flat disposable'),
+ ('a dock', 'M', 5, '$made wood water $outdoors long flat wet float'), ('a buoy', 'M', 2, '$made water $outdoors float red round ~plastic ocean'),
+ ('a handrail', 'M', 4, '$made long metal wall public $hard handle ~wood'), ('a parking lot', 'O', 6, 'place $made $outdoors flat public black ~payuse'),
+ ('a bus stop', 'O', 5, 'place $made $outdoors public travel ~glass writing'), ('a conveyor belt', 'M', 5, '$made electric moves long flat public noise ~travel'),
+ ('a mattress', 'M', 4, '$made soft bedroom $heavy $home comfort floor_x flat ~fold $household'), ('a lighter', 'M', 0, '$made pocket hot light dangerous plastic ~metal drawer hasliquid'),
+ ('a rubber band', 'M', 0, '$made pocket round drawer office2 desk ~colorful soft fold'), ('a passport', 'V', 0, '$made paper pocket travel writing read flat drawer expensive opens $bring info'),
+ ('a litter box', 'M', 2, '$made plastic container floor smell $indoors $home pet_x clean_x'), ('a yoga mat', 'M', 3, '$made flat fold floor sport soft ~colorful $home'),
+ ('a treadmill', 'M', 4, '$made electric plugin floor sport $heavy moves noise buttons screen $indoors'), ('a dog bowl', 'M', 1, '$made container floor round kitchen ~metal ~plastic hasliquid $home'),
+ ('a wheel', 'M', 3, '$made round rolls wheels carpart ~metal black garage $outdoors'), ('a windshield', 'M', 3, '$made glass seethrough carpart flat fragile $outdoors wet'),
+ ('a cattail', 'V', 2, 'plant alive water long brown $outdoors'), ('a wave', 'O', 5, 'water watery wet ocean moves $outdoors noise ~dangerous'),
 ]
 MORE2 = [m for m in MORE2 if not m[0].endswith('_x')]

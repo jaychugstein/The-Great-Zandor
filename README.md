@@ -2,10 +2,10 @@
 
 ![The Great Zandor](images/banner.png)
 
-Think of something. Anything. The Great Zandor will pull it from your mind in 21 questions... or fewer.
+Look around you. Pick one thing you can see. The Great Zandor will tell you what you are looking at in 21 questions... or fewer.
 
-A 21 questions mind-reading game in the spirit of the 2000s handheld guessing toys, hosted by a creepy fortune teller
-who sees all. He knows over 1,300 things: animals, foods, household items, clothing, vehicles, tools, places, creatures, feelings and more.
+A 21 questions game hosted by a creepy fortune teller who sees through your eyes. He knows nearly 1,000 things you might be
+looking at, at home, at work, in a waiting room or down by the lake: animals, food, furniture, clothes, gadgets, tools, vehicles and more.
 
 By **jaychugstein** · MIT License · Made for the **Arduboy FX and FX-C** (it uses the FX flash chip).
 I made it with hopes of one day seeing it enjoyed on the **POOM** too.
@@ -19,8 +19,8 @@ I made it with hopes of one day seeing it enjoyed on the **POOM** too.
 
 ## How to play
 
-1. Think of something.
-2. Tell Zandor if it's an ANIMAL, a VEGETABLE or OTHER.
+1. Look at something near you. It has to be a real thing you can see.
+2. Tell Zandor what kind of thing it is: LIVING, OBJECT, NATURAL or MAN-MADE. Pick whichever fits; plenty of things fit two.
 3. Answer his questions: YES, NO, SOMETIMES or UNKNOWN.
 4. He guesses along the way when the spirits are sure. If his guess at question 21 is wrong, he keeps going up to 25.
 
@@ -32,7 +32,7 @@ One wrong answer won't throw him off.
 |---|---|
 | Arrows | Move the highlight between the four answer boxes |
 | B | Choose the highlighted answer · move his speech along |
-| Up / Down | Sound on or off (title screen) |
+| Left / Right | Sound ON or OFF (title screen) |
 
 ## Install
 
@@ -60,6 +60,7 @@ python3 sim.py        # optional: plays thousands of pretend games and reports h
 `art/data.py`, `art/more.py`, `art/more2.py` and `art/more3.py` hold the questions and the things he knows, with their answers.
 `art/learned.json` holds the answers real players gave in the training survey (they override the rest).
 `art/fastsim.py` is a quicker copy of the simulator, and `art/mkqueue.py` builds the question list for the training survey.
+`art/worst.py` and `art/audit.py` list the things he misses most.
 
 ## Browser version
 

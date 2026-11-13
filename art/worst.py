@@ -7,7 +7,7 @@ for t in range(F.N):
     w = 0; conf = collections.Counter()
     for r in range(R):
         log = []; g = F.game(t, rnd, 0.10, log)
-        if g: w += 1
+        if g and g <= 21: w += 1
         else: conf.update(log[-3:])
     rows.append((w, t, conf))
 rows.sort(key=lambda x: x[0])

@@ -7,30 +7,28 @@ def txt(s, n):
     b = s.upper().encode('ascii'); assert len(b) < n, s; return b + bytes(n - len(b))
 parts = []
 parts.append(('MATQ', bytes(M[i][q] for q in range(NQ) for i in range(N)), 'answers by question: NOBJ bytes a question (0 no .. 4 yes)'))
-def groups(i):                                              # the groups a thing may be filed under (people don't agree: is a sandwich a Vegetable or Other?)
-    name, c, size, _ = OBJ[i]; g = lambda k: M[i][KEY[k]]; m = {c}
-    person = g('person') >= 3; food = g('eat') >= 3 or g('drink') >= 3
-    if c == 'O':
-        if person or (g('pretend') >= 3 and g('alive') >= 3): m.add('A')
-        if size != 'x' and g('$made') >= 3 and not person and g('place') < 3: m.add('M')
-        if g('watery') >= 3 or g('weather') >= 3 or name in ('fire', 'a mountain', 'a volcano', 'a cave', 'dirt', 'dust', 'mud'): m.add('M')
-        if g('place') >= 3 and (g('plant') >= 2 or name in ('a forest', 'a jungle', 'a garden', 'a field', 'a park', 'a farm')): m.add('V')
-    if c == 'A':
-        if g('alive') < 3: m.add('O')                         # (milk, bacon, a hand, leather)
-        if food and g('alive') < 3: m.add('V')
-    if c == 'V':
-        if g('$made') >= 3: m.add('O')                        # (bread, paper, a chair, a T-shirt)
-        if g('$made') >= 3 and not food: m.add('M')
-        if g('dairy') >= 3 or g('ismeat') >= 3: m.add('A')
-    if c == 'M':
-        if g('$made') >= 3: m.add('O')                        # (a TV, a car: plenty of people say Other)
-        if g('wood') >= 3 or g('paper') >= 3 or g('cloth') >= 3: m.add('V')
-        if g('liquid') >= 3 or g('$made') < 3: m.add('O')
-    return m
-KEY = {k: n for n, (k, _) in enumerate(Q)}
+A_ = None
+def groups(i):                                              # the opening boxes a thing may be picked under: A living, V object, M natural, O man-made
+    global A_
+    if A_ is None:
+        from data import OBJ as _O, answers
+        A_ = [answers(*o) for o in _O]                       # (every answer, including ones no question asks about any more)
+    g = lambda k: A_[i].get(k, 0); name, _, size, _ = OBJ[i]; m = set()
+    living = g('alive') >= 3 or g('body') >= 3; made = g('$made') >= 3
+    if living: m.add('A')
+    if not living and g('$touch') >= 3 and g('place') < 3 and g('weather') < 3 and g('liquid') < 3 and size != 'x' and size <= 5: m.add('V')   # (a thing you could point at and pick out: a mug, a rock, an apple)
+    if not made: m.add('M')                                  # (a dog, a rock, a cloud, an apple: nobody built it)
+    if made: m.add('O')
+    if name in ('a lake', 'a pond', 'a river', 'a beach', 'a garden', 'a park', 'a backyard', 'a field', 'a hill', 'a forest', 'a waterfall', 'a puddle', 'a bush', 'a tree', 'a flower', 'grass', 'a plant', 'a snowman', 'ice', 'a fire', 'smoke'): m |= {'M', 'O'}   # (some lakes are man-made; so are gardens, and plenty else people shape)
+    return m or {'V'}
+def primary(i):                                             # the box most people would pick first
+    g = GROUPS[i]
+    return 'A' if 'A' in g else ('O' if 'O' in g else ('M' if 'M' in g else 'V'))
 GROUPS = [groups(i) for i in range(N)]
-parts.append(('CATS', bytes(sum(1 << 'AVMO'.index(c) for c in GROUPS[i] | ({'O'} if 'M' in GROUPS[i] else set())) | (max(0, min(4, (18 - sum(1 for v in M[i] if v >= 3)) // 3)) << 4) for i in range(N)), 'each thing\'s groups (low 4 bits, one bit a group: animal, vegetable, mineral, other) and how sparse its answers are (high bits: a small head start taken off, so thin entries do not win by default)'))
-parts.append(('NAMES', b''.join(txt(n, NAMELEN) for n, _, _, _ in OBJ), 'names, %d bytes each' % NAMELEN))
+PRIMARY = [primary(i) for i in range(N)]
+parts.append(('CATS', bytes(sum(1 << 'AVMO'.index(c) for c in GROUPS[i]) | (max(0, min(4, (18 - sum(1 for v in M[i] if v >= 3)) // 3)) << 4) for i in range(N)), 'each thing\'s opening boxes (low 4 bits, one bit a box: living, object, natural, man-made) and how sparse its answers are (high bits: a small head start taken off, so thin entries do not win by default)'))
+from data import DISPLAY
+parts.append(('NAMES', b''.join(txt(DISPLAY.get(n, n), NAMELEN) for n, _, _, _ in OBJ), 'names, %d bytes each (the name he says: one of the thing, never a heap)' % NAMELEN))
 QW = [5 if k in ('green','red','yellow','orange','brown','black','white','colorful','cute','old','everyday','gift') else 8 for k, _ in Q]
 parts.append(('QWT', bytes(QW), 'how much each question is favoured (8 = fully, less = saved for later)'))
 parts.append(('QTEXT', b''.join(txt(t, QLEN) for _, t in Q), 'question text, %d bytes each' % QLEN))

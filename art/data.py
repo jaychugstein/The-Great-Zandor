@@ -568,6 +568,118 @@ PLUS = {
 }
 OBJ = [(n, c, sz_, (tg + ' ' + PLUS[n]) if n in PLUS else tg) for n, c, sz_, tg in OBJ]
 
+# ---------------------------------------------------------------------------------------------------------------------
+# Zandor guesses something you are LOOKING AT. So everything you can't lay eyes on is out (ideas, feelings, events, make-believe
+# creatures, your insides, outer space), and so are look-alikes nobody could tell apart by eye in 21 questions: it is "a bird"
+# unless the bird is unmistakable (a penguin, an owl, a flamingo), "a fish" unless it is a shark, "a snake", "a tree", and so on.
+def _bare(n):
+    n = n.lower()
+    for p in ('a ', 'an ', 'the '):
+        if n.startswith(p): return n[len(p):]
+    return n
+_OUT = set(w.strip() for w in """
+ store,
+ santa claus, king, queen, pirate, vampire, zombie, witch, wizard, princess, prince, thief, superhero,
+ ghost, dragon, unicorn, t-rex, mammoth, mermaid, fairy, alien, monster, bigfoot, easter bunny, mummy, werewolf, tooth fairy, genie, magic wand, giant, troll,
+ elf, leprechaun, goblin, angel, devil, cyclops, phoenix, centaur, loch ness monster, dinosaur,
+ volcano, island, earth, hospital, castle, lighthouse, farm, zoo, desert, cave, city, library, movie theater, airport, mall, glacier, iceberg, canyon, cliff, swamp,
+ jungle, cemetery, north pole, museum, bank, grocery store, bakery, hotel, jail, fire station, stadium, hockey rink, gym, bowling alley, casino, circus,
+ amusement park, factory, basement, attic, kitchen, bathroom, bedroom, apartment, igloo, pyramid, windmill, train station,
+ heart, brain, blood, bones, chest, wrist, ankle, heel, cheek, chin, forehead, freckle, lung, kidney, liver, muscle, vein, skull, rib, spine,
+ pigeon, crow, hummingbird, rooster, seagull, woodpecker, bluejay, vulture, bald eagle, toucan, canary, parakeet, hawk, pelican, robin, sparrow, cardinal, dove,
+ falcon, raven, loon, canada goose, stork, heron, puffin, emu, chick, duckling,
+ salmon, clownfish, catfish, trout, piranha, koi, tuna, eel, swordfish, pufferfish, angelfish, minnow, bass, cod,
+ firefly, cricket, flea, bedbug, termite, hornet, bumblebee, praying mantis, maggot, millipede,
+ leopard, jaguar, cougar, hyena, badger, mole, puppy, kitten, lamb, bull, sea lion, manatee, squid, shrimp, oyster, tadpole, salamander, iguana, gecko, cobra,
+ rattlesnake, python, tick, centipede, slug, pony, hermit crab, tarantula, chimpanzee, orangutan, meerkat, armadillo, anteater, platypus, opossum, coyote,
+ antelope, wild boar, weasel, orca, narwhal, gerbil, chinchilla, calf, piglet, foal, clam, mussel, sea urchin, sea turtle, coral, leech, toad, tortoise,
+ komodo dragon, anaconda, garter snake, black widow, daddy longlegs, crocodile, chameleon, scorpion, reindeer,
+ cotton, bamboo, ivy, daisy, fern, vine, lily, orchid, daffodil, lavender, poppy, clover, weed, maple tree, oak tree, birch tree, willow tree, venus flytrap,
+ lily pad, poison ivy, mistletoe, holly, hay,
+ rocket, wind, spaceship, satellite, planet, comet, meteor, tornado, thunder, hail, hurricane, flood, earthquake, northern lights, outer space, black hole,
+ galaxy, mars, jet, blimp,
+ submarine, minivan, jeep, limousine, race car, convertible, sports car, tank, snowplow, tow truck, dump truck, excavator, streetcar, ferry, speedboat, rowboat, yacht,
+ sword, crown, crystal ball, skeleton, coffin, tombstone, germ, tear, steam, dust, leather, wool, cocoon, pearl, ruby, emerald, crystal, silver, copper, iron,
+ steel, fossil, coal, oil, gasoline, clay, concrete, tumbleweed, root, jukebox, pinball machine, slot machine, disco ball, metal detector, jackhammer, siren,
+ engine, gong, bagpipes, accordion, tuba, trombone, saxophone, cello, banjo, harp, clarinet, cymbal, maracas, tambourine, kazoo, electric guitar,
+ bow and arrow, boomerang, pogo stick, punching bag, horseshoe, saddle, anchor, mousetrap, crutch, microscope, cape, costume, overalls, poker chip,
+ lottery ticket, sparkler, easter egg, stocking, confetti, gingerbread man, whiskey, champagne, apple pie, honeydew melon, nectarine, tangerine, pomegranate,
+ papaya, apricot, fig, date, leek, turnip, rhubarb, hazelnut, chestnut, pecan
+""".replace('\n', ' ').split(',') if w.strip())
+_seen = set(); _keep = []
+for _o in OBJ:
+    if _o[2] == 'x' or (_bare(_o[0]) in _OUT and _o[0] != 'an iron') or _o[0] in _seen: continue   # (ideas have no size; the list above, but the metal iron, not the clothes iron; and no doubles)
+    _seen.add(_o[0]); _keep.append(_o)
+_gone = _OUT - set(_bare(o[0]) for o in OBJ)
+OBJ = _keep
+
+# Questions that no longer tell anything apart (they were about people, ideas and make-believe), or were too vague to answer the same way twice.
+QDROP = set("""job pretend abstract space royal uniform female male family bodydoes event say famous ontv science songs insidebody room good enjoy $joy kinds
+ tasks $invented $buy africa jungle larger old addictive funny office $huge person""".split())
+# The wording Zandor uses. Same meaning as the plain question it replaces, but his own: stranger, funnier, nothing lifted from the old toy.
+QTEXT = {
+ '$small': 'Is it smaller than a human head?', '$person': 'Is it bigger than a coffin?', '$car': 'Is it bigger than a hearse?', '$microwave': 'Is it bigger than a case of beer?',
+ '$pound': 'Is it heavier than a pound of ground beef?', '$small2': 'Is it bigger than a hamster?', '$heavy': 'Would you need both hands to carry it?',
+ 'pocket': 'Could you sneak it out in your pocket?', 'envelope': 'Could you mail it in an envelope?', '$made': 'Did human hands make it?',
+ '$touch': 'Could you poke it with a finger?', 'moves': 'Does it move on its own?', 'eat': 'Do people eat it on purpose?', 'fur': 'Is it furry?',
+ 'bites': 'Could it bite or sting you?', 'cute': 'Would you call it cute?', 'dangerous': 'Could it send you to the hospital?',
+ 'smell': 'Could you smell it with your eyes shut?', 'noise': 'Does it make noise?', 'loud': 'Could it wake the neighbours?',
+ 'fragile': 'Would it shatter if you dropped it?', 'soft': 'Is it soft and squishy?', 'sharp': 'Could it cut you?', 'hot': 'Would it burn your hand?',
+ 'cold': 'Is it cold to the touch?', 'shiny': 'Is it shiny?', '$steal': 'Would a burglar bother stealing it?', 'expensive': 'Is it worth more than a hundred bucks?',
+ 'fast': 'Could it outrun you?', 'night': 'Does it come out at night?', 'scary': 'Would it scare a small child?', 'washable': 'Do people ever wash it?',
+ 'everyday': 'Did you use one today?', 'gift': 'Would it make a decent birthday gift?', '$home': 'Is there one in your home?',
+ '$household': 'Does almost every home have one?', 'public': 'Would you use it in front of strangers?', '$bring': 'Do you carry it around with you?',
+ 'travel': 'Does it help you get somewhere?', 'electric': 'Does it need power to work?', 'light': 'Does it glow or light up?',
+ 'writing': 'Are there words printed on it?', 'body': 'Is it part of your body?', 'lower': 'Is it below the belt?', 'sweet': 'Would a dentist disapprove of it?',
+ 'hit': 'Do you whack it?', 'throw': "Is it something you'd throw?", 'rolls': 'Would it roll down a hill?', 'long': 'Is it long and skinny?',
+ '$hard': 'Is it hard to the touch?', 'wet': 'Does it often get wet?', 'internet': 'Can it get on the Wi-Fi?', 'hasliquid': 'Is there liquid inside it?',
+ 'comfort': 'Would you cuddle up with it?', 'sky': 'Do you have to look up to see it?', 'office2': 'Would you find it in an office?', 'wild': 'Does it live in the wild?',
+ 'alive': 'Is it alive right now?', 'face': 'Does it have a face?', 'pet': 'Do people keep it as a pet?', '$movable': 'Could one person move it?',
+ 'weapon': 'Was it made to hurt things?', 'grows': 'Does it grow?', 'money': 'Does it have to do with money?', 'played': 'Can it be played?',
+}
+Q = [(k, QTEXT.get(k, t)) for k, t in Q if k not in QDROP]
+Q.append(('$light', 'Is it lighter than a hot dog?'))               # (a second weight question, at the light end)
+
+# One of it, not a heap: every thing is a single item (a grape, not grapes; a glass of milk, not milk), so "is it heavier than..." has
+# one answer. The name he says is on the right; the plain name on the left is still what the rest of this file calls it.
+DISPLAY = {
+ 'grapes': 'a grape', 'peas': 'a pea', 'french fries': 'a french fry', 'LEGO bricks': 'a LEGO brick', 'green beans': 'a green bean', 'brussels sprouts': 'a brussels sprout',
+ 'beans': 'a bean', 'noodles': 'a noodle', 'nachos': 'a nacho', 'jelly beans': 'a jelly bean', 'playing cards': 'a playing card', 'dice': 'a pair of dice',
+ 'dominoes': 'a domino', 'eyelashes': 'an eyelash', 'contact lenses': 'a contact lens', 'fireworks': 'a firework', 'corn': 'a cob of corn', 'celery': 'a stalk of celery',
+ 'lettuce': 'a head of lettuce', 'cabbage': 'a head of cabbage', 'garlic': 'a clove of garlic', 'toast': 'a slice of toast', 'bread': 'a loaf of bread',
+ 'bacon': 'a strip of bacon', 'pepperoni': 'a slice of pepperoni', 'gum': 'a stick of gum', 'candy': 'a piece of candy', 'chalk': 'a stick of chalk', 'soap': 'a bar of soap',
+ 'paper': 'a sheet of paper', 'tape': 'a roll of tape', 'toilet paper': 'a roll of toilet paper', 'money': 'a twenty dollar bill', 'sushi': 'a piece of sushi',
+ 'ham': 'a slice of ham', 'beef jerky': 'a strip of beef jerky', 'ice': 'an ice cube', 'grass': 'a blade of grass', 'rice': 'a grain of rice', 'popcorn': 'a piece of popcorn',
+ 'cereal': 'a bowl of cereal', 'spaghetti': 'a plate of spaghetti', 'soup': 'a bowl of soup', 'oatmeal': 'a bowl of oatmeal', 'coffee': 'a cup of coffee', 'tea': 'a cup of tea',
+ 'hot chocolate': 'a mug of hot chocolate', 'milk': 'a glass of milk', 'orange juice': 'a glass of orange juice', 'lemonade': 'a glass of lemonade',
+ 'apple juice': 'a glass of apple juice', 'iced tea': 'a glass of iced tea', 'soda': 'a glass of soda', 'beer': 'a bottle of beer', 'wine': 'a bottle of wine',
+ 'water': 'a glass of water', 'ketchup': 'a bottle of ketchup', 'mustard': 'a bottle of mustard', 'maple syrup': 'a bottle of maple syrup', 'peanut butter': 'a jar of peanut butter',
+ 'jam': 'a jar of jam', 'honey': 'a jar of honey', 'mayonnaise': 'a jar of mayonnaise', 'salsa': 'a jar of salsa', 'vinegar': 'a bottle of vinegar',
+ 'olive oil': 'a bottle of olive oil', 'soy sauce': 'a bottle of soy sauce', 'hot sauce': 'a bottle of hot sauce', 'dish soap': 'a bottle of dish soap', 'bleach': 'a jug of bleach',
+ 'shampoo': 'a bottle of shampoo', 'lotion': 'a bottle of lotion', 'perfume': 'a bottle of perfume', 'sunscreen': 'a bottle of sunscreen', 'mouthwash': 'a bottle of mouthwash',
+ 'nail polish': 'a bottle of nail polish', 'toothpaste': 'a tube of toothpaste', 'glue': 'a bottle of glue', 'deodorant': 'a stick of deodorant', 'lipstick': 'a tube of lipstick',
+ 'lip balm': 'a tube of lip balm', 'whipped cream': 'a can of whipped cream', 'sour cream': 'a tub of sour cream', 'yogurt': 'a cup of yogurt', 'butter': 'a stick of butter',
+ 'ice cream': 'a scoop of ice cream', 'pudding': 'a cup of pudding', 'caramel': 'a piece of caramel', 'tofu': 'a block of tofu', 'asparagus': 'a stalk of asparagus',
+ 'string': 'a piece of string', 'yarn': 'a ball of yarn', 'thread': 'a spool of thread', 'aluminum foil': 'a roll of aluminum foil', 'plastic wrap': 'a roll of plastic wrap',
+ 'sandpaper': 'a sheet of sandpaper', 'chocolate': 'a piece of chocolate', 'cheese': 'a block of cheese', 'broccoli': 'a head of broccoli', 'cauliflower': 'a head of cauliflower',
+ 'wrapping paper': 'a roll of gift wrap', 'laundry detergent': 'a jug of detergent', 'dental floss': 'a pack of dental floss', 'cotton candy': 'a stick of cotton candy',
+ 'lasagna': 'a slice of lasagna', 'french toast': 'a slice of french toast', 'garlic bread': 'a slice of garlic bread', 'macaroni and cheese': 'a bowl of mac & cheese',
+ 'poutine': 'a plate of poutine', 'jello': 'a bowl of jello', 'gravy': 'a bowl of gravy', 'trail mix': 'a bag of trail mix', 'kale': 'a leaf of kale', 'spinach': 'a leaf of spinach',
+ 'basil': 'a basil leaf', 'mint': 'a mint leaf', 'ginger': 'a piece of ginger', 'bark': 'a piece of bark', 'makeup': 'a makeup kit', 'gold': 'a gold bar',
+ 'salt': 'a pinch of salt', 'sugar': 'a spoonful of sugar', 'flour': 'a bag of flour', 'pepper': 'a pinch of pepper', 'cinnamon': 'a cinnamon stick', 'wheat': 'a stalk of wheat',
+ 'Christmas lights': 'a string of lights', 'hair': 'a strand of hair', 'skin': 'a patch of skin', 'mud': 'a mud puddle',
+}
+assert all(len(v) < 24 for v in DISPLAY.values()), [v for v in DISPLAY.values() if len(v) >= 24]
+assert all(k in [o[0] for o in OBJ] for k in DISPLAY), [k for k in DISPLAY if k not in [o[0] for o in OBJ]]
+# the size of one of them (0 pocket .. 6 huge), where the old size was for a heap
+_SIZE1 = {'grapes': 0, 'french fries': 0, 'noodles': 0, 'nachos': 0, 'popcorn': 0, 'ice': 0, 'bacon': 0, 'ham': 0, 'toast': 0, 'chocolate': 0, 'corn': 1, 'celery': 1,
+          'gold': 1, 'hair': 0, 'skin': 0, 'bark': 0, 'kale': 0, 'spinach': 0, 'wheat': 1, 'fireworks': 1, 'salt': 0, 'sugar': 0, 'pepper': 0, 'flour': 1, 'paper': 0,
+          'money': 0, 'lasagna': 1, 'cheese': 1, 'mud': 2}
+OBJ = [(n, c, _SIZE1.get(n, s_), tg) for n, c, s_, tg in OBJ]
+# Stuff with no "one" of it: how much there is changes the answer, so every size and weight question answers "sometimes".
+MASS = ('sand', 'snow', 'dirt', 'moss', 'seaweed', 'rain', 'fog', 'smoke', 'fire', 'lightning')
+assert all(len(t) < 44 for k, t in Q), [t for k, t in Q if len(t) >= 44]
+
 EXTRA = {
  'songs': 'a spider;a star;the sun;rain;the moon;a sheep;a duck;a cow;a pig;a horse;a chicken;a mouse;a teddy bear;a bell;Santa Claus;a rainbow;a train;a bus;a boat;love;money;~a dog;~a cat;~a bee;~a butterfly;~a frog;~a monkey;~an elephant;~a fish;~the ocean;~a river;~a flower;~a rose;~a tree;~snow;~wind;~a baby;~a birthday party;~a cake;~a car;~a guitar;~a piano;~a drum;~time;~a dream;~a ghost;~a dragon;~a unicorn;~a crocodile;~a turkey;~a kite;~a balloon;~a phone;~a house;~a castle;~a mountain',
  'washable': 'a dog;a T-shirt;a towel;socks;a hat;a plate;a mug;a glass;a fork;a spoon;a knife;a frying pan;a pot;a car;a bicycle;an apple;grapes;a strawberry;a carrot;a potato;lettuce;a tomato;a cucumber;broccoli;a cherry;a peach;a pear;a blueberry;peas;a baby;a person;a bottle;a toothbrush;a comb;a pillow;a backpack;a shoe;a bathtub;a sink;a toilet;a window;a mirror;a bucket;a ball;LEGO bricks;a doll;~a teddy bear;~a cat;~a horse;~a pig;~a couch;~a bed;~a rabbit;~a hamster;~a table;~a chair;~a door;~a floor_x;~rice;~a mushroom;~an umbrella;~glasses;~a garbage can',
@@ -690,7 +802,7 @@ def answers(name, cat, size, tags):
     t['$heavy'] = sz(lambda s: s >= 3, lambda s: s == 2)          # (heavy = harder to lift than a backpack)
     if 'heavy' in t: t['$heavy'] = max(t['$heavy'], t['heavy'])
     t['$pound'] = sz(lambda s: s >= 2, lambda s: s == 1)
-    t['$small2'] = sz(lambda s: s <= 1, lambda s: False)           # (small = fits in one hand)
+    t['$small2'] = 0 if s is None else (0 if s == 0 else (3 if s == 1 else 4))   # ("bigger than a hamster": pocket things no, mug-sized usually, the rest yes)
     t['$duck'] = sz(lambda s: s >= 3, lambda s: s == 2)
     if t.get('$heavy', 0) >= 3: t['$pound'] = 4
     # hard: made of metal, glass or wood, or has a shell (soft things aren't)
@@ -783,6 +895,13 @@ def answers(name, cat, size, tags):
     t.update(extra_answers(name, cat, size, t)); t.update(force)
     # Answers a real player gave in the training survey. One person's answer is evidence, not the truth (the next player may
     # answer differently), so it moves Zandor to "usually" / "rarely" rather than a flat yes / no, unless he already leaned that way.
+    # lighter than a hot dog: pocket things mostly are, unless they are dense; paper and cloth things up to a mug's size are too
+    _s = None if size == 'x' else size
+    t['$light'] = 0 if _s is None else (3 if _s == 0 else ((3 if (t.get('paper', 0) >= 3 or t.get('cloth', 0) >= 3) else 1) if _s == 1 else 0))
+    if name in ('a phone', 'a wallet', 'a hockey puck', 'a lock', 'a pocket knife', 'a rock', 'a watch', 'a battery', 'a golf ball', 'a baseball', 'a stapler', 'a mug', 'a brick', 'a smartwatch', 'a harmonica', 'a camera'): t['$light'] = 0 if name not in ('a watch', 'a battery', 'a golf ball', 'a smartwatch', 'a harmonica') else 2
+    if name in ('a feather', 'a leaf', 'a tissue', 'a napkin', 'a balloon', 'a straw', 'a paper airplane', 'an envelope', 'a stamp', 'a ticket', 'a receipt', 'a sticky note', 'a paper clip', 'a button', 'a coin', 'a key', 'a match', 'a toothpick', 'a needle', 'a hair tie', 'a rubber band', 'a bubble', 'a snowflake', 'a butterfly', 'a fly', 'a mosquito', 'an ant', 'a ladybug', 'a bee'): t['$light'] = 4
+    if name in MASS:
+        for k in ('$small', '$small2', '$pound', '$duck', '$heavy', '$light', '$microwave', '$pickup', '$hold', 'pocket'): t[k] = 2
     for k, v in LEARNED.get(name, {}).items():
         cur = t.get(k, 0)
         t[k] = (4 if cur >= 3 else 3) if v >= 3 else ((0 if cur <= 1 else 1) if v <= 1 else 2)

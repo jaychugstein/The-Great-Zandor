@@ -1,6 +1,6 @@
 // THE GREAT ZANDOR - a 21 questions guessing game for the Arduboy FX, in the spirit of the 2000s handheld guessing toys,
 // hosted by a creepy fortune teller in his booth.
-// Think of something. It asks "Animal, Vegetable or Other?", then up to 21 yes / no questions, guessing along
+// Look at something near you. It asks what kind of thing it is (living, object, natural, man-made), then up to 21 questions, guessing along
 // the way when it's sure. If its guess at 21 is wrong it keeps going to 25. by jaychugstein
 //
 // Controls: the four arrows answer, like the toy's four buttons: up YES, down NO, left SOMETIMES, right UNKNOWN.
@@ -71,8 +71,8 @@ bool wasAsked(uint8_t q) { return asked[q >> 3] >> (q & 7) & 1; }
 const int8_t DELTA[4][5] PROGMEM = {                           // how an answer moves a thing's score, by how that thing answers (no .. yes)
   { -4, -2, 1, 2, 4 },                                         // YES
   { 4, 2, 1, -2, -4 },                                         // NO
-  { 0, 0, 0, 0, 0 },                                           // UNKNOWN
-  { -3, 1, 4, 1, -3 } };                                       // SOMETIMES
+  { -1, 0, 2, 0, -1 },                                         // UNKNOWN (people say it when a thing is neither one nor the other)
+  { -4, 1, 5, 1, -4 } };                                       // SOMETIMES
 const uint8_t MAXH = 26, MAXW = 10;
 uint8_t hq[MAXH], ha[MAXH], nh;                                // the questions answered so far, and the answers
 uint16_t wrong[MAXW]; bool wrongOut[MAXW]; uint8_t nw;         // things he guessed wrongly (ruled out, or just doubted)
@@ -178,7 +178,8 @@ bool speak(PGM_P prompt) {                                     // what he says, 
 }
 
 const char S_YES[] PROGMEM = "YES", S_NO[] PROGMEM = "NO", S_UNK[] PROGMEM = "UNKNOWN", S_SOME[] PROGMEM = "SOMETIMES";
-const char S_AN[] PROGMEM = "ANIMAL", S_VEG[] PROGMEM = "VEGETABLE", S_OTH[] PROGMEM = "OTHER";
+const char S_AN[] PROGMEM = "LIVING", S_VEG[] PROGMEM = "OBJECT", S_MIN[] PROGMEM = "NATURAL", S_OTH[] PROGMEM = "MAN-MADE";
+PGM_P const CATL[4] = { S_AN, S_VEG, S_MIN, S_OTH };
 PGM_P const ANS[4] = { S_YES, S_NO, S_SOME, S_UNK };          // (in arrow order: up, down, left, right)
 const uint8_t ANSV[4] = { 0, 1, 3, 2 };                        // arrow -> answer: yes, no, sometimes, unknown
 
@@ -199,21 +200,28 @@ void loop() {
       ab.drawPixel(79, 14, WHITE); ab.drawPixel(79, 16, WHITE); ab.drawPixel(124, 14, WHITE); ab.drawPixel(124, 16, WHITE);   // (the curtain cords)
       // the words, each line centred under the last (the column is 76 wide)
       at(11, 3); pp(PSTR("THE GREAT")); big(2, 13, PSTR("ZANDOR")); at(14, 31); pp(PSTR("SEES ALL"));
-      if (ab.audio.enabled()) { at(14, 45); pp(PSTR("SOUND ON")); } else { at(11, 45); pp(PSTR("SOUND OFF")); }
-      at(14, 55); pp(PSTR("B: ENTER"));
-      if (ab.justPressed(UP_BUTTON) || ab.justPressed(DOWN_BUTTON)) { if (ab.audio.enabled()) ab.audio.off(); else ab.audio.on(); ab.audio.saveOnOff(); }
+      // sound: two boxes, ON and OFF. Left / right picks one (the lit box is how it is set); B enters.
+      { bool on = ab.audio.enabled();
+        at(1, 43); pp(PSTR("SOUND"));
+        if (on) { ab.fillRoundRect(33, 40, 18, 12, 2, WHITE); tc_ = BLACK; } else ab.drawRoundRect(33, 40, 18, 12, 2, WHITE);
+        at(36, 43); pp(PSTR("ON")); tc_ = WHITE;
+        if (!on) { ab.fillRoundRect(52, 40, 23, 12, 2, WHITE); tc_ = BLACK; } else ab.drawRoundRect(52, 40, 23, 12, 2, WHITE);
+        at(55, 43); pp(PSTR("OFF")); tc_ = WHITE;
+        if (ab.justPressed(LEFT_BUTTON) && !on) { ab.audio.on(); ab.audio.saveOnOff(); beep(); }
+        if (ab.justPressed(RIGHT_BUTTON) && on) { ab.audio.off(); ab.audio.saveOnOff(); } }
+      at(14, 56); pp(PSTR("B: ENTER"));
       if (B) { randomSeed(micros()); newGame(); eerie(); }
       break;
     case S_THINK:
       zandor(); tclear();
-      if (line_ & 1) taddP(PSTR("AH... A VISITOR. COME CLOSER. CLOSER.|I HAVE BEEN EXPECTING YOU.|THINK OF SOMETHING. DO NOT TRY TO HIDE IT."));
-      else taddP(PSTR("THE BOOTH IS COLD TONIGHT...|HOLD A THOUGHT IN YOUR MIND, MORTAL.|I WILL TAKE IT FROM YOU."));
+      if (line_ & 1) taddP(PSTR("AH... A VISITOR. COME CLOSER. CLOSER.|LOOK AROUND YOU. CHOOSE ONE THING YOU CAN SEE.|STARE AT IT. I WILL SEE IT THROUGH YOUR EYES."));
+      else taddP(PSTR("THE BOOTH IS COLD TONIGHT...|LET YOUR EYES REST ON ONE THING NEAR YOU, MORTAL.|DO NOT TELL ME. I AM ALREADY LOOKING."));
       if (speak(PSTR("B: YES")) && B && tmr > 6) { st = S_CAT; sel = 0; blip(); }
       break;
     case S_SAY:                                                // a mutter between questions
       zandor(); tclear();
-      { const char* const L[12] = { PSTR("YOUR MIND IS A HOUSE WITH THE DOOR LEFT OPEN..."), PSTR("I CAN HEAR YOUR THOUGHTS SCRATCHING AT THE GLASS..."),
-          PSTR("DON'T LOOK BEHIND YOU. JUST ANSWER."), PSTR("THE SPIRITS ARE LAUGHING AT YOU..."), PSTR("YOUR SECRETS ARE SO... DELICIOUS."),
+      { const char* const L[12] = { PSTR("YOUR EYES ARE WINDOWS. I CLIMBED IN."), PSTR("I CAN HEAR YOUR THOUGHTS SCRATCHING AT THE GLASS..."),
+          PSTR("DON'T LOOK BEHIND YOU. JUST ANSWER."), PSTR("DO NOT LOOK AWAY FROM IT. I AM NOT DONE."), PSTR("I SEE WHAT YOU SEE. IT IS... DELICIOUS."),
           PSTR("A HUNDRED YEARS IN THIS BOX. I KNOW EVERYTHING."), PSTR("THE LAST ONE WHO LIED TO ME... IS STILL HERE."),
           PSTR("SOMETHING IN THE DARK JUST SAID YOUR NAME."), PSTR("KEEP STILL. I AM COUNTING YOUR HEARTBEATS."),
           PSTR("THE CANDLE BENDS TOWARD YOU. IT LIKES YOU."), PSTR("I HAVE WORN FACES LIKE YOURS BEFORE."),
@@ -224,23 +232,16 @@ void loop() {
       break;
     case S_PONDER:                                             // a moment's thought before a guess (the dots appear one by one)
       zandor(); tclear();
-      if (finalGuess) taddP(PSTR("THE GLASS GROWS COLD... I SEE IT")); else if (qn & 1) taddP(PSTR("I AM INSIDE YOUR HEAD NOW")); else taddP(PSTR("SOMETHING STIRS IN THE CRYSTAL"));
+      if (finalGuess) taddP(PSTR("THE GLASS GROWS COLD... I SEE IT")); else if (qn & 1) taddP(PSTR("I AM BEHIND YOUR EYES NOW")); else taddP(PSTR("SOMETHING STIRS IN THE CRYSTAL"));
       for (uint8_t d = 0; d < 3 && tmr > 10 + d * 12; d++) tadd(".");
       speak(0);
       if (tmr == 12 || tmr == 24 || tmr == 36) snd.tone(220 - (tmr / 12) * 12, 60);
       if (tmr > 60) { st = S_GUESS; sel = 0; }
       break;
-    case S_CAT:                                                // question 1: which group. Three boxes: two on top, OTHER wide underneath.
-      frame(35); tclear(); taddP(PSTR("TELL ME... ANIMAL, VEGETABLE, OR OTHER?")); wrap(5, 4, 19, 3); qlabel(26);
-      { PGM_P const L[3] = { S_AN, S_VEG, S_OTH };
-        for (uint8_t i = 0; i < 3; i++) {
-          int16_t x = (i == 1) ? 65 : 0, y = (i == 2) ? 51 : 37, w = (i == 2) ? 128 : 63;
-          if (i == sel) { ab.fillRoundRect(x, y, w, 13, 3, WHITE); tc_ = BLACK; } else ab.drawRoundRect(x, y, w, 13, 3, WHITE);
-          at(x + w / 2 - (int16_t)strlen_P(L[i]) * 3, y + 3); pp(L[i]); tc_ = WHITE;
-        } }
-      if (ar == 0 || ar == 1) { sel = (sel == 2) ? 0 : 2; beep(); }             // up / down: between the top row and OTHER
-      if ((ar == 2 || ar == 3) && sel < 2) { sel ^= 1; beep(); }                 // left / right: along the top row
-      if (B) { cat = (sel == 2) ? 3 : sel; blip(); next(); }                     // (the groups are bits 0 animal, 1 vegetable, 3 other in the table)
+    case S_CAT:                                                // question 1: what kind of thing are you looking at? Four boxes.
+      frame(35); tclear(); taddP(PSTR("WHAT HOLDS YOUR GAZE? IS IT...")); wrap(5, 4, 19, 3); qlabel(26);
+      choices(CATL);
+      if (picked(ar)) { cat = sel; blip(); next(); }           // (the boxes are bits 0 living, 1 object, 2 natural, 3 man-made in the table; a thing can sit in several)
       break;
     case S_ASK:
       frame(35); tclear(); { char q[QLEN]; FX::readDataBytes(QTEXT + (uint24_t)curQ * QLEN, (uint8_t*)q, QLEN); tadd(q); } wrap(5, 4, 19, 3); qlabel(26);
@@ -248,7 +249,7 @@ void loop() {
       if (picked(ar)) { apply(curQ, ANSV[sel]); blip(); next(); }
       break;
     case S_GUESS:
-      tclear(); if (finalGuess) taddP(PSTR("I SEE IT CLEARLY... IT IS ")); else taddP(PSTR("THE SPIRITS WHISPER... IS IT "));
+      tclear(); if (finalGuess) taddP(PSTR("I SEE IT CLEARLY... IT IS ")); else taddP(PSTR("YOUR EYES SAY... IS IT "));
       tadd(nm); tadd("?"); frame(35); wrap(5, 4, 19, 3); qlabel(26);
       choices(ANS);
       if (picked(ar)) {
@@ -263,7 +264,7 @@ void loop() {
       break;
     case S_WIN:
       zandor(); tclear();
-      { const char* const L[7] = { PSTR("YOU CANNOT HIDE A THOUGHT FROM THE DEAD..."), PSTR("NOTHING ESCAPES ZANDOR."), PSTR("I SAW IT BEFORE YOU DID."),
+      { const char* const L[7] = { PSTR("NOTHING YOU LOOK AT IS YOURS ALONE..."), PSTR("NOTHING ESCAPES ZANDOR."), PSTR("I SAW IT BEFORE YOU LOOKED."),
           PSTR("DID YOU REALLY THINK YOU COULD HIDE IT FROM ME?"), PSTR("DELICIOUS. ANOTHER MIND READ."), PSTR("IT WAS WRITTEN ON THE INSIDE OF YOUR SKULL."),
           PSTR("THE GLASS NEVER LIES. NEITHER DO I.") }; taddP(L[line_ % 7]); }
       taddP(PSTR("|IT IS ")); tadd(nm); taddP(PSTR("... HEH HEH HEH."));

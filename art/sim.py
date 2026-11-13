@@ -5,11 +5,11 @@ M = matrix(); N = len(OBJ); NQ = len(Q)
 CATS = 'AVMO'
 DV = os.environ.get('DV','-4,-2,1,2,4'); _d=[int(x) for x in DV.split(',')]
 _n=[int(x) for x in os.environ.get('DN',','.join(str(v) for v in _d[::-1])).split(',')]
-D = {'Y': _d, 'N': _n, 'U': [0] * 5, 'S': [-3, 1, 4, 1, -3]}
+D = {'Y': _d, 'N': _n, 'U': [-1, 0, 2, 0, -1] * 5, 'S': [-4, 1, 5, 1, -4]}
 import os
 K, MARGIN, EARLY = int(os.environ.get('K',24)), int(os.environ.get('MG',20)), int(os.environ.get('EA',10))
 WB = int(os.environ.get('WB',12))
-from pack import GROUPS
+from pack import GROUPS, PRIMARY
 SPARSE = [max(0, min(4, (18 - sum(1 for v in M[i] if v >= 3)) // 3)) for i in range(N)]
 
 def pick(score, asked, rnd):
@@ -42,12 +42,11 @@ def answer(v, rnd, noise):
 
 def game(target, rnd, noise=0.05):
     score = [0] * N; asked = [False] * NQ; banned = set()
-    cat = OBJ[target][1]
-    if rnd.random() < 0.25: cat = rnd.choice(sorted(GROUPS[target]))     # (people don't agree on the group)
-    if rnd.random() < noise: cat = rnd.choice('AVO')
-    if cat == 'M': cat = 'O'                                  # (no Mineral box any more)
+    cat = PRIMARY[target]
+    if cat != 'A' or rnd.random() < 0.25: cat = rnd.choice(sorted(GROUPS[target]))   # (a mug is an OBJECT and MAN-MADE: either box is right)     # (people don't agree on the box)
+    if rnd.random() < noise: cat = rnd.choice('AVMO')
     CS = int(os.environ.get('CS', 5))
-    for i in range(N): score[i] = (CS if (cat in GROUPS[i] or (cat == 'O' and 'M' in GROUPS[i])) else -CS) - 2 * SPARSE[i]
+    for i in range(N): score[i] = (CS if cat in GROUPS[i] else -CS) - 2 * SPARSE[i]
     qn = 1
     while qn < 25:
         order = sorted(range(N), key=lambda i: -score[i]); a, b = order[0], order[1]

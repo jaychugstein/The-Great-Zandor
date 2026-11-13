@@ -5,7 +5,7 @@ import numpy as np, fastsim as F
 from data import Q, OBJ
 rnd = random.Random(7); cnt = [collections.Counter() for _ in range(F.N)]
 def game(target):
-    cat = OBJ[target][1].replace('M', 'O'); score = np.where(F.INGRP[cat], F.CS, -F.CS) - 2 * F.SP; asked = np.zeros(F.NQ, dtype=bool)
+    cat = F.PRIMARY[target]; score = np.where(F.INGRP[cat], F.CS, -F.CS) - 2 * F.SP; asked = np.zeros(F.NQ, dtype=bool)
     for step in range(23):
         q = F.pick(score, asked, rnd); asked[q] = True; cnt[target][q] += 1
         score = score + F.D[F.answer(int(F.M[target, q]), rnd, 0.08)][F.M[:, q]]
@@ -17,5 +17,6 @@ for rnd_no in range(10):
     for t in order:
         qs = [q for q, _ in cnt[t].most_common()]
         if rnd_no < len(qs): queue.append([t, qs[rnd_no], int(F.M[t, qs[rnd_no]])])
-json.dump({'things': [o[0] for o in OBJ], 'questions': [[k, t] for k, t in Q], 'queue': queue}, open(sys.argv[1], 'w'), separators=(',', ':'))
+from data import DISPLAY
+json.dump({'things': [o[0] for o in OBJ], 'show': [DISPLAY.get(o[0], o[0]) for o in OBJ], 'questions': [[k, t] for k, t in Q], 'queue': queue}, open(sys.argv[1], 'w'), separators=(',', ':'))
 print(len(queue), 'cards')
