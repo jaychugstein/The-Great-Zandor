@@ -4,7 +4,7 @@
 
 Look around you. Pick one thing you can see. The Great Zandor will tell you what you are looking at in 21 questions... or fewer.
 
-A 21 questions game hosted by a creepy fortune teller who sees through your eyes. He knows nearly 1,000 things you might be
+A 21 questions game hosted by a creepy fortune teller who sees through your eyes. He knows 1,100 things you might be
 looking at, at home, at work, in a waiting room or down by the lake: animals, food, furniture, clothes, gadgets, tools, vehicles and more.
 
 By **jaychugstein** · MIT License · Made for the **Arduboy FX and FX-C** (it uses the FX flash chip).
@@ -57,7 +57,8 @@ python3 pack.py       # the questions, the things and the answer table -> TheGre
 python3 sim.py        # optional: plays thousands of pretend games and reports how often he wins
 ```
 
-`art/data.py`, `art/more.py`, `art/more2.py` and `art/more3.py` hold the questions and the things he knows, with their answers.
+`art/data.py`, `art/more.py`, `art/more2.py`, `art/more3.py` and `art/more4.py` hold the questions and the things he knows, with their answers.
+`art/fixes.py` holds plain-fact corrections (a basketball is a ball, the moon glows).
 `art/learned.json` holds the answers real players gave in the training survey (they override the rest).
 `art/fastsim.py` is a quicker copy of the simulator, and `art/mkqueue.py` builds the question list for the training survey.
 `art/worst.py` and `art/audit.py` list the things he misses most.

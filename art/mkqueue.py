@@ -17,6 +17,10 @@ for rnd_no in range(10):
     for t in order:
         qs = [q for q, _ in cnt[t].most_common()]
         if rnd_no < len(qs): queue.append([t, qs[rnd_no], int(F.M[t, qs[rnd_no]])])
+# the newest things (more4.py) go to the front of the line: they have had no answers from real players yet
+from more4 import MORE4
+_new = set(m[0] for m in MORE4)
+queue = [c for c in queue if OBJ[c[0]][0] in _new] + [c for c in queue if OBJ[c[0]][0] not in _new]
 from data import DISPLAY
 json.dump({'things': [o[0] for o in OBJ], 'show': [DISPLAY.get(o[0], o[0]) for o in OBJ], 'questions': [[k, t] for k, t in Q], 'queue': queue}, open(sys.argv[1], 'w'), separators=(',', ':'))
 print(len(queue), 'cards')

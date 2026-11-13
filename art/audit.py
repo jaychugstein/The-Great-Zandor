@@ -13,7 +13,7 @@ for t in range(F.N):
         if g: w25 += 1
     res[t] = (w20, w25)
 def kind(t):
-    g = lambda k: F.M[t, KEY[k]]
+    g = lambda k: F.M[t, KEY[k]] if k in KEY else 0   # (some questions have been retired)
     n, c, size, _ = OBJ[t]
     if g('person') >= 3: return 'person'
     if size == 'x': return 'idea'

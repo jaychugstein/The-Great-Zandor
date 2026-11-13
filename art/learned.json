@@ -10,10 +10,31 @@
 "a CD": {
 "$pound": 0
 },
+"a Christmas stocking": {
+"$pound": 2,
+"$steal": 4,
+"comfort": 2,
+"noise": 0
+},
 "a Christmas tree": {
 "leaves": 0,
 "sliced": 4,
 "washable": 0
+},
+"a DVD or Blu-ray": {
+"$outdoors": 0,
+"drawer": 0,
+"float": 0,
+"plastic": 4,
+"played": 4,
+"toy": 0
+},
+"a DVD or Blu-ray player": {
+"$hard": 4,
+"$household": 4,
+"$pound": 2,
+"cord": 4,
+"hotwhen": 2
 },
 "a GPS": {
 "$bring": 4,
@@ -43,6 +64,12 @@
 "drawer": 2,
 "public": 2
 },
+"a VR headset": {
+"$hard": 4,
+"$outdoors": 0,
+"$pound": 2,
+"plastic": 4
+},
 "a baby": {
 "$heavy": 2,
 "alive": 4,
@@ -53,6 +80,21 @@
 "$steal": 0,
 "plastic": 4,
 "public": 2
+},
+"a baby gate": {
+"$hard": 4,
+"$outdoors": 0,
+"$person": 0,
+"$pickup": 4,
+"box": 4,
+"metal": 2
+},
+"a baby monitor": {
+"$outdoors": 0,
+"$pound": 2,
+"loud": 2,
+"noise": 4,
+"plugin": 4
 },
 "a back": {
 "grows": 4
@@ -145,6 +187,13 @@
 "$pound": 2,
 "forest": 2
 },
+"a bath bomb": {
+"$hard": 4,
+"$pound": 0,
+"$steal": 0,
+"drawer": 2,
+"drugstore": 4
+},
 "a bath mat": {
 "$bring": 0,
 "$outdoors": 0
@@ -161,6 +210,13 @@
 "a beach": {
 "box": 0,
 "payuse": 2
+},
+"a bean bag chair": {
+"$hard": 0,
+"$movable": 4,
+"$pickup": 2,
+"comfort": 4,
+"float": 0
 },
 "a bear": {
 "$car": 0,
@@ -252,6 +308,18 @@
 "claws": 4,
 "meat": 2
 },
+"a bird feeder": {
+"$hard": 4,
+"$outdoors": 4,
+"float": 0,
+"shoebox": 2
+},
+"a birdbath": {
+"$home": 0,
+"$outdoors": 4,
+"$pickup": 2,
+"floor": 2
+},
 "a birdcage": {
 "$heavy": 2,
 "metal": 4
@@ -287,10 +355,24 @@
 "noise": 4,
 "payuse": 4
 },
+"a bobby pin": {
+"$pound": 0,
+"drawer": 2,
+"metal": 4,
+"public": 4
+},
 "a book": {
 "$hard": 2,
 "$pound": 2,
 "box": 0
+},
+"a bookmark": {
+"$hard": 2,
+"$pound": 0,
+"drawer": 2,
+"envelope": 4,
+"float": 2,
+"public": 2
 },
 "a bookshelf": {
 "$home": 4,
@@ -304,6 +386,14 @@
 "$bring": 0,
 "$hard": 4,
 "box": 0
+},
+"a bottle of white-out": {
+"$bring": 2,
+"$hard": 4,
+"$pound": 0,
+"desk": 4,
+"public": 2,
+"write": 2
 },
 "a bottle opener": {
 "$hard": 4,
@@ -334,6 +424,12 @@
 "$bring": 2,
 "$pound": 0,
 "box": 2
+},
+"a bra": {
+"$outdoors": 0,
+"$pound": 0,
+"box": 2,
+"drawer": 2
 },
 "a bracelet": {
 "$pound": 0,
@@ -371,6 +467,13 @@
 "$pound": 0,
 "box": 0
 },
+"a bubble wand": {
+"$hard": 4,
+"$pound": 0,
+"drawer": 2,
+"float": 2,
+"public": 2
+},
 "a bucket": {
 "$hard": 4,
 "$pound": 2,
@@ -395,6 +498,19 @@
 "metal": 4,
 "noise": 4
 },
+"a bulletin board": {
+"$hard": 2,
+"$microwave": 2,
+"$outdoors": 2,
+"$person": 2,
+"noise": 0
+},
+"a bungee cord": {
+"$hard": 0,
+"$pound": 0,
+"$steal": 0,
+"drawer": 2
+},
 "a buoy": {
 "$pound": 4,
 "$steal": 0,
@@ -415,6 +531,14 @@
 "a bush": {
 "$car": 2,
 "$hard": 2
+},
+"a butter dish": {
+"$hard": 4,
+"$pound": 0,
+"box": 2,
+"drawer": 0,
+"noise": 0,
+"plastic": 2
 },
 "a butter knife": {
 "$pound": 0,
@@ -479,6 +603,20 @@
 "$pound": 2,
 "box": 2
 },
+"a can of hairspray": {
+"$hard": 4,
+"$pound": 2,
+"$steal": 0,
+"drawer": 2,
+"metal": 4
+},
+"a can of paint": {
+"$hard": 4,
+"$outdoors": 0,
+"$pound": 4,
+"plastic": 2,
+"smell": 4
+},
 "a can opener": {
 "$steal": 0,
 "metal": 4
@@ -490,6 +628,13 @@
 "a candy cane": {
 "$bring": 2,
 "$outdoors": 0
+},
+"a candy wrapper": {
+"$bring": 2,
+"$hard": 0,
+"$outdoors": 2,
+"box": 2,
+"float": 2
 },
 "a canoe": {
 "$car": 0,
@@ -503,6 +648,13 @@
 "$car": 2,
 "fast": 2,
 "payuse": 4
+},
+"a car jack": {
+"$heavy": 4,
+"$small": 0,
+"$steal": 2,
+"box": 2,
+"metal": 4
 },
 "a car seat": {
 "$pound": 4,
@@ -548,6 +700,13 @@
 "a ceiling fan": {
 "$steal": 0,
 "box": 4
+},
+"a cereal box": {
+"$hard": 0,
+"$pound": 2,
+"$small": 2,
+"disposable": 2,
+"float": 0
 },
 "a chain": {
 "$bring": 2,
@@ -612,6 +771,12 @@
 "$car": 2,
 "$household": 2
 },
+"a chip clip": {
+"$pound": 0,
+"drawer": 2,
+"float": 2,
+"public": 2
+},
 "a chipmunk": {
 "$movable": 4,
 "$pickup": 4,
@@ -653,6 +818,14 @@
 "$household": 4,
 "$steal": 0
 },
+"a clothesline": {
+"$household": 0,
+"$microwave": 2,
+"$person": 2,
+"$pound": 2,
+"metal": 2,
+"noise": 2
+},
 "a clothespin": {
 "$hard": 4,
 "float": 0,
@@ -682,6 +855,13 @@
 "$hard": 4,
 "$pound": 2
 },
+"a coffee filter": {
+"$hard": 0,
+"box": 2,
+"drawer": 2,
+"drugstore": 2,
+"public": 0
+},
 "a coffee maker": {
 "$pound": 4,
 "box": 4
@@ -697,6 +877,13 @@
 "a colander": {
 "$pound": 2,
 "plastic": 2
+},
+"a coloring book": {
+"$hard": 2,
+"$outdoors": 0,
+"$pound": 0,
+"drawer": 2,
+"drugstore": 2
 },
 "a comb": {
 "$hard": 2,
@@ -729,6 +916,13 @@
 "a cookie": {
 "public": 4
 },
+"a cookie jar": {
+"$hard": 4,
+"$outdoors": 0,
+"$pound": 2,
+"box": 2,
+"metal": 2
+},
 "a cooler": {
 "$bring": 4
 },
@@ -741,6 +935,12 @@
 "$pound": 0,
 "$steal": 0,
 "drawer": 4
+},
+"a cotton ball": {
+"$hard": 0,
+"drawer": 2,
+"drugstore": 4,
+"public": 0
 },
 "a couch": {
 "$hard": 0,
@@ -865,10 +1065,23 @@
 "$pound": 2,
 "box": 2
 },
+"a dish rack": {
+"$outdoors": 0,
+"$pound": 2,
+"plastic": 2,
+"washable": 2
+},
 "a dishwasher": {
 "$microwave": 4,
 "$outdoors": 0,
 "box": 4
+},
+"a dishwasher pod": {
+"$pound": 0,
+"drawer": 2,
+"drugstore": 2,
+"float": 0,
+"public": 0
 },
 "a dock": {
 "$outdoors": 4,
@@ -878,6 +1091,13 @@
 "a dog": {
 "loud": 4,
 "zoo": 4
+},
+"a dog bed": {
+"$hard": 0,
+"$pound": 2,
+"box": 2,
+"comfort": 0,
+"float": 0
 },
 "a dog bowl": {
 "$pound": 0,
@@ -932,9 +1152,21 @@
 "box": 0,
 "noise": 0
 },
+"a doorstop": {
+"$hard": 4,
+"$pound": 2,
+"$steal": 0,
+"drawer": 0
+},
 "a dragonfly": {
 "forest": 2,
 "wild": 4
+},
+"a dreamcatcher": {
+"$hard": 2,
+"$pound": 0,
+"$steal": 0,
+"soft": 2
 },
 "a dress": {
 "$bring": 2,
@@ -967,10 +1199,24 @@
 "$steal": 2,
 "box": 4
 },
+"a dryer sheet": {
+"$hard": 0,
+"$pound": 0,
+"drawer": 2,
+"float": 2,
+"public": 2
+},
 "a duck": {
 "eats_plants": 4,
 "meat": 0,
 "pet": 2
+},
+"a dumbbell": {
+"$heavy": 2,
+"$outdoors": 2,
+"$pound": 4,
+"$steal": 0,
+"metal": 2
 },
 "a dustpan": {
 "$pound": 0,
@@ -997,6 +1243,12 @@
 "$pound": 0,
 "grows": 4
 },
+"a feather duster": {
+"$hard": 0,
+"$outdoors": 0,
+"$pound": 0,
+"comfort": 0
+},
 "a fence": {
 "$outdoors": 4,
 "$pound": 4
@@ -1010,6 +1262,13 @@
 "$car": 4,
 "$steal": 0,
 "metal": 4
+},
+"a fidget spinner": {
+"$outdoors": 0,
+"$pound": 0,
+"drawer": 2,
+"plastic": 2,
+"public": 4
 },
 "a field": {
 "$hard": 2,
@@ -1047,6 +1306,12 @@
 "$car": 0,
 "$outdoors": 0,
 "metal": 2
+},
+"a first aid kit": {
+"$hard": 2,
+"$pound": 2,
+"lid": 4,
+"water": 2
 },
 "a fish": {
 "$pound": 0,
@@ -1087,6 +1352,13 @@
 "$pound": 0,
 "leaves": 4
 },
+"a flower pot": {
+"$hard": 4,
+"$outdoors": 2,
+"$pound": 2,
+"$steal": 2,
+"container": 4
+},
 "a flute": {
 "$pound": 0,
 "$steal": 2,
@@ -1096,9 +1368,23 @@
 "claws": 0,
 "wet": 2
 },
+"a fly swatter": {
+"$outdoors": 0,
+"$pound": 0,
+"box": 0,
+"drawer": 2,
+"plastic": 4
+},
 "a folder": {
 "$outdoors": 0,
 "box": 2
+},
+"a food container": {
+"$pound": 2,
+"box": 2,
+"drawer": 2,
+"float": 4,
+"kitchen": 4
 },
 "a foot": {
 "$person": 0,
@@ -1153,6 +1439,13 @@
 "a funnel": {
 "$hard": 4
 },
+"a furnace": {
+"$car": 0,
+"$outdoors": 0,
+"$pound": 4,
+"loud": 2,
+"noise": 4
+},
 "a game controller": {
 "$pound": 0,
 "box": 4,
@@ -1186,6 +1479,19 @@
 "a garden": {
 "$household": 4
 },
+"a garlic press": {
+"$pound": 0,
+"$steal": 0,
+"drawer": 4,
+"metal": 2
+},
+"a gas can": {
+"$outdoors": 4,
+"$pound": 2,
+"container": 4,
+"hardware": 4,
+"plastic": 2
+},
 "a gas station": {
 "$home": 0,
 "noise": 2
@@ -1209,6 +1515,12 @@
 "box": 2,
 "metal": 2,
 "plastic": 2
+},
+"a glow stick": {
+"$hard": 2,
+"$outdoors": 2,
+"$pound": 0,
+"public": 4
 },
 "a glue gun": {
 "$pound": 0,
@@ -1329,6 +1641,13 @@
 "claws": 4,
 "forest": 0
 },
+"a hamster wheel": {
+"$home": 0,
+"$outdoors": 0,
+"$pound": 0,
+"drawer": 0,
+"float": 0
+},
 "a hand": {
 "$pound": 0,
 "alive": 4,
@@ -1374,6 +1693,12 @@
 "$hard": 0,
 "$outdoors": 0,
 "$pound": 0
+},
+"a hearing aid": {
+"$pound": 0,
+"$steal": 0,
+"plastic": 4,
+"plugin": 2
 },
 "a heater": {
 "$bring": 2,
@@ -1459,6 +1784,13 @@
 "box": 0,
 "noise": 2
 },
+"a hot water bottle": {
+"$hard": 0,
+"$pound": 2,
+"box": 2,
+"comfort": 4,
+"soft": 4
+},
 "a house": {
 "$hard": 4,
 "$pound": 4,
@@ -1468,6 +1800,20 @@
 "$hard": 4,
 "$person": 0,
 "$pound": 0
+},
+"a humidifier": {
+"$hard": 4,
+"$pound": 4,
+"box": 4,
+"loud": 0,
+"metal": 2
+},
+"a jack-in-the-box": {
+"$bring": 2,
+"$hard": 4,
+"$outdoors": 0,
+"box": 4,
+"drawer": 0
 },
 "a jack-o-lantern": {
 "$indoors": 0,
@@ -1494,9 +1840,30 @@
 "$person": 2,
 "float": 4
 },
+"a jewelry box": {
+"$hard": 2,
+"$outdoors": 0,
+"$pound": 2,
+"$steal": 4,
+"drawer": 2
+},
+"a juice box": {
+"$bring": 4,
+"$hard": 0,
+"drawer": 0,
+"public": 4
+},
 "a jump rope": {
 "$bring": 2,
 "$pound": 0
+},
+"a kaleidoscope": {
+"$hard": 4,
+"$outdoors": 0,
+"$pound": 2,
+"box": 2,
+"drawer": 2,
+"shoebox": 4
 },
 "a kangaroo": {
 "$microwave": 4,
@@ -1519,6 +1886,28 @@
 "a keyboard": {
 "$pound": 2,
 "box": 4
+},
+"a keychain": {
+"$outdoors": 2,
+"$pound": 0,
+"drawer": 2,
+"metal": 2,
+"public": 4
+},
+"a kiddie pool": {
+"$car": 0,
+"$household": 0,
+"$microwave": 4,
+"$pound": 2,
+"noise": 0
+},
+"a kitchen timer": {
+"$bring": 0,
+"$hard": 4,
+"$pound": 0,
+"box": 2,
+"drawer": 2,
+"public": 0
 },
 "a kite": {
 "$outdoors": 4,
@@ -1543,6 +1932,14 @@
 "$pound": 4,
 "forest": 4,
 "zoo": 4
+},
+"a label maker": {
+"$pound": 0,
+"drawer": 2,
+"float": 0,
+"plastic": 4,
+"plugin": 2,
+"school": 4
 },
 "a ladder": {
 "$person": 2,
@@ -1574,6 +1971,13 @@
 "metal": 2,
 "plastic": 2
 },
+"a lanyard": {
+"$hard": 0,
+"$outdoors": 2,
+"box": 0,
+"drawer": 2,
+"public": 4
+},
 "a laptop": {
 "metal": 2,
 "plugin": 4,
@@ -1596,6 +2000,12 @@
 "$pound": 0,
 "sliced": 0
 },
+"a leaf blower": {
+"$hard": 4,
+"$outdoors": 4,
+"$pound": 4,
+"$steal": 4
+},
 "a leash": {
 "$outdoors": 4,
 "$pound": 0
@@ -1615,6 +2025,14 @@
 "$bring": 2,
 "$pound": 0,
 "envelope": 4
+},
+"a letter opener": {
+"$outdoors": 0,
+"blade": 4,
+"drawer": 2,
+"metal": 2,
+"public": 4,
+"school": 2
 },
 "a level": {
 "$bring": 0,
@@ -1651,6 +2069,13 @@
 "$pound": 0,
 "rolls": 4,
 "sliced": 4
+},
+"a lint roller": {
+"$hard": 0,
+"clean": 4,
+"drawer": 4,
+"drugstore": 4,
+"grocery": 4
 },
 "a lion": {
 "claws": 4,
@@ -1698,6 +2123,12 @@
 "a lollipop": {
 "drugstore": 4,
 "washable": 0
+},
+"a loofah": {
+"$hard": 0,
+"$pound": 0,
+"comfort": 0,
+"drawer": 0
 },
 "a lunchbox": {
 "$pound": 2,
@@ -1778,6 +2209,13 @@
 "drawer": 2,
 "public": 2
 },
+"a medicine cabinet": {
+"$hard": 4,
+"$outdoors": 0,
+"$steal": 2,
+"box": 2,
+"water": 0
+},
 "a menu": {
 "$bring": 0,
 "$steal": 0,
@@ -1790,6 +2228,13 @@
 "a microwave": {
 "box": 4,
 "smooth": 4
+},
+"a milk carton": {
+"$duck": 0,
+"$hard": 2,
+"$heavy": 0,
+"$pound": 2,
+"$steal": 0
 },
 "a milkshake": {
 "box": 0,
@@ -1858,9 +2303,23 @@
 "forest": 2,
 "meat": 4
 },
+"a mouse pad": {
+"$hard": 2,
+"$pound": 0,
+"$steal": 0,
+"drawer": 0,
+"soft": 2
+},
 "a mouth": {
 "$indoors": 2,
 "alive": 4
+},
+"a mouthguard": {
+"$outdoors": 2,
+"$pound": 0,
+"float": 2,
+"plastic": 4,
+"smooth": 4
 },
 "a muffin": {
 "$hard": 0,
@@ -1880,6 +2339,13 @@
 "$home": 0,
 "cooked": 2
 },
+"a music box": {
+"$hard": 4,
+"$pound": 2,
+"$steal": 4,
+"box": 4,
+"plastic": 2
+},
 "a mustache": {
 "$pound": 0,
 "alive": 0,
@@ -1888,6 +2354,12 @@
 "a nail": {
 "drawer": 2,
 "fix": 4
+},
+"a nail file": {
+"drawer": 2,
+"metal": 4,
+"public": 2,
+"tool": 4
 },
 "a name tag": {
 "$hard": 2,
@@ -1898,6 +2370,13 @@
 "$indoors": 4,
 "$pound": 0,
 "washable": 2
+},
+"a napkin holder": {
+"$hard": 4,
+"$outdoors": 2,
+"box": 2,
+"drawer": 0,
+"kitchen": 4
 },
 "a neck": {
 "alive": 4,
@@ -1948,6 +2427,13 @@
 "a notebook": {
 "box": 0
 },
+"a nutcracker": {
+"$hard": 4,
+"$outdoors": 0,
+"$pound": 2,
+"$steal": 0,
+"plastic": 2
+},
 "a pacifier": {
 "plastic": 2,
 "public": 4
@@ -1992,6 +2478,13 @@
 },
 "a paper plate": {
 "$hard": 0
+},
+"a paper shredder": {
+"$heavy": 4,
+"$pound": 4,
+"loud": 4,
+"metal": 2,
+"noise": 4
 },
 "a paper towel": {
 "$hard": 0,
@@ -2060,6 +2553,13 @@
 "box": 2,
 "metal": 0
 },
+"a pencil case": {
+"$bring": 2,
+"$hard": 2,
+"$outdoors": 0,
+"$pound": 2,
+"drawer": 2
+},
 "a pencil sharpener": {
 "$pound": 2
 },
@@ -2074,12 +2574,24 @@
 "box": 4,
 "smooth": 4
 },
+"a phone case": {
+"drawer": 0,
+"drugstore": 2,
+"float": 2,
+"public": 4
+},
 "a photo": {
 "$hard": 2,
 "$pound": 0,
 "box": 0,
 "envelope": 4,
 "public": 2
+},
+"a photo album": {
+"$hard": 2,
+"$pound": 2,
+"box": 0,
+"float": 0
 },
 "a piano": {
 "$car": 0,
@@ -2120,12 +2632,26 @@
 "$pound": 0,
 "$steal": 4
 },
+"a pill bottle": {
+"$steal": 4,
+"float": 2,
+"plastic": 4,
+"public": 2
+},
 "a pillow": {
 "box": 2,
 "public": 0
 },
 "a pillowcase": {
 "$pound": 2
+},
+"a pinata": {
+"$hard": 2,
+"$outdoors": 4,
+"$pound": 2,
+"float": 0,
+"game": 4,
+"grocery": 2
 },
 "a pine cone": {
 "$pound": 0,
@@ -2165,10 +2691,24 @@
 "box": 4,
 "sliced": 4
 },
+"a pizza box": {
+"$hard": 2,
+"$pound": 2,
+"$small": 0,
+"disposable": 2,
+"flat": 4,
+"kitchen": 4
+},
 "a pizza cutter": {
 "$outdoors": 0,
 "$pound": 0,
 "metal": 4
+},
+"a placemat": {
+"$pound": 0,
+"$steal": 0,
+"kitchen": 4,
+"plastic": 2
 },
 "a plant": {
 "$heavy": 2,
@@ -2208,6 +2748,13 @@
 },
 "a pond": {
 "noise": 2
+},
+"a pool noodle": {
+"$pound": 0,
+"$small": 0,
+"$steal": 0,
+"box": 0,
+"float": 4
 },
 "a pool table": {
 "$bring": 0,
@@ -2260,6 +2807,21 @@
 "$pound": 0,
 "drugstore": 4
 },
+"a potato masher": {
+"$pound": 0,
+"drawer": 2,
+"fix": 0,
+"metal": 2,
+"plastic": 2,
+"tool": 2
+},
+"a power bar": {
+"$hard": 4,
+"$outdoors": 2,
+"$pound": 2,
+"float": 0,
+"metal": 2
+},
 "a present": {
 "$steal": 4,
 "box": 4
@@ -2279,6 +2841,14 @@
 "$bring": 2,
 "$pound": 2,
 "plastic": 2
+},
+"a protractor": {
+"$indoors": 4,
+"$pound": 0,
+"drawer": 2,
+"float": 0,
+"plastic": 2,
+"public": 2
 },
 "a puddle": {
 "$outdoors": 4,
@@ -2412,6 +2982,13 @@
 "drawer": 2,
 "set": 2
 },
+"a ring light": {
+"$hard": 4,
+"$pound": 2,
+"$steal": 2,
+"box": 4,
+"noise": 0
+},
 "a river": {
 "$hard": 2,
 "noise": 4
@@ -2478,6 +3055,13 @@
 "$pound": 0,
 "plastic": 2
 },
+"a safe": {
+"$outdoors": 0,
+"$person": 2,
+"floor": 2,
+"hardware": 4,
+"metal": 4
+},
 "a safety pin": {
 "drawer": 4,
 "metal": 4,
@@ -2489,6 +3073,13 @@
 },
 "a salad": {
 "washable": 4
+},
+"a salad spinner": {
+"$hard": 4,
+"$outdoors": 0,
+"$pound": 2,
+"float": 0,
+"metal": 2
 },
 "a salt shaker": {
 "$hard": 4,
@@ -2540,6 +3131,14 @@
 "$microwave": 2,
 "$pound": 4
 },
+"a scratching post": {
+"$hard": 4,
+"$outdoors": 0,
+"$person": 0,
+"floor": 4,
+"noise": 2,
+"washable": 2
+},
 "a screw": {
 "$hard": 4,
 "drawer": 2,
@@ -2548,6 +3147,13 @@
 "a screwdriver": {
 "$bring": 2,
 "smooth": 2
+},
+"a scrub brush": {
+"$hard": 2,
+"$steal": 0,
+"box": 2,
+"drawer": 2,
+"kitchen": 4
 },
 "a seahorse": {
 "forest": 0
@@ -2566,6 +3172,14 @@
 "$hard": 0,
 "$pound": 0
 },
+"a security camera": {
+"$hard": 4,
+"$household": 4,
+"$outdoors": 2,
+"$pound": 2,
+"$steal": 4,
+"shoebox": 4
+},
 "a seed": {
 "$pound": 0,
 "rolls": 2
@@ -2573,6 +3187,21 @@
 "a seesaw": {
 "$car": 0,
 "$person": 2
+},
+"a serving tray": {
+"$hard": 4,
+"$outdoors": 0,
+"$steal": 2,
+"container": 2,
+"lid": 2,
+"metal": 2
+},
+"a sewing machine": {
+"$heavy": 4,
+"$pound": 4,
+"$steal": 2,
+"box": 4,
+"metal": 2
 },
 "a shadow": {
 "$microwave": 2,
@@ -2606,6 +3235,13 @@
 "$pound": 2,
 "metal": 0
 },
+"a shoe rack": {
+"$microwave": 2,
+"$person": 0,
+"$pound": 2,
+"hardware": 2,
+"metal": 2
+},
 "a shoelace": {
 "$pound": 0,
 "drawer": 2,
@@ -2633,9 +3269,23 @@
 "$hard": 4,
 "$steal": 0
 },
+"a shower cap": {
+"$pound": 0,
+"comfort": 0,
+"drugstore": 4,
+"float": 2,
+"soft": 4
+},
 "a shower curtain": {
 "$hard": 0,
 "$pound": 0
+},
+"a shower head": {
+"$outdoors": 0,
+"$pound": 2,
+"drawer": 0,
+"metal": 2,
+"shoebox": 4
 },
 "a sidewalk": {
 "$hard": 4,
@@ -2729,6 +3379,21 @@
 "claws": 0,
 "zoo": 4
 },
+"a snorkel": {
+"$hard": 4,
+"$outdoors": 4,
+"$pound": 0,
+"$steal": 0,
+"box": 2,
+"float": 0
+},
+"a snow brush": {
+"$hard": 2,
+"$outdoors": 4,
+"$pound": 0,
+"float": 2,
+"plastic": 2
+},
 "a snow globe": {
 "$bring": 0,
 "$hard": 4,
@@ -2815,6 +3480,12 @@
 "a stamp": {
 "$pound": 0
 },
+"a staple remover": {
+"$outdoors": 0,
+"drawer": 2,
+"metal": 2,
+"tool": 4
+},
 "a stapler": {
 "$bring": 0,
 "$pound": 0,
@@ -2849,6 +3520,13 @@
 "a stick": {
 "$hard": 4,
 "$pound": 2
+},
+"a sticker": {
+"$hard": 2,
+"box": 2,
+"drawer": 2,
+"drugstore": 2,
+"grocery": 2
 },
 "a sticky note": {
 "$pound": 0,
@@ -2893,10 +3571,24 @@
 "$outdoors": 4,
 "metal": 4
 },
+"a stress ball": {
+"$hard": 0,
+"$outdoors": 0,
+"$pound": 0,
+"drawer": 2,
+"drugstore": 4,
+"public": 2
+},
 "a stroller": {
 "$car": 0,
 "$movable": 4,
 "$person": 2
+},
+"a stylus": {
+"$outdoors": 0,
+"$pound": 0,
+"drawer": 2,
+"public": 4
 },
 "a subway": {
 "$car": 4,
@@ -2969,6 +3661,13 @@
 "box": 4,
 "metal": 2
 },
+"a tack or pin": {
+"$outdoors": 0,
+"blade": 4,
+"drawer": 2,
+"metal": 4,
+"public": 4
+},
 "a taco": {
 "$pound": 0,
 "washable": 0
@@ -2984,6 +3683,12 @@
 "$outdoors": 2,
 "$pound": 0,
 "$steal": 0
+},
+"a tarp": {
+"$hard": 0,
+"$indoors": 0,
+"$movable": 4,
+"plastic": 4
 },
 "a taxi": {
 "$car": 0,
@@ -3041,6 +3746,14 @@
 "metal": 2,
 "plastic": 4
 },
+"a thimble": {
+"$outdoors": 0,
+"$pound": 0,
+"box": 4,
+"drawer": 4,
+"metal": 4,
+"public": 0
+},
 "a thumb": {
 "$pound": 0,
 "alive": 4
@@ -3065,6 +3778,12 @@
 "$outdoors": 4,
 "box": 0,
 "metal": 0
+},
+"a tire pump": {
+"$hard": 4,
+"$outdoors": 4,
+"$pound": 2,
+"drawer": 0
 },
 "a tissue": {
 "$hard": 0,
@@ -3091,6 +3810,13 @@
 "hardware": 4,
 "noise": 4,
 "smooth": 4
+},
+"a toilet brush": {
+"$hard": 2,
+"$pound": 0,
+"float": 2,
+"plastic": 4,
+"water": 4
 },
 "a tomato": {
 "$pound": 0,
@@ -3131,6 +3857,18 @@
 "$pound": 2,
 "box": 0,
 "smooth": 4
+},
+"a towel rack": {
+"$steal": 0,
+"drawer": 0,
+"hardware": 4,
+"metal": 2
+},
+"a toy block": {
+"$pound": 0,
+"box": 4,
+"drawer": 2,
+"float": 2
 },
 "a toy car": {
 "$pound": 2,
@@ -3188,6 +3926,15 @@
 "box": 2,
 "metal": 2
 },
+"a tripod": {
+"$heavy": 0,
+"$outdoors": 2,
+"$pound": 2,
+"box": 4,
+"lid": 0,
+"metal": 2,
+"plastic": 2
+},
 "a trophy": {
 "$outdoors": 0,
 "$pound": 2,
@@ -3204,6 +3951,14 @@
 "$outdoors": 0,
 "$pound": 4,
 "noise": 4
+},
+"a tub of play dough": {
+"$hard": 2,
+"$pound": 2,
+"comfort": 0,
+"drawer": 2,
+"float": 0,
+"public": 0
 },
 "a tulip": {
 "$pound": 0,
@@ -3251,6 +4006,13 @@
 "a van": {
 "$car": 4,
 "carry": 2
+},
+"a vape": {
+"$hard": 4,
+"$outdoors": 2,
+"$pound": 0,
+"drawer": 2,
+"public": 4
 },
 "a vase": {
 "$household": 4,
@@ -3342,15 +4104,36 @@
 "$outdoors": 2,
 "$pound": 2
 },
+"a water cooler": {
+"$person": 0,
+"$pound": 4,
+"float": 0
+},
 "a water gun": {
 "$bring": 2,
 "$pound": 2,
 "box": 4,
 "plastic": 4
 },
+"a water heater": {
+"$car": 0,
+"$outdoors": 0,
+"$person": 2,
+"$pound": 4,
+"$steal": 0,
+"metal": 4
+},
 "a waterfall": {
 "$hard": 0,
 "$steal": 0
+},
+"a watering can": {
+"$hard": 4,
+"$home": 4,
+"$outdoors": 2,
+"$pound": 2,
+"$steal": 0,
+"hardware": 4
 },
 "a watermelon": {
 "$microwave": 0,
@@ -3362,6 +4145,22 @@
 "a wave": {
 "$hard": 0,
 "smooth": 2
+},
+"a webcam": {
+"$bring": 0,
+"$hard": 4,
+"$outdoors": 0,
+"$pound": 0,
+"plastic": 4,
+"public": 2
+},
+"a weed whacker": {
+"$indoors": 0,
+"$microwave": 4,
+"$outdoors": 4,
+"cord": 2,
+"loud": 4,
+"noise": 4
 },
 "a whale": {
 "claws": 0,
@@ -3400,6 +4199,20 @@
 "$microwave": 4,
 "$outdoors": 0
 },
+"a whoopee cushion": {
+"$hard": 0,
+"$outdoors": 0,
+"$pound": 0,
+"drawer": 2,
+"soft": 4
+},
+"a wind chime": {
+"$pound": 2,
+"drawer": 0,
+"hardware": 4,
+"metal": 2,
+"shoebox": 2
+},
 "a window": {
 "$car": 2,
 "$outdoors": 2,
@@ -3426,6 +4239,13 @@
 "a wooden spoon": {
 "$pound": 0,
 "box": 2
+},
+"a workbench": {
+"$car": 2,
+"$outdoors": 0,
+"$pound": 4,
+"metal": 2,
+"noise": 2
 },
 "a worm": {
 "$pickup": 4,
@@ -3458,6 +4278,20 @@
 "$car": 0,
 "$movable": 0
 },
+"a zip tie": {
+"$outdoors": 2,
+"$pound": 0,
+"drawer": 2,
+"plastic": 4,
+"public": 2
+},
+"a zip-top bag": {
+"$pound": 0,
+"drawer": 4,
+"float": 2,
+"plastic": 4,
+"public": 4
+},
 "a zipper": {
 "$pound": 0,
 "drawer": 0
@@ -3476,6 +4310,12 @@
 "$car": 0,
 "carry": 4
 },
+"an ID card": {
+"$hard": 4,
+"$pound": 0,
+"drugstore": 0,
+"public": 4
+},
 "an acorn": {
 "$hard": 4,
 "$home": 0,
@@ -3487,6 +4327,12 @@
 "an air conditioner": {
 "$bring": 0,
 "$steal": 2
+},
+"an air freshener": {
+"$hard": 2,
+"$outdoors": 0,
+"$steal": 0,
+"float": 2
 },
 "an air fryer": {
 "$hard": 4,
@@ -3532,6 +4378,14 @@
 "alive": 4,
 "selfsee": 4
 },
+"an ashtray": {
+"$hard": 4,
+"$outdoors": 2,
+"$pound": 2,
+"$steal": 0,
+"drawer": 0,
+"metal": 2
+},
 "an avocado": {
 "$pound": 0,
 "claws": 0,
@@ -3555,6 +4409,12 @@
 "an egg": {
 "grows": 4,
 "wild": 2
+},
+"an egg carton": {
+"$hard": 0,
+"container": 4,
+"drawer": 0,
+"float": 0
 },
 "an eggplant": {
 "$hard": 4,
@@ -3607,6 +4467,15 @@
 "alive": 0,
 "wild": 0
 },
+"an hourglass": {
+"$hard": 4,
+"$outdoors": 0,
+"$pound": 2,
+"box": 2,
+"kitchen": 2,
+"metal": 0,
+"water": 0
+},
 "an ice cream scoop": {
 "$bring": 2,
 "$pound": 0,
@@ -3615,15 +4484,43 @@
 "an ice cube tray": {
 "plastic": 2
 },
+"an ice pack": {
+"$outdoors": 2,
+"$pound": 2,
+"$steal": 0,
+"box": 2,
+"plastic": 4
+},
 "an icicle": {
 "$pound": 2,
 "box": 0
+},
+"an incense stick": {
+"$bring": 0,
+"$hard": 4,
+"$outdoors": 0,
+"public": 0,
+"shoebox": 4
+},
+"an inhaler": {
+"$hard": 4,
+"$pound": 0,
+"drawer": 2,
+"float": 0,
+"public": 2
 },
 "an iron": {
 "$hard": 4,
 "$outdoors": 0,
 "$pound": 2,
 "metal": 4
+},
+"an ironing board": {
+"$microwave": 4,
+"$pickup": 4,
+"box": 2,
+"hardware": 2,
+"metal": 2
 },
 "an octopus": {
 "$pound": 2,
@@ -3756,6 +4653,12 @@
 "sliced": 0,
 "washable": 4
 },
+"bubble wrap": {
+"$pound": 0,
+"box": 2,
+"drawer": 2,
+"float": 4
+},
 "butter": {
 "$hard": 2,
 "$outdoors": 0
@@ -3842,6 +4745,13 @@
 "earbuds": {
 "$pound": 0,
 "$steal": 2,
+"public": 4
+},
+"earplugs": {
+"$hard": 0,
+"$pound": 0,
+"comfort": 0,
+"drawer": 2,
 "public": 4
 },
 "earrings": {
@@ -3931,6 +4841,13 @@
 "ham": {
 "$bring": 0,
 "$hard": 0
+},
+"hand sanitizer": {
+"$hard": 0,
+"box": 0,
+"drugstore": 4,
+"float": 2,
+"public": 4
 },
 "headphones": {
 "$pound": 0,
@@ -4160,6 +5077,13 @@
 "box": 4,
 "metal": 2
 },
+"safety goggles": {
+"$hard": 4,
+"$outdoors": 2,
+"$pound": 0,
+"drawer": 2,
+"public": 2
+},
 "salsa": {
 "washable": 0
 },
@@ -4284,6 +5208,13 @@
 },
 "sushi": {
 "$hard": 0
+},
+"swim goggles": {
+"$hard": 4,
+"$outdoors": 2,
+"$pound": 0,
+"drawer": 2,
+"public": 4
 },
 "tape": {
 "$bring": 2,

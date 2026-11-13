@@ -96,6 +96,8 @@ def bare(name):
         if n.startswith(p): return n[len(p):]
     return n
 
+from more4 import LADD   # (the 134 things added Nov 13)
+Q4 = [(k, t, (spec + ' ' + LADD.get(k, '')).strip()) for k, t, spec in Q4]
 LISTS = {'burn': {}}
 for key, text, spec in Q4:
     d = {}

@@ -528,7 +528,10 @@ OBJ = [
 OBJ = [o for o in OBJ if o[1] != 'X']
 from more import MORE
 from more2 import MORE2
+from more4 import MORE4
+MORE2 = MORE2 + MORE4
 from more3 import Q4, extra_answers
+from fixes import fixes_for, FIX
 import json as _json, os as _os
 _lp = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), 'learned.json')
 LEARNED = _json.load(open(_lp)) if _os.path.exists(_lp) else {}
@@ -566,6 +569,12 @@ PLUS = {
  'a tank top': 'wear cloth clothes ~sport everyday ~bedroom', 'thread': 'long pocket fix cloth strings ~colorful', 'wrapping paper': 'paper gift holiday colorful ~flat',
  'a whiteboard': 'white flat write writing office school hang $hard $indoors', 'a diaper': 'wear baby smell white lower soft',
 }
+# Nov 13: things you wear on your head that were never marked so ("Is it on your head?" said no for a hat)
+for _n in ('a hat', 'a baseball cap', 'a helmet', 'glasses', 'sunglasses', 'headphones', 'earrings', 'a crown', 'a wig', 'earbuds'):
+    PLUS[_n] = (PLUS.get(_n, '') + ' onhead').strip()
+# a speaker covers Bluetooth speakers too: you can take it with you, and it can wake the neighbours
+PLUS['a speaker'] = (PLUS.get('a speaker', '') + ' ~battery ~plugin ~$bring ~internet ~withpc ~light gift ~expensive ~everyday alsoout plastic black buttons').strip()
+PLUS['a CD'] = (PLUS.get('a CD', '') + ' box ~$bring').strip()   # (music only: DVDs and Blu-rays, with pictures, are their own thing)
 OBJ = [(n, c, sz_, (tg + ' ' + PLUS[n]) if n in PLUS else tg) for n, c, sz_, tg in OBJ]
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -915,6 +924,7 @@ def answers(name, cat, size, tags):
     # "Is it cold to the touch?": winter clothes and gear keep you warm, they are not cold themselves
     if name in ('a scarf', 'mittens', 'a thermos', 'a sled', 'skis', 'boots', 'a sweater', 'a coat', 'gloves', 'a fan', 'a toque', 'a jacket', 'a hoodie', 'a snowboard', 'a toboggan', 'ice skates', 'a snowmobile'): t['cold'] = 0
     if name in ('a refrigerator', 'a freezer', 'a cooler', 'an air conditioner', 'a vent'): t['cold'] = 2   # (cold inside, not outside)
+    for k, v in fixes_for(name, globals().get('DISPLAY', {}).get(name)).items(): t[k] = v   # (plain facts the rules missed: art/fixes.py)
     for k, v in LEARNED.get(name, {}).items():
         cur = t.get(k, 0)
         t[k] = (4 if cur >= 3 else 3) if v >= 3 else ((0 if cur <= 1 else 1) if v <= 1 else 2)
