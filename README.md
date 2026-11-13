@@ -20,7 +20,7 @@ I made it with hopes of one day seeing it enjoyed on the **POOM** too.
 ## How to play
 
 1. Look at something near you. It has to be a real thing you can see.
-2. Tell Zandor what kind of thing it is: LIVING, OBJECT, NATURAL or MAN-MADE. Pick whichever fits; plenty of things fit two.
+2. Tell Zandor what kind of thing it is: ANIMAL, PLANT, MAN-MADE or OTHER (OTHER is the rest of nature: a rock, sand, water, snow, a cloud).
 3. Answer his questions: YES, NO, SOMETIMES or UNKNOWN.
 4. He guesses along the way when the spirits are sure. If his guess at question 21 is wrong, he keeps going up to 25.
 

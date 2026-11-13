@@ -8,25 +8,27 @@ def txt(s, n):
 parts = []
 parts.append(('MATQ', bytes(M[i][q] for q in range(NQ) for i in range(N)), 'answers by question: NOBJ bytes a question (0 no .. 4 yes)'))
 A_ = None
-def groups(i):                                              # the opening boxes a thing may be picked under: A living, V object, M natural, O man-made
+def groups(i):                                              # the opening boxes a thing may be picked under: A animal, V plant, M man-made, O other
     global A_
     if A_ is None:
         from data import OBJ as _O, answers
         A_ = [answers(*o) for o in _O]                       # (every answer, including ones no question asks about any more)
-    g = lambda k: A_[i].get(k, 0); name, _, size, _ = OBJ[i]; m = set()
-    living = g('alive') >= 3 or g('body') >= 3; made = g('$made') >= 3
-    if living: m.add('A')
-    if not living and g('$touch') >= 3 and g('place') < 3 and g('weather') < 3 and g('liquid') < 3 and size != 'x' and size <= 5: m.add('V')   # (a thing you could point at and pick out: a mug, a rock, an apple)
-    if not made: m.add('M')                                  # (a dog, a rock, a cloud, an apple: nobody built it)
-    if made: m.add('O')
-    if name in ('a lake', 'a pond', 'a river', 'a beach', 'a garden', 'a park', 'a backyard', 'a field', 'a hill', 'a forest', 'a waterfall', 'a puddle', 'a bush', 'a tree', 'a flower', 'grass', 'a plant', 'a snowman', 'ice', 'a fire', 'smoke'): m |= {'M', 'O'}   # (some lakes are man-made; so are gardens, and plenty else people shape)
-    return m or {'V'}
+    g = lambda k: A_[i].get(k, 0); name = OBJ[i][0]; m = set()
+    alive = g('alive') >= 3; plant = g('plant') >= 3 or g('fruit') >= 3 or g('veg') >= 3; made = g('$made') >= 3
+    if (alive and not plant) or g('body') >= 3: m.add('A')  # (a dog, a bird, your hand)
+    if plant and not made: m.add('V')                         # (a tree, grass, an apple, a carrot)
+    if made: m.add('M')                                       # (a mug, a phone, a sandwich)
+    if not made and not alive and not plant and g('body') < 3: m.add('O')   # (the rest: a rock, sand, water, snow, a cloud, fire)
+    if name in ('a lake', 'a pond', 'a river', 'a beach', 'a garden', 'a park', 'a backyard', 'a field', 'a hill', 'a waterfall', 'a puddle', 'a snowman', 'ice', 'a fire', 'smoke', 'a campfire'): m |= {'M', 'O'}   # (some lakes are man-made, and so on: either box is right)
+    if name in ('an egg', 'a glass of milk', 'a jar of honey', 'a feather', 'a seashell', 'a nest', 'a spider web', 'a pearl', 'wool', 'leather', 'a bone'): m |= {'A', 'O'}   # (from an animal, but not one)
+    if name in ('a log', 'a stick', 'a branch', 'a leaf', 'a pine cone', 'an acorn', 'bark', 'a seed', 'hay', 'a tree stump'): m |= {'V', 'O'}   # (from a plant, but no longer growing)
+    return m or {'O'}
 def primary(i):                                             # the box most people would pick first
     g = GROUPS[i]
-    return 'A' if 'A' in g else ('O' if 'O' in g else ('M' if 'M' in g else 'V'))
+    return 'A' if 'A' in g else ('V' if 'V' in g else ('M' if 'M' in g else 'O'))
 GROUPS = [groups(i) for i in range(N)]
 PRIMARY = [primary(i) for i in range(N)]
-parts.append(('CATS', bytes(sum(1 << 'AVMO'.index(c) for c in GROUPS[i]) | (max(0, min(4, (18 - sum(1 for v in M[i] if v >= 3)) // 3)) << 4) for i in range(N)), 'each thing\'s opening boxes (low 4 bits, one bit a box: living, object, natural, man-made) and how sparse its answers are (high bits: a small head start taken off, so thin entries do not win by default)'))
+parts.append(('CATS', bytes(sum(1 << 'AVMO'.index(c) for c in GROUPS[i]) | (max(0, min(4, (18 - sum(1 for v in M[i] if v >= 3)) // 3)) << 4) for i in range(N)), 'each thing\'s opening boxes (low 4 bits, one bit a box: animal, plant, man-made, other) and how sparse its answers are (high bits: a small head start taken off, so thin entries do not win by default)'))
 from data import DISPLAY
 parts.append(('NAMES', b''.join(txt(DISPLAY.get(n, n), NAMELEN) for n, _, _, _ in OBJ), 'names, %d bytes each (the name he says: one of the thing, never a heap)' % NAMELEN))
 QW = [5 if k in ('green','red','yellow','orange','brown','black','white','colorful','cute','old','everyday','gift') else 8 for k, _ in Q]

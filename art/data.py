@@ -538,7 +538,7 @@ _NEWNAMES = set(m[0] for m in MORE)
 _have = set(o[0] for o in OBJ)
 OBJ += [m for m in MORE if m[0] not in _have]
 # Taken out again: family members and vague relations. "A person", "a baby" and "a child" cover them; nobody could tell a brother from a neighbor in 20 questions.
-DROP = ('a mom', 'a dad', 'a grandma', 'a grandpa', 'a brother', 'a sister', 'a neighbor', 'a stranger', 'a friend', 'a bride', 'a boss', 'a babysitter')
+DROP = ('a toothpaste', 'a mom', 'a dad', 'a grandma', 'a grandpa', 'a brother', 'a sister', 'a neighbor', 'a stranger', 'a friend', 'a bride', 'a boss', 'a babysitter')
 # Careers and job positions are out too (a teacher, a doctor, a plumber, a clown, a cowboy...). Storybook characters stay: a king, a pirate, a witch.
 DROP += ('a teacher', 'a police officer', 'a doctor', 'a firefighter', 'a chef', 'a nurse', 'a farmer', 'a soldier', 'an astronaut', 'a mailman', 'a pilot', 'a dentist', 'a lawyer', 'a judge', 'a magician', 'a singer', 'an actor', 'a hockey player', 'a referee', 'a coach', 'a waiter', 'a cashier', 'a plumber', 'a mechanic', 'a carpenter', 'a janitor', 'a librarian', 'a scientist', 'an artist', 'a bus driver', 'a lifeguard', 'a president', 'a clown', 'a cowboy', 'a ninja', 'a knight')
 # And the ideas nobody can answer questions about (he missed these more than anything else).
@@ -621,7 +621,7 @@ QTEXT = {
  '$hold': 'Would it fit in your two hands?',
  '$small': 'Is it smaller than a human head?', '$person': 'Is it bigger than a coffin?', '$car': 'Is it bigger than a hearse?', '$microwave': 'Is it bigger than a case of beer?',
  '$pound': 'Is it heavier than a pound of ground beef?', '$small2': 'Is it bigger than a hamster?', '$heavy': 'Would you need both hands to carry it?',
- 'pocket': 'Could you sneak it out in your pocket?', 'envelope': 'Could you mail it in an envelope?', '$made': 'Did human hands make it?',
+ 'pocket': 'Could you sneak it out in your pocket?', 'envelope': 'Could you mail it in an envelope?', '$made': 'Did people make it, not nature?',
  '$touch': 'Could you poke it with a finger?', 'moves': 'Does it move on its own?', 'eat': 'Do people eat it on purpose?', 'fur': 'Is it furry?',
  'bites': 'Could it bite or sting you?', 'cute': 'Would you call it cute?', 'dangerous': 'Could it send you to the hospital?',
  'smell': 'Could you smell it with your eyes shut?', 'noise': 'Does it make noise?', 'loud': 'Could it wake the neighbours?',
@@ -644,6 +644,7 @@ Q.append(('$light', 'Is it lighter than a hot dog?'))               # (a second 
 # One of it, not a heap: every thing is a single item (a grape, not grapes; a glass of milk, not milk), so "is it heavier than..." has
 # one answer. The name he says is on the right; the plain name on the left is still what the rest of this file calls it.
 DISPLAY = {
+ 'a crane': 'a construction crane',
  'grapes': 'a grape', 'peas': 'a pea', 'french fries': 'a french fry', 'LEGO bricks': 'a LEGO brick', 'green beans': 'a green bean', 'brussels sprouts': 'a brussels sprout',
  'beans': 'a bean', 'noodles': 'a noodle', 'nachos': 'a nacho', 'jelly beans': 'a jelly bean', 'playing cards': 'a playing card', 'dice': 'a pair of dice',
  'dominoes': 'a domino', 'eyelashes': 'an eyelash', 'contact lenses': 'a contact lens', 'fireworks': 'a firework', 'corn': 'a cob of corn', 'celery': 'a stalk of celery',
@@ -911,6 +912,9 @@ def answers(name, cat, size, tags):
     _shown = globals().get('DISPLAY', {}).get(name, '')
     if _shown.split(' of ')[0] in ('a bag', 'a bowl', 'a plate', 'a glass', 'a cup', 'a mug', 'a bottle', 'a jar', 'a can', 'a tub', 'a jug', 'a tube', 'a pack'):
         t['$hard'] = 2; t['soft'] = 2
+    # "Is it cold to the touch?": winter clothes and gear keep you warm, they are not cold themselves
+    if name in ('a scarf', 'mittens', 'a thermos', 'a sled', 'skis', 'boots', 'a sweater', 'a coat', 'gloves', 'a fan', 'a toque', 'a jacket', 'a hoodie', 'a snowboard', 'a toboggan', 'ice skates', 'a snowmobile'): t['cold'] = 0
+    if name in ('a refrigerator', 'a freezer', 'a cooler', 'an air conditioner', 'a vent'): t['cold'] = 2   # (cold inside, not outside)
     for k, v in LEARNED.get(name, {}).items():
         cur = t.get(k, 0)
         t[k] = (4 if cur >= 3 else 3) if v >= 3 else ((0 if cur <= 1 else 1) if v <= 1 else 2)

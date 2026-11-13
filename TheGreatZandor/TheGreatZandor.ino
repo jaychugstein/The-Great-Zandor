@@ -1,6 +1,6 @@
 // THE GREAT ZANDOR - a 21 questions guessing game for the Arduboy FX, in the spirit of the 2000s handheld guessing toys,
 // hosted by a creepy fortune teller in his booth.
-// Look at something near you. It asks what kind of thing it is (living, object, natural, man-made), then up to 21 questions, guessing along
+// Look at something near you. It asks what kind of thing it is (animal, plant, man-made or other), then up to 21 questions, guessing along
 // the way when it's sure. If its guess at 21 is wrong it keeps going to 25. by jaychugstein
 //
 // Controls: the four arrows answer, like the toy's four buttons: up YES, down NO, left SOMETIMES, right UNKNOWN.
@@ -73,7 +73,7 @@ const int8_t DELTA[4][5] PROGMEM = {                           // how an answer 
   { 4, 3, 0, 0, -4 },                                          // NO
   { -2, -2, 2, -2, -2 },                                       // UNKNOWN (people say it when a thing is neither one nor the other)
   { -5, 0, 3, 0, -5 } };                                       // SOMETIMES (tuned in art/fastsim.py)
-const uint8_t MAXH = 26, MAXW = 10;
+const uint8_t MAXH = 26, MAXW = 16;
 uint8_t hq[MAXH], ha[MAXH], nh;                                // the questions answered so far, and the answers
 uint16_t wrong[MAXW]; bool wrongOut[MAXW]; uint8_t nw;         // things he guessed wrongly (ruled out, or just doubted)
 uint8_t cat;                                                   // the group picked at the start (0 animal .. 3 other)
@@ -121,6 +121,7 @@ uint8_t pickQuestion() {                                       // the unasked qu
   return bq[random(c)];
 }
 
+bool isWrong(uint16_t o) { for (uint8_t w = 0; w < nw; w++) if (wrong[w] == o) return true; return false; }
 void apply(uint8_t q, uint8_t ans) { if (nh < MAXH) { hq[nh] = q; ha[nh] = ans; nh++; } }   // an answer: remembered
 
 // ------------------------------------------------------------------ the game: THE GREAT ZANDOR, the fortune teller in the booth
@@ -141,7 +142,8 @@ void next() {                                                  // after an answe
   if (qn >= 25) { st = S_LOSE; tmr = 0; page = 0; snd.tone(523, 150, 392, 150, 262, 300); return; }
   bool guess = (qn == 20) || (qn >= 10 && m >= 20) || (qn > 21 && m >= 10) || qn == 24;   // (21 questions, then four more, 25 in all; tuned in art/fastsim.py)
   qn++; sel = 0;                                                // (the YES box lit to start)
-  if (guess) { guessObj = top[0]; finalGuess = (qn == 21 || qn == 25); FX::readDataBytes(NAMES + (uint24_t)guessObj * NAMELEN, (uint8_t*)nm, NAMELEN); st = S_PONDER; tmr = 0; page = 0; }
+  if (guess) { uint8_t g = 0; while (g + 1 < nTop && isWrong(top[g])) g++; guessObj = top[g];   // (never the same wrong guess twice)
+    finalGuess = (qn == 21 || qn == 25); FX::readDataBytes(NAMES + (uint24_t)guessObj * NAMELEN, (uint8_t*)nm, NAMELEN); st = S_PONDER; tmr = 0; page = 0; }
   else { curQ = pickQuestion(); asked[curQ >> 3] |= 1 << (curQ & 7); st = S_ASK;
     if (qn == 6 || qn == 11 || qn == 16) { st = S_SAY; tmr = 0; page = 0; uint8_t l; do l = random(12); while (l == line_); line_ = l; } }   // now and then he mutters something first
 }
@@ -163,7 +165,7 @@ bool picked(uint8_t ar) {                                      // arrows move be
 uint8_t arrowPressed() {                                       // which arrow was just pressed (255: none)
   if (ab.justPressed(UP_BUTTON)) return 0; if (ab.justPressed(DOWN_BUTTON)) return 1;
   if (ab.justPressed(LEFT_BUTTON)) return 2; if (ab.justPressed(RIGHT_BUTTON)) return 3; return 255; }
-void frame(uint8_t h = 50) { ab.drawRoundRect(0, 0, 128, h, 4, WHITE); ab.drawRoundRect(1, 1, 126, h - 2, 3, WHITE); }   // the question card (2 pixels thick)   // the question card (2 pixels thick)
+void frame(uint8_t h = 50) { ab.drawRoundRect(0, 0, 128, h, 4, WHITE); ab.drawRoundRect(1, 1, 126, h - 2, 3, WHITE); }   // the question card (2 pixels thick)
 void qlabel(uint8_t y = 30) { at(110 - (qn >= 10 ? 6 : 0), y); pc('Q'); pn(qn); }
 uint8_t blinkT = 90;                                           // frames until his next blink (he blinks wherever he is shown)
 uint8_t eyes() { if (blinkT) blinkT--; else blinkT = 70 + random(110); return blinkT < 4 ? 1 : 0; }   // 1 while his eyes are shut (a few frames, every few seconds)
@@ -172,16 +174,16 @@ bool speak(PGM_P prompt) {                                     // what he says, 
   ab.drawRoundRect(50, 0, 78, 64, 4, WHITE); ab.drawRoundRect(51, 1, 76, 62, 3, WHITE);
   uint8_t n = pages(); bool last = page >= n - 1;
   wrap(56, 5, 11, (prompt && last) ? 5 : 6, page);
-  if (!last) { if (tmr > 70 || (ab.justPressed(B_BUTTON) && tmr > 6)) { page++; tmr = 0; } return false; }   // the next page comes by itself (or on B)
+  if (!last) { if (tmr > 100 || (ab.justPressed(B_BUTTON) && tmr > 6)) { page++; tmr = 0; } return false; }   // the next page comes by itself after a little over 3 seconds (or on B)
   if (prompt) { at(124 - strlen_P(prompt) * 6, 53); pp(prompt); }
   return true;
 }
 
 const char S_YES[] PROGMEM = "YES", S_NO[] PROGMEM = "NO", S_UNK[] PROGMEM = "UNKNOWN", S_SOME[] PROGMEM = "SOMETIMES";
-const char S_AN[] PROGMEM = "LIVING", S_VEG[] PROGMEM = "OBJECT", S_MIN[] PROGMEM = "NATURAL", S_OTH[] PROGMEM = "MAN-MADE";
+const char S_AN[] PROGMEM = "ANIMAL", S_VEG[] PROGMEM = "PLANT", S_MIN[] PROGMEM = "MAN-MADE", S_OTH[] PROGMEM = "OTHER";
 PGM_P const CATL[4] = { S_AN, S_VEG, S_MIN, S_OTH };
-PGM_P const ANS[4] = { S_YES, S_NO, S_SOME, S_UNK };          // (in arrow order: up, down, left, right)
-const uint8_t ANSV[4] = { 0, 1, 3, 2 };                        // arrow -> answer: yes, no, sometimes, unknown
+PGM_P const ANS[4] = { S_YES, S_NO, S_SOME, S_UNK };          // (box order: top left, top right, bottom left, bottom right)
+const uint8_t ANSV[4] = { 0, 1, 3, 2 };                        // box -> answer: yes, no, sometimes, unknown
 
 void setup() {
   ab.boot(); ab.display(); FX::begin(FX_DATA_PAGE); ab.flashlight(); ab.systemButtons(); ab.audio.begin(); ab.setFrameRate(30); ab.waitNoButtons();
@@ -209,8 +211,8 @@ void loop() {
         at(55, 43); pp(PSTR("OFF")); tc_ = WHITE;
         if (ab.justPressed(LEFT_BUTTON) && !on) { ab.audio.on(); ab.audio.saveOnOff(); beep(); }
         if (ab.justPressed(RIGHT_BUTTON) && on) { ab.audio.off(); ab.audio.saveOnOff(); } }
-      at(14, 56); pp(PSTR("B: ENTER"));
-      if (B) { randomSeed(micros()); newGame(); eerie(); }
+      at(2, 56); pp(PSTR("PRESS A OR B"));
+      if (B || ab.justPressed(A_BUTTON)) { randomSeed(micros()); newGame(); eerie(); }   // (either button starts)
       break;
     case S_THINK:
       zandor(); tclear();
@@ -228,7 +230,7 @@ void loop() {
           PSTR("YOUR COIN WAS COLD. SO WERE YOUR HANDS.") }; taddP(L[line_ % 12]); }
       speak(0);
       if (tmr == 2) snd.tone(196, 200, 185, 300);
-      if (tmr > 75 || (B && tmr > 8)) { st = S_ASK; sel = 0; }
+      if (tmr > 105 || (B && tmr > 8)) { st = S_ASK; sel = 0; }
       break;
     case S_PONDER:                                             // a moment's thought before a guess (the dots appear one by one)
       zandor(); tclear();
@@ -236,12 +238,12 @@ void loop() {
       for (uint8_t d = 0; d < 3 && tmr > 10 + d * 12; d++) tadd(".");
       speak(0);
       if (tmr == 12 || tmr == 24 || tmr == 36) snd.tone(220 - (tmr / 12) * 12, 60);
-      if (tmr > 60) { st = S_GUESS; sel = 0; }
+      if (tmr > 90) { st = S_GUESS; sel = 0; }
       break;
     case S_CAT:                                                // question 1: what kind of thing are you looking at? Four boxes.
       frame(35); tclear(); taddP(PSTR("WHAT HOLDS YOUR GAZE? IS IT...")); wrap(5, 4, 19, 3); qlabel(26);
       choices(CATL);
-      if (picked(ar)) { cat = sel; blip(); next(); }           // (the boxes are bits 0 living, 1 object, 2 natural, 3 man-made in the table; a thing can sit in several)
+      if (picked(ar)) { cat = sel; blip(); next(); }           // (the boxes are bits 0 animal, 1 plant, 2 man-made, 3 other in the table; a few things sit in two)
       break;
     case S_ASK:
       frame(35); tclear(); { char q[QLEN]; FX::readDataBytes(QTEXT + (uint24_t)curQ * QLEN, (uint8_t*)q, QLEN); tadd(q); } wrap(5, 4, 19, 3); qlabel(26);
@@ -267,7 +269,7 @@ void loop() {
       { const char* const L[7] = { PSTR("NOTHING YOU LOOK AT IS YOURS ALONE..."), PSTR("NOTHING ESCAPES ZANDOR."), PSTR("I SAW IT BEFORE YOU LOOKED."),
           PSTR("DID YOU REALLY THINK YOU COULD HIDE IT FROM ME?"), PSTR("DELICIOUS. ANOTHER MIND READ."), PSTR("IT WAS WRITTEN ON THE INSIDE OF YOUR SKULL."),
           PSTR("THE GLASS NEVER LIES. NEITHER DO I.") }; taddP(L[line_ % 7]); }
-      taddP(PSTR("|IT IS ")); tadd(nm); taddP(PSTR("... HEH HEH HEH."));
+      taddP(PSTR("|IT IS ")); tadd(nm); taddP(PSTR("... HEH HEH."));   // (two HEHs: the longest names still fit the bubble)
       if (speak(PSTR("B: AGAIN")) && B && tmr > 6) { newGame(); eerie(); }
       break;
     case S_LOSE:
