@@ -15,7 +15,7 @@ I made it with hopes of one day seeing it enjoyed on the **POOM** too.
 ![](images/screenshot1.png) ![](images/screenshot2.png)
 ![](images/screenshot3.png) ![](images/screenshot4.png)
 ![](images/screenshot5.png) ![](images/screenshot6.png)
-![](images/screenshot7.png)
+![](images/screenshot7.png) ![](images/screenshot8.png)
 
 ## How to play
 
