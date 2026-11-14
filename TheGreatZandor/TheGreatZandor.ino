@@ -3,8 +3,8 @@
 // Look at something near you. It asks what kind of thing it is (animal, plant, man-made or other), then up to 21 questions, guessing along
 // the way when it's sure. If its guess at 21 is wrong it keeps going to 25. by jaychugstein
 //
-// Controls: the four arrows answer, like the toy's four buttons: up YES, down NO, left SOMETIMES, right UNKNOWN.
-// B (the outer button) starts and moves things along. The first question works the same way: up ANIMAL, down VEGETABLE, left MINERAL, right OTHER.
+// Controls: the arrows move a highlight between four answer boxes (YES, NO, SOMETIMES, UNKNOWN); A or B (both do the same thing) answers,
+// starts and moves things along. The first question works the same way: ANIMAL, PLANT, MAN-MADE or OTHER.
 //
 // How it thinks: the FX chip holds a table of how every thing answers every question (no, rarely, sometimes, usually, yes;
 // built by art/data.py). Each thing gets a score from the answers so far. Every answer adds to the score of the things that agree and
@@ -34,13 +34,15 @@ void pc(char c) {
     for (uint8_t k = 0; k < 2; k++) { int16_t p = pg + k; if (p < 0 || p > 7) continue; uint8_t v = m >> (8 * k); if (tc_) buf[p * 128 + x] |= v; else buf[p * 128 + x] &= ~v; } }
   tx_ += 6;
 }
-void ps(const char* s) { while (*s) pc(*s++); }
 void pp(PGM_P s) { char c; while ((c = pgm_read_byte(s++))) pc(c); }
 void pn(uint16_t n) { char b[6]; uint8_t i = 0; do { b[i++] = '0' + n % 10; n /= 10; } while (n); while (i) pc(b[--i]); }
-void bigc(int16_t x, int16_t y, char c) {                      // one double size letter (the title)
-  uint8_t gl[5]; memcpy_P(gl, FONT + (c - 32) * 5, 5);
-  for (uint8_t i = 0; i < 5; i++) for (uint8_t j = 0; j < 7; j++) if (gl[i] >> j & 1) ab.fillRect(x + i * 2, y + j * 2, 2, 2, WHITE); }
-
+const uint8_t ZW[6] PROGMEM = {10,12,12,12,12,12};   // ZANDOR title letters: widths
+const uint8_t ZG[210] PROGMEM = {15,192,1,3,240,1,3,252,1,3,255,1,195,159,1,243,135,1,255,129,1,127,128,1,31,128,1,7,224,1,0,0,1,0,224,1,0,62,1,224,15,0,60,8,0,63,8,0,255,15,0,248,191,1,192,255,1,0,252,1,0,192,1,0,0,1,3,0,1,255,255,1,63,128,1,127,0,1,252,1,0,240,7,0,192,31,0,0,127,0,1,252,1,3,248,1,255,255,1,3,0,0,3,0,1,255,255,1,255,255,1,255,255,1,3,128,1,3,0,1,3,128,1,7,128,1,30,240,1,254,255,0,252,127,0,240,31,0,240,31,0,252,127,0,254,255,0,31,240,1,3,128,1,1,0,1,1,0,1,3,128,1,31,240,1,254,255,0,252,127,0,240,31,0,3,0,1,255,255,1,255,255,1,255,255,1,3,131,1,3,3,1,131,15,0,255,127,0,254,252,1,252,240,1,0,128,1,0,0,1};   // ...and their columns, 17 rows each (3 bytes a column)
+void zchar(int16_t x, int16_t y, uint8_t i) {                // one tall letter of ZANDOR (a narrow old theatre-bill serif)
+  uint16_t o = 0; for (uint8_t k = 0; k < i; k++) o += pgm_read_byte(ZW + k) * 3;
+  for (uint8_t c = 0; c < pgm_read_byte(ZW + i); c++, o += 3) {
+    uint32_t b = pgm_read_byte(ZG + o) | ((uint32_t)pgm_read_byte(ZG + o + 1) << 8) | ((uint32_t)pgm_read_byte(ZG + o + 2) << 16);
+    for (uint8_t r = 0; r < 17; r++) if (b >> r & 1) ab.drawPixel(x + c, y + r, WHITE); } }
 const uint8_t TINY[] PROGMEM = {   // 3 x 5 capitals for the title screen, A to Z, one byte a column (bit 0 at the top)
   0x1E,0x05,0x1E, 0x1F,0x15,0x0A, 0x0E,0x11,0x11, 0x1F,0x11,0x0E, 0x1F,0x15,0x11, 0x1F,0x05,0x01, 0x0E,0x11,0x1D, 0x1F,0x04,0x1F,
   0x11,0x1F,0x11, 0x08,0x10,0x0F, 0x1F,0x04,0x1B, 0x1F,0x10,0x10, 0x1F,0x06,0x1F, 0x1F,0x01,0x1E, 0x0E,0x11,0x0E, 0x1F,0x05,0x02,
@@ -75,7 +77,7 @@ uint8_t wrap(int16_t x, int16_t y, uint8_t cols, uint8_t rows, uint8_t pg = 0) {
     const char *brk = 0, *dots = 0; uint8_t n = 0;
     while (s[n] && s[n] != '|' && n < cols) {
       if (s[n] == ' ') brk = s + n;                              // (break at a space...)
-      else if (s[n] == '-' && n + 1 < cols) brk = s + n + 1;     // (...or just after a hyphen)
+      else if (s[n] == '-' && n + 1 < cols && n >= 3 && s[n - 1] != ' ' && s[n - 2] != ' ' && s[n - 3] != ' ') brk = s + n + 1;   // (...or just after a hyphen, but not a T- or YO-)
       else if (s[n] == '.' && n && s[n - 1] != '.' && s[n - 1] != ' ') dots = s + n;   // (...or, failing those, before a run of dots)
       n++; }
     const char* end; bool hy = false;
@@ -92,6 +94,7 @@ uint8_t wrap(int16_t x, int16_t y, uint8_t cols, uint8_t rows, uint8_t pg = 0) {
 // ------------------------------------------------------------------ the brain
 // No score is kept for each thing (there are too many for the Arduboy's memory). Instead the answers so far are remembered,
 // and the scores are worked out fresh from them each time, a slice of the table at a time, keeping only the leaders.
+static_assert(NQ < 256 && NOBJ < 2048, "questions are counted in a byte");
 uint8_t asked[(NQ + 7) / 8];                                   // the questions already asked
 bool wasAsked(uint8_t q) { return asked[q >> 3] >> (q & 7) & 1; }
 const int8_t DELTA[4][5] PROGMEM = {                           // how an answer moves a thing's score, by how that thing answers (no, rarely, sometimes, usually, yes)
@@ -139,7 +142,7 @@ uint8_t pickQuestion() {                                       // the unasked qu
     if (wasAsked(q)) continue;
     uint16_t y = 0, n = 0, s = 0;
     for (uint8_t k = 0; k < nTop; k++) { uint8_t v = answerOf(top[k], q); if (v >= 3) y += w[k]; else if (v <= 1) n += w[k]; else s += w[k]; }
-    uint32_t tot = y + n + s, g = tot * tot - (uint32_t)y * y - (uint32_t)n * n - (uint32_t)s * s;   // how evenly it splits them
+    uint32_t g = 4 * (uint32_t)y * n + 3 * (uint32_t)(y + n) * s;   // how evenly it splits them (a 'sometimes' thing fits either answer, so it counts for a bit less)
     FX::seekData(QWT + q); g = g * FX::readEnd() / 8;            // (some questions, like colours, are saved for later: they feel random early on)
     for (uint8_t j = 0; j < 3; j++) if (g > best[j] || bq[j] == 255) { for (uint8_t m = 2; m > j; m--) { best[m] = best[m - 1]; bq[m] = bq[m - 1]; } best[j] = g; bq[j] = q; break; }
   }
@@ -177,7 +180,7 @@ void next() {                                                  // after an answe
     if (qn == 6 || qn == 11 || qn == 16) { st = S_SAY; tmr = 0; page = 0; uint8_t l; do l = random(N_MUTTERS); while (l == lastMutter); lastMutter = line_ = l; line2_ = random(2); } }   // now and then he mutters something first (never the same one twice in a row)
 }
 
-// the four answers in four boxes, two by two: the arrows move the highlight between them, B answers.
+// the four answers in four boxes, two by two: the arrows move the highlight between them, A or B answers.
 void choices(PGM_P const* L) {
   for (uint8_t i = 0; i < 4; i++) {
     int16_t x = (i & 1) ? 65 : 0, y = (i & 2) ? 51 : 37;
@@ -189,7 +192,7 @@ void choices(PGM_P const* L) {
 bool picked(uint8_t ar) {                                      // arrows move between the boxes; B picks the lit one
   if (ar == 0 || ar == 1) { sel ^= 2; beep(); }                // up / down: the other row
   if (ar == 2 || ar == 3) { sel ^= 1; beep(); }                // left / right: the other column
-  return ab.justPressed(B_BUTTON);
+  return ab.justPressed(B_BUTTON) || ab.justPressed(A_BUTTON);   // (A and B do the same thing)
 }
 uint8_t arrowPressed() {                                       // which arrow was just pressed (255: none)
   if (ab.justPressed(UP_BUTTON)) return 0; if (ab.justPressed(DOWN_BUTTON)) return 1;
@@ -210,12 +213,18 @@ void drawZandor(int16_t x) {                                    // the fortune t
   if (glintT) { int16_t gx = x + pgm_read_byte(GLINT + glintAt * 2), gy = pgm_read_byte(GLINT + glintAt * 2 + 1); uint8_t r = glintT > 6 ? 9 - glintT : (glintT > 3 ? 2 : glintT - 1);
     ab.drawPixel(gx, gy, WHITE); for (uint8_t k = 1; k <= r; k++) { ab.drawPixel(gx - k, gy, WHITE); ab.drawPixel(gx + k, gy, WHITE); ab.drawPixel(gx, gy - k, WHITE); ab.drawPixel(gx, gy + k, WHITE); } } }
 void zandor() { drawZandor(0); }                               // the fortune teller, on the left
-bool speak(PGM_P prompt) {                                     // what he says, beside him, a page at a time; true once the last page is up
+const uint8_t BTN[14] PROGMEM = { 0x10, 0x26, 0x4F, 0x4F, 0x4F, 0x26, 0x10,   // an Arduboy button, 7 x 7, one byte a column:
+                                  0x10, 0x2C, 0x5E, 0x5E, 0x5E, 0x2C, 0x10 };  // raised, then pushed down into its ring
+void button3d(int16_t x, int16_t y, bool down) {               // draws it with its top left at x, y
+  for (uint8_t c = 0; c < 7; c++) { uint8_t b = pgm_read_byte(BTN + (down ? 7 : 0) + c); for (uint8_t r = 0; r < 7; r++) if (b >> r & 1) ab.drawPixel(x + c, y + r, WHITE); }
+}
+bool pushed() { return (ab.frameCount & 31) >= 24; }           // (it gets pushed in for a moment, about once a second)
+bool speak(bool prompt) {                                     // what he says, beside him, a page at a time; true once the last page is up
   ab.drawRoundRect(50, 0, 78, 64, 4, WHITE); ab.drawRoundRect(51, 1, 76, 62, 3, WHITE);
   uint8_t n = pages(); bool last = page >= n - 1;
   wrap(54, 5, 12, (prompt && last) ? 5 : 6, page);         // (12 letters a line, x 54 to 125, inside the bubble's border)
-  if (!last) { if (tmr > 100 || (ab.justPressed(B_BUTTON) && tmr > 6)) { page++; tmr = 0; } return false; }   // the next page comes by itself after a little over 3 seconds (or on B)
-  if (prompt) { at(124 - strlen_P(prompt) * 6, 53); pp(prompt); }
+  if (!last) { if (tmr > 100 || ((ab.justPressed(B_BUTTON) || ab.justPressed(A_BUTTON)) && tmr > 6)) { page++; tmr = 0; } return false; }   // the next page comes by itself after a little over 3 seconds (or on a button)
+  if (prompt) { at(84, 53); pp(PSTR("PRESS")); button3d(116, 53, pushed()); }   // PRESS and a button, pushed in now and then
   return true;
 }
 
@@ -232,7 +241,7 @@ void setup() {
 void loop() {
   if (!ab.nextFrame()) return;
   ab.pollButtons(); if (tmr < 255) tmr++;
-  bool B = ab.justPressed(B_BUTTON); uint8_t ar = arrowPressed();
+  bool B = ab.justPressed(B_BUTTON) || ab.justPressed(A_BUTTON); uint8_t ar = arrowPressed();   // (B: either button - they do the same thing)
   switch (st) {
     case S_TITLE:
       // Zandor in his booth on the right: a framed cabinet window with a curtain swag in each top corner, each pinned with a jewel,
@@ -254,8 +263,8 @@ void loop() {
           ab.drawPixel(x - 3 - r, 20, WHITE); ab.drawPixel(x + 3 + r, 20, WHITE); ab.drawPixel(x, 20, WHITE); } }   // (and its dark heart flashes white)
       // the words, each line centred in the column (76 wide); ZANDOR's letters ripple gently, like a sign under water
       at(11, 3); pp(PSTR("THE GREAT"));
-      for (uint8_t i = 0; i < 6; i++) { uint8_t ph = ((ab.frameCount >> 3) + 8 - i) & 7;
-        int8_t dy = (ph == 1 || ph == 2) ? -1 : ((ph == 5 || ph == 6) ? 1 : 0); bigc(2 + i * 12, 14 + dy, pgm_read_byte(PSTR("ZANDOR") + i)); }
+      { int16_t x = 0; for (uint8_t i = 0; i < 6; i++) { uint8_t ph = ((ab.frameCount >> 3) + 8 - i) & 7;
+        int8_t dy = (ph == 1 || ph == 2) ? -1 : ((ph == 5 || ph == 6) ? 1 : 0); zchar(x, 12 + dy, i); x += pgm_read_byte(ZW + i) + 1; } }
       tiny(38 - tinyW(PSTR("SEES ALL")) / 2, 32, PSTR("SEES ALL"), tmr < 40 ? 0 : (tmr - 40) / 4);   // (spelled out a letter at a time, then stays)
       // sound: two boxes, ON and OFF. Left / right picks one (the lit box is how it is set)
       { bool on = ab.audio.enabled();                           // (small boxes, low down, a good gap under SEES ALL)
@@ -268,20 +277,20 @@ void loop() {
         if (ab.justPressed(RIGHT_BUTTON) && on) { ab.audio.off(); ab.audio.saveOnOff(); } }
       // along the bottom: PRESS (a round button, like the real ones, gently pulsing) TO ENTER
       tiny(8, 56, PSTR("PRESS"));
-      ab.drawCircle(33, 58, 3, WHITE); if ((ab.frameCount & 31) < 16) ab.fillCircle(33, 58, 2, WHITE);
+      button3d(30, 55, pushed());
       tiny(40, 56, PSTR("TO ENTER"));
-      if (B || ab.justPressed(A_BUTTON)) { randomSeed(micros()); if (!luckyN) { luckyN = 1 + random(99); do unluckyN = 1 + random(99); while (unluckyN == luckyN); } newGame(); eerie(); }   // (either button starts)
+      if (B) { randomSeed(micros()); if (!luckyN) { luckyN = 1 + random(99); do unluckyN = 1 + random(99); while (unluckyN == luckyN); } newGame(); eerie(); }   // (either button starts)
       break;
     case S_THINK:
       zandor(); tclear();
       taddL(INTROS, line_ % N_INTROS);
-      if (speak(PSTR("B: YES")) && B && tmr > 6) { st = S_CAT; sel = 0; blip(); }
+      if (speak(true) && B && tmr > 6) { st = S_CAT; sel = 0; blip(); }
       break;
     case S_SAY:                                                // a mutter between questions
       zandor(); tclear();
       taddL(MUTTERS, line_ % N_MUTTERS);
       if (line2_) squintT = 2;                                  // (half the time he narrows his eyes as he says it)
-      speak(0);
+      speak(false);
       if (tmr == 2) snd.tone(196, 200, 185, 300);
       if (tmr > 105 || (B && tmr > 8)) { st = S_ASK; sel = 0; }
       break;
@@ -290,7 +299,7 @@ void loop() {
       if (finalGuess) taddL(PONDERF, line_ % N_PONDERF); else taddL(PONDERS, line_ % N_PONDERS);
       squintT = 2;                                             // (he squints into the crystal)
       for (uint8_t d = 0; d < 3 && tmr > 10 + d * 12; d++) tadd(".");
-      speak(0);
+      speak(false);
       if (tmr == 12 || tmr == 24 || tmr == 36) snd.tone(220 - (tmr / 12) * 12, 60);
       if (tmr > 90) { st = S_GUESS; sel = 0; }
       break;
@@ -316,21 +325,21 @@ void loop() {
     case S_MORE:                                               // wrong at 21: it keeps going
       zandor(); tclear(); taddL(MOREA, line_); if (page > 0 || tmr > 40) { taddL(MOREB, line_); if (!page) squintT = 2; } taddP(PSTR("|")); taddL(MOREC, line_);
       if (tmr == 41 && !page) snd.tone(392, 60, 370, 60, 349, 200);
-      if (speak(PSTR("B: GO ON")) && B && tmr > 6) { blip(); next(); }
+      if (speak(true) && B && tmr > 6) { blip(); next(); }
       break;
     case S_WIN:
       zandor(); tclear();
       taddL(WINS, line_ % N_WINS);
       taddP(PSTR("|IT IS ")); tadd(nm); taddL(WINEND, line2_ % N_WINEND);   // (every ending fits the longest names)
       if (page) squintT = 2;                                   // (a smug squint as he names it)
-      if (speak(PSTR("B: GO ON")) && B && tmr > 6) offer();
+      if (speak(true) && B && tmr > 6) offer();
       break;
     case S_LOSE:
       zandor(); tclear(); taddL(LOSES, line_ % N_LOSES);
-      if (speak(PSTR("B: GO ON")) && B && tmr > 6) offer();
+      if (speak(true) && B && tmr > 6) offer();
       break;
     case S_OFFER:                                              // after the game: would you like to hear your future? YES or NO
-      zandor(); tclear(); taddL(OFFERS, line_ % N_OFFERS); speak(0);
+      zandor(); tclear(); taddL(OFFERS, line_ % N_OFFERS); speak(false);
       for (uint8_t i = 0; i < 2; i++) { int16_t x = 56 + i * 34;
         if (i == sel) { ab.fillRoundRect(x, 49, 30, 11, 2, WHITE); tc_ = BLACK; } else ab.drawRoundRect(x, 49, 30, 11, 2, WHITE);
         at(x + (i ? 9 : 6), 51); pp(i ? PSTR("NO") : PSTR("YES")); tc_ = WHITE; }
@@ -344,12 +353,12 @@ void loop() {
       break;
     case S_FUTURE:                                             // the mists swirl for a moment, then his fortune for your next 24 hours
       zandor(); tclear(); squintT = 2;
-      if (tmr < 50) { taddP(PSTR("THE MISTS SWIRL")); for (uint8_t d = 0; d < 3 && tmr > 5 + d * 12; d++) tadd("."); speak(0); break; }
+      if (tmr < 50) { taddP(PSTR("THE MISTS SWIRL")); for (uint8_t d = 0; d < 3 && tmr > 5 + d * 12; d++) tadd("."); speak(false); break; }
       if (tmr == 50) snd.tone(988, 60, 1319, 120);
       if (fKind == 1) { taddP(PSTR("TODAY YOUR LUCKY NUMBER IS ")); taddN(luckyN); taddP(PSTR(".|")); taddL(LUCKY, line_ % N_LUCKY); }
       else if (fKind == 2) { taddP(PSTR("TODAY YOUR UNLUCKY NUMBER IS ")); taddN(unluckyN); taddP(PSTR(".|")); taddL(UNLUCKY, line_ % N_UNLUCKY); }
       else { char f[FORTLEN]; FX::readDataBytes(FORTS + (uint24_t)fIdx * FORTLEN, (uint8_t*)f, FORTLEN); tadd(f); }
-      if (speak(PSTR("B: OK")) && B && tmr > 56) { st = S_TITLE; tmr = 0; blip(); }   // back to the home screen
+      if (speak(true) && B && tmr > 56) { st = S_TITLE; tmr = 0; blip(); }   // back to the home screen
       break;
   }
   FX::display(true);                                           // (show the screen and clear it for the next frame)

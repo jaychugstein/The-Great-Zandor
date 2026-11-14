@@ -18,7 +18,7 @@ def pick(score, asked, rnd):
     if XT: w = np.maximum(1, (64 * np.power(2.0, (score[top] - score[top[0]]) / XT)).astype(np.int64))   # (a leader's say halves for every XT points it trails the best: as in the Arduboy code)
     else: w = np.maximum(1, WB + score[top] - score[top[0]])
     y = w @ Y3[top]; n = w @ N1[top]; s = w @ S2[top]; tot = y + n + s
-    g = (tot * tot - y * y - n * n - s * s) * QW // 8; g[asked] = -1
+    g = (4 * y * n + 3 * (y + n) * s) * QW // 8; g[asked] = -1   # (a 'sometimes' thing fits either answer, so it counts for a bit less than a firm yes or no: as in the Arduboy code)
     o = np.argsort(-g, kind='stable')[:3]; c = [q for q in o if g[q] >= g[o[0]] * 9 // 10 and g[q] >= 0]
     return int(rnd.choice(c))
 def answer(v, rnd, noise):

@@ -140,7 +140,6 @@ MORE4 += grp('M', 'indoor', [
  ('bubble wrap', 1, 'plastic flat soft noise seethrough_x'),
  ('a pinata', 2, 'paper colorful holiday toy_x alsoout'),
  ('a Christmas stocking', 1, 'cloth holiday red white soft hang_x'),
- ('a ring light', 2, 'electric light round'),
  ('a kiddie pool', 4, 'plastic water wet toy colorful round container $outdoors -indoor'),
  ('a snorkel', 1, 'plastic long water wear onhead sport ~$bring'),
  ('a VR headset', 1, 'electric battery screen wear onhead expensive toy -$bring'),
@@ -150,6 +149,18 @@ MORE4 += grp('M', 'indoor', [
  ('a music box', 1, 'music noise opens gift wood_x ~colorful'),
  ('a dreamcatcher', 1, 'round hang_x bedroom +feathers ~colorful'),
 ])
+
+# ---- 7 hotel things (Nov 14), taking Zandor to 1,107
+HOTEL = grp('M', 'indoor', [
+ ('a key card', 0, 'plastic flat pocket $bring writing colorful_x -$household ~$steal'),
+ ('an ice bucket', 1, 'container cold plastic ~metal handle opens water wet -$household'),
+ ('a Do Not Disturb sign', 0, 'flat writing plastic ~paper read colorful_x -$household'),
+ ('a luggage cart', 3, 'metal wheels handle ~shiny ~yellow carry ~container ~vehicle ~payuse alsoout -$household -$pickup ~$heavy'),   # (the hotel bellhop cart or the airport trolley: one thing, not two)
+ ('a peephole', 0, 'glass metal round -$household'),
+ ('a door chain', 0, 'metal long shiny noise ~$household'),
+ ('a sewing kit', 0, 'container sharp pocket opens ~colorful ~$bring ~$household'),
+])
+MORE4 += HOTEL
 
 # "yes" answers to the list questions in more3.py (round 4-6), for the new things only: name = yes, name:3 usually, :2 sometimes, :1 rarely
 LADD = {
@@ -197,9 +208,23 @@ LADD = {
  'swimin': 'kiddie_pool:3',
  'bodydoes': '',
 }
+for _k, _v in {'wall': 'peephole door_chain:3', 'hang': 'do_not_disturb_sign',                'drawer': 'sewing_kit:3 key_card:2', 'lid': 'ice_bucket sewing_kit:3', 'seethrough': 'peephole:3', 'hole': 'peephole',
+               'fix': 'sewing_kit', 'blade': 'sewing_kit:2', 'money': 'key_card:2', 'hardware': 'door_chain peephole:2',
+               'drugstore': 'sewing_kit:2', 'camping': 'ice_bucket:1 sewing_kit:2', 'seethrough_x': ''}.items():
+    LADD[_k] = (LADD.get(_k, '') + ' ' + _v).strip()   # (the hotel things' list answers)
 
 # a question to tell an outlet from a light switch (and a power bar from a speaker...): yes for things with a socket you plug into
 QNEW = [('socket', 'Can you plug something into it?', 'outlet power_bar extension_cord laptop:3 computer:3 tv:3 phone:3 tablet:3 video_game_console:3 '
          'monitor:3 router:3 printer:3 projector:3 dvd_or_blu-ray_player:3 electric_guitar:3 speaker:2 charger:2 car:2 microphone:2 camera:2 '
          'game_controller:2 record_player:2 baby_monitor:2 vr_headset:2 radio:2 hard_drive:2 smartwatch:1 keyboard:1 headphones:1 drone:1 '
          'ring_light:1 webcam:1 usb_stick:1 gps:2 cash_register:2 vending_machine:1')]
+# ...and one for the living room: things you use with a TV
+QNEW += [('withtv', 'Do you use it with a TV?', 'remote_control video_game_console game_controller dvd_or_blu-ray_player dvd_or_blu-ray:3 speaker:2 '
+          'couch:2 coffee_table:1 popcorn:2 router:1 vr_headset:1 cd:0')]
+# ...and one that splits the made things in two: things you hold while you use them (Nov 14; worked out by a rule in data.py)
+QNEW += [('inhand', 'Do you hold it, not wear it, when using it?', ''), ('parts', 'Does it have moving parts?', '')]
+# ...and one for hotels and airports, so the luggage cart never looks like the shopping cart (Nov 14)
+QNEW += [('traveller', 'Is it made for people who are travelling?', 'luggage_cart suitcase passport key_card do_not_disturb_sign airplane cruise_ship '
+          'ticket:3 map:3 gps:3 taxi:3 train:3 bus:3 subway:3 camper:3 postcard:3 ice_bucket:3 bus_stop:3 helicopter:2 hot_air_balloon:2 '
+          'sleeping_bag:2 tent:2 backpack:2 compass:2 sunscreen:2 sewing_kit:2 trailer:2 car:2 boat:2 sailboat:2 camera:2 swim_goggles:1 '
+          'snorkel:2 sunglasses:1 cooler:1 lanyard:1 wallet:1 money:1 credit_card:1 id_card:1 toothbrush:1 globe:1 elevator:1 vending_machine:1')]

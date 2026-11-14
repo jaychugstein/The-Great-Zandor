@@ -623,8 +623,14 @@ _gone = _OUT - set(_bare(o[0]) for o in OBJ)
 OBJ = _keep
 
 # Questions that no longer tell anything apart (they were about people, ideas and make-believe), or were too vague to answer the same way twice.
+LEAVE4 = set("""a phone|a wallet|a key|a keychain|a purse|a backpack|a credit card|a twenty dollar bill|a coin|an ID card|a phone case|a water bottle|a lunchbox|a vape|a cigarette|a lighter|an inhaler|a tube of lip balm|a pacifier|a sippy cup|a baby bottle|a diaper|headphones|earbuds|sunglasses|glasses|a watch|a smartwatch|a hearing aid|braces|a contact lens|a lanyard|a mask|a hair tie|a bobby pin|a ring|a necklace|earrings|a bracelet""".split('|'))
+LEAVE2 = set("""a book|a laptop|a tablet|a charger|a camera|a pen|a pencil|a notebook|a magazine|a newspaper|a shopping bag|a suitcase|a briefcase|a thermos|a juice box|a comb|a hairbrush|a bottle of sunscreen|hand sanitizer|a piece of gum|an umbrella|a leash|a stroller|a car seat|a cooler|a pill bottle|a USB stick|a map|a letter|an envelope|a passport|a ticket|a tissue|a bandage|a granola bar|a bag of trail mix|a skateboard|a frisbee|a ball|a fishing rod|a kite|a toy car|an action figure|a doll|a teddy bear|a stuffed animal|a tube of lipstick|a makeup kit|a pocket knife|a flashlight|a helmet|swim goggles|a swimsuit|a stress ball|a fidget spinner|a stylus|a bookmark|a GPS|binoculars|a name tag|a toque|a scarf|mittens|gloves|a raincoat|a jacket|a hoodie|a sweater|a coat|boots|a bib|a rattle|a party hat|a shopping cart_x""".split('|'))
+LEAVE0 = set("""a dartboard|a trophy|a bowling pin|a dumbbell|a punching bag|a pool table|a treadmill|a hockey net|a basketball hoop""".split('|'))
+LEAVE1 = set("""a diamond|skis|a stethoscope|a thimble|earplugs|a snorkel|a medal|a bowling ball|a net|a hockey puck|a dart|a crutch|pajamas|a robe|slippers|an oven mitt|a shower cap|an apron|a costume|a life jacket|roller skates|ice skates|a boxing glove|safety goggles|a mouthguard|a VR headset|a bra_x|a crown|a wig|a cape""".split('|'))
+STAPLES = set("""salt|pepper|sugar|flour|butter|milk|an egg|bread|ketchup|mustard|mayonnaise|rice|noodles|spaghetti|cereal|coffee|tea|olive oil|oil|peanut butter|cheese|water|jam|vinegar|honey|soy sauce|maple syrup|cinnamon""".split('|'))
 QDROP = set("""paint job pretend abstract space royal uniform female male family bodydoes event say famous ontv science songs insidebody room good enjoy $joy kinds
- tasks $invented $buy africa jungle larger old addictive funny office $huge person""".split())
+ tasks $invented $buy africa jungle larger old addictive funny office $huge person
+ $home $bring public""".split())   # (Nov 13: 'in your home?' depends on whose home; 'carry it around?' was vague - see $leave; 'in front of strangers?' mixes would and could)
 # The wording Zandor uses. Same meaning as the plain question it replaces, but his own: stranger, funnier, nothing lifted from the old toy.
 QTEXT = {
  '$hold': 'Would it fit in your two hands?',
@@ -649,11 +655,14 @@ QTEXT = {
 }
 Q = [(k, QTEXT.get(k, t)) for k, t in Q if k not in QDROP]
 Q.append(('$light', 'Is it lighter than a hot dog?'))               # (a second weight question, at the light end)
+Q.append(('$leave', 'Do you take it along when you leave home?'))   # (what goes out the door with you: a phone, keys, your coat; not a stapler)
 
 # One of it, not a heap: every thing is a single item (a grape, not grapes; a glass of milk, not milk), so "is it heavier than..." has
 # one answer. The name he says is on the right; the plain name on the left is still what the rest of this file calls it.
 DISPLAY = {
- 'a crane': 'a construction crane',
+ 'a recorder': 'a recorder (flute)',   # (the school instrument, not a tape recorder)
+ 'a remote control': 'a TV remote',
+ 'a crane': 'a crane (machine)',
  'grapes': 'a grape', 'peas': 'a pea', 'french fries': 'a french fry', 'LEGO bricks': 'a LEGO brick', 'green beans': 'a green bean', 'brussels sprouts': 'a brussels sprout',
  'beans': 'a bean', 'noodles': 'a noodle', 'nachos': 'a nacho', 'jelly beans': 'a jelly bean', 'playing cards': 'a playing card', 'dice': 'a pair of dice',
  'dominoes': 'a domino', 'eyelashes': 'an eyelash', 'contact lenses': 'a contact lens', 'fireworks': 'a firework', 'corn': 'a cob of corn', 'celery': 'a stalk of celery',
@@ -742,6 +751,19 @@ for _k, _v in EXTRA.items():
         EX.setdefault(_n, {})[_k] = 2 if _w.startswith('~') else 4
 
 ALIVE_CATS = ('A',)
+BIGMED = set(('a skateboard', 'a kite', 'a vacuum cleaner', 'a flag', 'a monitor', 'a laundry basket', 'a cooler', 'a fish tank', 'a tricycle', 'a life jacket',
+    'a car seat', 'a litter box', 'a medicine cabinet', 'a towel rack', 'a leaf blower', 'a dog bed', 'a tripod', 'a guitar', 'an umbrella', 'a tennis racket', 'a keyboard',
+    'a drum', 'a chainsaw', 'an axe', 'a pillow', 'a backpack', 'a doormat', 'a dartboard', 'a mirror', 'a lamp', 'a snow brush', 'a printer', 'a computer', 'a sign',
+    'a raincoat', 'a toaster oven', 'a birdcage', 'a pizza box', 'a serving tray', 'a teddy bear', 'a paper shredder', 'a sewing machine', 'a dish rack', 'a mailbox'))
+BIG4 = set(('a tricycle', 'a guitar', 'a vacuum cleaner', 'a car seat', 'a laundry basket', 'a fish tank'))
+BIG2 = set(('a skateboard', 'a cooler'))   # (the user: sometimes)
+MIDMED = set(('a laptop', 'a briefcase', 'a toolbox', 'a frying pan', 'a wok', 'a pot', 'a trumpet', 'a violin', 'a board game', 'a heater', 'a fan', 'a bowling ball',
+    'a basketball', 'a soccer ball', 'a volleyball', 'a football', 'a helmet', 'a purse', 'a shopping bag', 'a globe', 'a record player', 'a cash register', 'a slow cooker',
+    'an air fryer', 'a rice cooker', 'a projector', 'a speaker', 'a gas can', 'a can of paint', 'a watering can', 'a bucket', 'a garbage bag', 'a doll', 'boots'))
+
+def boxy(name):                       # things that are themselves a box or carton (a cereal box, an egg carton, a jewelry box...)
+    n = name.lower(); return ('box' in n or 'carton' in n or 'crate' in n) and 'boxing' not in n
+
 def answers(name, cat, size, tags):
     t = {}; force = {}
     for w in tags.split():
@@ -876,7 +898,7 @@ def answers(name, cat, size, tags):
     if t['$hold']: t['$hold'] = 4 if size <= 1 else (2 if size == 2 else 0)
     if t['$hold'] and (g('liquid') >= 3 or g('gas') >= 3 or name in ('fire', 'smoke', 'a cloud', 'lightning', 'the moon')): t['$hold'] = 2 if g('liquid') >= 3 else 0
     t['$household'] = 4 if (madeit and cat in 'MV' and t['$indoors'] >= 3 and t.get('vehicle', 0) < 3) else (2 if madeit and cat in 'MV' and t['$indoors'] >= 2 and t.get('vehicle', 0) < 3 else 0)
-    if isfood: t['$household'] = 4
+    if isfood: t['$household'] = 4 if name in STAPLES else 2    # (salt, butter, bread: yes; a jar of salsa: sometimes)
     t['office2'] = t.get('office', 0)
     t['$home'] = 4 if (t['$indoors'] >= 3 and (madeit or t.get('eat', 0) >= 3 or t.get('drink', 0) >= 3)) else (2 if t['$indoors'] >= 2 and (madeit or t.get('pet', 0) >= 3 or t.get('eat', 0) >= 3) else 0)
     touchable = t['$touch'] >= 3
@@ -884,14 +906,25 @@ def answers(name, cat, size, tags):
     g_ = lambda k: t.get(k, 0)
     if not touchable or 'place' in t or g_('person') >= 3 or g_('body') >= 3: t['$steal'] = 0
     elif g_('expensive') >= 3 or name in ('money', 'a coin', 'a wallet', 'a purse', 'a credit card', 'a phone', 'a laptop', 'a tablet', 'a TV', 'a computer', 'a camera', 'a bicycle', 'a car', 'a motorcycle', 'a watch', 'a smartwatch', 'a ring', 'a necklace', 'earrings', 'a bracelet', 'gold', 'silver', 'a diamond', 'a video game console', 'a painting', 'a crown', 'a purse', 'a suitcase', 'a backpack', 'a key', 'a piggy bank', 'headphones', 'earbuds', 'a drone', 'a truck', 'a pickup truck', 'a scooter', 'a snowmobile', 'an ATV', 'a trophy', 'a medal', 'a pearl', 'a ruby', 'an emerald', 'a guitar', 'an electric guitar', 'a present', 'a lottery ticket', 'a ticket', 'a boat', 'a jet ski', 'a toolbox', 'a drill', 'a chainsaw', 'a game controller', 'a GPS', 'a speaker', 'sunglasses', 'a skateboard', 'a statue', 'a crystal ball'): t['$steal'] = 4
-    elif madeit and s is not None and s <= 4 and (g_('electric') >= 3 or g_('vehicle') >= 3 or g_('tool') >= 3 or g_('toy') >= 3 or g_('wear') >= 3 or g_('music') >= 3 or g_('sport') >= 3 or g_('gift') >= 3 or g_('pocket') >= 3): t['$steal'] = 2
-    elif g_('pet') >= 3 or g_('eat') >= 3 or g_('drink') >= 3 or g_('farm') >= 3: t['$steal'] = 2 if (g_('pet') >= 3 or g_('snack') >= 3 or g_('sweet') >= 3) else 1
+    # (from the survey: a burglar takes what is easy to sell: gadgets, sports gear, power tools, medicine.
+    #  Not food, not clothes, not kitchen tools, and nothing bolted down or built in.)
+    elif g_('engine') >= 3 and g_('vehicle') < 3 or name in ('a lawn mower', 'a leaf blower', 'a weed whacker', 'a chainsaw', 'a drill', 'a pill', 'a pill bottle', 'a jewelry box', 'a music box'): t['$steal'] = 4
+    elif madeit and s is not None and s <= 2 and g_('electric') >= 3 and (g_('screen') >= 3 or g_('music') >= 3 or g_('camera') >= 3) and name != 'a calculator': t['$steal'] = 4
+    elif g_('wall') >= 3 or name in ('a ferris wheel', 'a roller coaster', 'a calculator_x', 'a traffic light', 'an elevator', 'an oven', 'a stove', 'a ceiling fan', 'an exit sign', 'a hand dryer', 'a slide', 'a kiddie pool'): t['$steal'] = 0
+    elif g_('pet') >= 3: t['$steal'] = 2
+    elif g_('eat') >= 3 or g_('drink') >= 3 or g_('farm') >= 3 or g_('kitchen') >= 3: t['$steal'] = 0
+    elif madeit and s is not None and s <= 4 and (g_('sport') >= 3 or g_('music') >= 3 or (g_('electric') >= 3 and s <= 3) or (g_('toy') >= 3 and s >= 2)): t['$steal'] = 2
     else: t['$steal'] = 0
     t['$buy'] = 0 if not touchable and name not in ('music', 'a song', 'a game', 'the internet') else (4 if madeit or t.get('eat', 0) >= 3 or t.get('drink', 0) >= 3 or t.get('pet', 0) >= 3 or name in ('a house', 'gold', 'a diamond', 'salt', 'ice', 'a flower', 'a rose', 'a tree', 'a cactus', 'water', 'sand', 'a log') else (2 if t.get('farm', 0) >= 2 or name in ('an island', 'a castle', 'a rock', 'a sunflower', 'cotton', 'seaweed', 'grass') else 0))
     if t.get('job', 0) >= 3: t['$buy'] = 0
     if cat == 'A' and t.get('farm', 0) >= 3: t['$buy'] = 4   # (you can legally buy farm animals and pets; not wild ones)
     t['$joy'] = t.get('enjoy', 0)
     t['$microwave'] = sz(lambda s: s >= 4, lambda s: s == 3)
+    # "Is it bigger than a case of beer?" (a case is about 16 x 11 x 10 inches). Chair-sized things usually are; a medium thing only if it is long
+    # (a guitar, a skateboard, a snow shovel) or wide (a monitor, a laundry basket); hand-sized things never.
+    if s is not None and s == 3: t['$microwave'] = 3
+    elif s is not None and s == 2:
+        t['$microwave'] = 4 if name in BIG4 else 2 if name in BIG2 else (3 if name in BIGMED else (2 if t.get('long', 0) >= 3 else (1 if name in MIDMED else 0)))
     t['$invented'] = 0 if t['$made'] < 3 else (2 if (t.get('eat', 0) >= 3 or t.get('drink', 0) >= 3 or t.get('job', 0) >= 3 or name in ('music', 'a song', 'a house', 'a park', 'a birthday party', 'a number', 'paper_x')) else 4)
     if name in ('a computer',): t['withpc'] = 4
     t['$bring'] = 4 if (madeit and small and (t.get('pocket', 0) >= 3 or t.get('public', 0) >= 3 or t.get('travel', 0) >= 3 or t.get('wear', 0) >= 3)) else (2 if (small and touchable and (madeit or t.get('snack', 0) >= 3 or t.get('pet', 0) >= 3)) else 0)
@@ -924,10 +957,97 @@ def answers(name, cat, size, tags):
     # "Is it cold to the touch?": winter clothes and gear keep you warm, they are not cold themselves
     if name in ('a scarf', 'mittens', 'a thermos', 'a sled', 'skis', 'boots', 'a sweater', 'a coat', 'gloves', 'a fan', 'a toque', 'a jacket', 'a hoodie', 'a snowboard', 'a toboggan', 'ice skates', 'a snowmobile'): t['cold'] = 0
     if name in ('a refrigerator', 'a freezer', 'a cooler', 'an air conditioner', 'a vent'): t['cold'] = 2   # (cold inside, not outside)
+    # Nov 13: rule corrections found by comparing the rules with a real player's survey answers
+    gg = lambda k: t.get(k, 0)
+    if max(gg('wall'), gg('appliance'), gg('furniture'), gg('floor'), gg('hang')) >= 3: t['$bring'] = min(gg('$bring'), 0)   # (fixed in place: a light switch, an outlet)
+    if gg('eat') >= 3 and gg('snack') < 3: t['$bring'] = min(gg('$bring'), 1)            # (ingredients and meals stay home)
+    if max(gg('wall'), gg('appliance'), gg('furniture')) >= 3: t['pocket'] = min(gg('pocket'), 1)   # (you can't pocket what's fixed to the wall)
+    if gg('kitchen') >= 3 and gg('$bring') == 2 and name not in ('a lunchbox', 'a thermos', 'a water bottle', 'a juice box', 'a zip-top bag', 'a sippy cup', 'a baby bottle'): t['$bring'] = 1   # (kitchen things stay in the kitchen)
+    if size != 'x' and size == 2 and gg('$heavy') < 3 and max(gg('metal'), gg('wood'), gg('glass'), gg('rock')) < 3 and (max(gg('cloth'), gg('paper'), gg('ball'), gg('plastic')) >= 3) and name != 'a bowling ball': t['$pound'] = 1   # (big but light: a soccer ball, a sweater, a flag)
+    if size != 'x' and size == 2 and t.get('$pound') == 1 and max(gg('cloth'), gg('paper'), gg('ball')) < 3: t['$pound'] = 2   # (a plastic cooler, bucket or laundry basket: often over a pound)
+    if (gg('eat') >= 3 or gg('drink') >= 3) and cat != 'V' and gg('$indoors') >= 2: t['$outdoors'] = min(gg('$outdoors'), 1)   # (food is mostly kept indoors)
+    if (gg('eat') >= 3 or gg('drink') >= 3) and cat == 'A' and gg('alive') < 3: t['$indoors'] = 4; t['$outdoors'] = 1   # (butter, milk, a pork chop: kitchen things, not animals in a field)
+    if name in ('a bowling ball', 'a bowling pin', 'a trophy', 'a headband', 'a fish tank', 'a pool table', 'a dartboard', 'a treadmill', 'a punching bag', 'a yoga mat', 'dice'): t['$outdoors'] = 1; t['$indoors'] = 4
+    if gg('liquid') >= 3 or (cat == 'M' and gg('$hard') >= 3 and max(gg('plastic'), gg('glass'), gg('metal')) >= 3 and name not in ('sandpaper', 'a brick', 'a cheese grater', 'a grater', 'a file', 'a saw')): t['smooth'] = max(gg('smooth'), 3)
+    if gg('round') >= 3 and gg('flat') < 3 and size != 'x' and size <= 2 and gg('$movable') >= 3: t['rolls'] = max(gg('rolls'), 3)
+    if gg('veg') >= 3 or (gg('fruit') >= 3 and gg('juicy') >= 3): t['sliced'] = max(gg('sliced'), 2)
+    # do you take it along when you leave home? Yes: what goes out the door with you (and what you're wearing). Sometimes: a book, a ball.
+    _sh = globals().get('DISPLAY', {}).get(name, name)
+    if name in LEAVE4 or _sh in LEAVE4: t['$leave'] = 4
+    elif name in LEAVE2 or _sh in LEAVE2: t['$leave'] = 2
+    elif name in LEAVE1 or _sh in LEAVE1: t['$leave'] = 1
+    elif name in LEAVE0: t['$leave'] = 0
+    elif gg('wear') >= 3 and gg('body') < 3 and gg('$made') >= 3: t['$leave'] = 4
+    elif cat == 'M' and gg('sport') >= 3 and gg('$movable') >= 3 and size != 'x' and size <= 2: t['$leave'] = 2
+    elif cat == 'M' and gg('snack') >= 3: t['$leave'] = 2
+    else: t['$leave'] = 1 if (cat == 'M' and gg('pocket') >= 3 and max(gg('wall'), gg('kitchen'), gg('office2'), gg('desk'), gg('bathroom'), gg('garage')) < 3) else 0
+    # (Nov 14, from the survey: where the rules and real answers kept disagreeing)
+    _g = lambda k: t.get(k, 0)
+    # "Heavier than a pound of ground beef?" Hand-sized things mostly aren't (a lemon, scissors, a stapler); only the dense ones might be
+    # (metal, stone, glass, gadgets, full of liquid). Medium things usually are, not always (a cat, a doll, a purse).
+    if size != 'x' and size == 1 and t.get('$pound', 0) == 2:
+        t['$pound'] = 2 if max(_g('metal'), _g('rock'), _g('glass'), _g('electric'), _g('hasliquid'), _g('$hard') if _g('wood') >= 3 else 0) >= 3 else 1
+    if size != 'x' and size == 2 and t.get('$pound', 0) == 4 and _g('$heavy') < 3: t['$pound'] = 3
+    _g = lambda k: t.get(k, 0)
+    if (_g('fruit') >= 3 or _g('veg') >= 3) and _g('flat') < 3: t['rolls'] = max(_g('rolls'), 3)       # (a pepper, a mango, lettuce: people say they'd roll)
+    if _g('fruit') >= 3 or _g('veg') >= 3: t['washable'] = max(_g('washable'), 3)                         # (you rinse fruit and vegetables)
+    elif _g('eat') >= 3 or _g('drink') >= 3: t['washable'] = min(_g('washable'), 1)                       # (but not yogurt or jerky)
+    if _g('wood') >= 3 and cat in 'MV' and size != 'x' and size >= 1 and _g('float') >= 3: t['float'] = 2 # (people doubt a wooden stool would float)
+    if _g('mammal') >= 3 and size != 'x' and size >= 4: t['loud'] = max(_g('loud'), 2)                    # (a rhino, a giraffe: big animals can be loud)
+    # "Do you hold it in your hand to use it?": a fork, a pen, a hammer, a phone, a racket. Not a chair, a lamp, a fridge or a sandwich.
+    _sz = 9 if size == 'x' else size
+    if _g('$made') < 3 or max(_g('eat'), _g('drink'), _g('alive'), _g('place'), _g('body'), _g('building'), _g('vehicle'), _g('wear'), _g('wall')) >= 3: t['inhand'] = 0
+    elif _sz <= 1 and _g('read') >= 3: t['inhand'] = 4
+    elif _sz <= 2 and max(_g('tool'), _g('eatwith'), _g('write'), _g('grooming'), _g('clean'), _g('weapon'), _g('blade'), _g('ball'), _g('beltloop')) >= 3: t['inhand'] = 4
+    elif _sz <= 2 and _g('handle') >= 3 and max(_g('furniture'), _g('appliance'), _g('container')) < 3: t['inhand'] = 4
+    elif _sz <= 1 and (_g('$electronic') >= 3 and _g('buttons') >= 3 or _g('toy') >= 3 or _g('music') >= 3 or _g('sport') >= 3 or _g('game') >= 3): t['inhand'] = 4
+    elif max(_g('furniture'), _g('appliance'), _g('decor'), _g('wall'), _g('floor'), _g('wear'), _g('disposable')) >= 3: t['inhand'] = 1 if _sz <= 1 else 0
+    else: t['inhand'] = 2 if _sz <= 1 else 0
+    for _n4 in ('a phone', 'a book', 'a key', 'tongs', 'a tablet', 'binoculars', 'a lighter', 'an iron', 'a vape', 'a magnifying glass', 'a smartphone', 'a game controller', 'a GPS', 'a walkie-talkie', 'a stylus', 'a fan_x', 'a hair dryer', 'a curling iron', 'a glue gun', 'a drill', 'a leaf blower', 'a weed whacker', 'a fly swatter', 'a squirt gun', 'a water gun', 'a magic wand', 'a rattle', 'a fidget spinner', 'a stress ball', 'a lint roller', 'a nail file', 'tweezers', 'nail clippers', 'a letter opener', 'a staple remover', 'a hole punch', 'a label maker', 'a pizza cutter', 'a peeler', 'a grater', 'a corkscrew', 'a bottle opener', 'a garlic press', 'a potato masher', 'an ice cream scoop', 'a mug', 'a cup of coffee_x', 'a water bottle', 'a sippy cup', 'a baby bottle', 'a wine glass', 'a glass'):
+        if name == _n4: t['inhand'] = 4
+    if name in ('a compass', 'a thermometer', 'a wallet', 'a credit card', 'a coin', 'money', 'a dictionary', 'a bowl', 'a kettle', 'a plate', 'a vacuum cleaner', 'a nail', 'a sticky note', 'paper', 'a towel', 'toilet paper', 'a napkin', 'soap', 'a balloon', 'a pitcher', 'a tape measure_x'): t['inhand'] = 3 if name in ('a compass', 'a thermometer', 'a credit card', 'a dictionary', 'a vacuum cleaner', 'a kettle', 'a bowl') else 2
+    if name in ('a light switch', 'a doorbell', 'a blender', 'a medal', 'a router', 'a hard drive', 'a charger', 'a seatbelt', 'a license plate', 'a sprinkler', 'a coaster', 'a napkin holder', 'a butter dish', 'a placemat', 'a hanger', 'a brick', 'a nest', 'a feather', 'flour', 'vinegar', 'olive oil', 'soy sauce', 'hot sauce', 'a food container', 'a pill bottle', 'an ice cube tray', 'a baking sheet', 'a magnet', 'a battery', 'a jar', 'a pillowcase', 'a postcard', 'a greeting card'): t['inhand'] = 1 if name not in ('a light switch', 'a doorbell', 'a router', 'a hard drive', 'a seatbelt', 'a license plate', 'a sprinkler') else 0
+    # "Does it have moving parts?": scissors, a stapler, a bike, a blender, a clock. Not a plate, a vase or a brick.
+    MOVP = ('scissors', 'a stapler', 'pliers', 'a clock', 'an alarm clock', 'an umbrella', 'a tape measure', 'a can opener', 'a laptop', 'a door', 'a piano', 'a keyboard',
+            'a lock', 'nail clippers', 'a corkscrew', 'a garlic press', 'a hole punch', 'a salad spinner', 'a fan', 'a ceiling fan', 'a printer', 'a blender', 'a mixer',
+            'a washing machine', 'a dryer', 'a dishwasher', 'a drill', 'a chainsaw', 'a lawn mower', 'a jack-in-the-box', 'a music box', 'a yo-yo', 'a fidget spinner',
+            "a Rubik's cube", 'a windmill', 'a ferris wheel', 'a roller coaster', 'an escalator', 'an elevator', 'a conveyor belt', 'a car jack', 'a tire pump', 'a toaster',
+            'a watch', 'a pencil sharpener', 'a staple remover', 'a nutcracker', 'tongs', 'a clothespin', 'a mousetrap', 'a pocket knife', 'a sewing machine', 'a paper shredder',
+            'a leaf blower', 'a weed whacker', 'a vacuum cleaner', 'a hair dryer', 'a record player', 'a DVD or Blu-ray player', 'a printer', 'a camera', 'a slot machine',
+            'a pinball machine', 'a cash register', 'a vending machine', 'a treadmill', 'a swing', 'a seesaw', 'a rocking chair', 'a hamster wheel', 'a pinwheel', 'a spinning top',
+            'a pepper grinder', 'a salt shaker_x', 'a zipper', 'a kaleidoscope', 'a slinky', 'roller skates', 'a skateboard', 'a scooter', 'a stroller', 'a wagon', 'a wheelbarrow',
+            'a shopping cart', 'a luggage cart', 'a toy car', 'a toy train', 'a robot', 'a drone', 'a helicopter', 'a garage door_x', 'a gate', 'a mailbox', 'a toilet', 'a faucet',
+            'a light switch', 'a doorknob', 'a remote control', 'a computer mouse', 'a game controller', 'a typewriter', 'a calculator_x', 'a fishing rod', 'binoculars', 'a telescope', 'a tripod')
+    if name in MOVP or _g('engine') >= 3 or _g('wheels') >= 3: t['parts'] = 4
+    elif _g('$made') < 3 or max(_g('eat'), _g('drink'), _g('alive'), _g('place'), _g('body')) >= 3: t['parts'] = 0
+    elif _g('appliance') >= 3 and _g('electric') >= 3: t['parts'] = 3
+    elif _g('opens') >= 3 and _g('lid') >= 3 or _g('buttons') >= 3 or _g('fold') >= 3 and _g('metal') >= 3: t['parts'] = 2
+    else: t['parts'] = 0
+    if name in ('an egg', 'a seashell', 'a feather', 'a tooth', 'hair', 'a fingernail'): t['grows'] = max(_g('grows'), 3)
+    if name in ('a bell pepper', 'a hot pepper', 'a bagel', 'a tomato', 'a cucumber', 'an onion', 'a zucchini'): t['sliced'] = max(_g('sliced'), 3)
     for k, v in fixes_for(name, globals().get('DISPLAY', {}).get(name)).items(): t[k] = v   # (plain facts the rules missed: art/fixes.py)
+    # (things that fold or roll up, like a tarp or a blanket: smaller than a case of beer folded, bigger opened out, so "sometimes")
+    if t.get('fold', 0) >= 3 and size != 'x' and size >= 2 and max(t.get('furniture', 0), t.get('$hard', 0), t.get('metal', 0)) < 3 \
+            and max(t.get('cloth', 0), t.get('paper', 0), t.get('plastic', 0), t.get('soft', 0)) >= 3: t['$microwave'] = 2
+    # (clothes: almost all of it can live in a drawer or a closet, in the bedroom. Shoes and coats less often in a drawer.)
+    if name in ('a backpack', 'a lanyard', 'an oven mitt', 'a purse'): t['clothes'] = 0
+    if t.get('clothes', 0) >= 3:
+        _shoe = t.get('feet', 0) >= 3 or name in ('a coat', 'a raincoat', 'a jacket', 'a suit', 'a dress', 'a robe', 'a baseball cap', 'a hat')
+        t['drawer'] = max(t.get('drawer', 0), 2 if _shoe else 3)
+        if name in ('socks', 'underwear', 'a bra', 'pajamas'): t['drawer'] = 4
+        t['bedroom'] = max(t.get('bedroom', 0), 3 if name != 'an apron' else 0)
     for k, v in LEARNED.get(name, {}).items():
         cur = t.get(k, 0)
         t[k] = (4 if cur >= 3 else 3) if v >= 3 else ((0 if cur <= 1 else 1) if v <= 1 else 2)
+    if name in ('a tarp', 'a curtain', 'a coat', 'a parachute', 'a shower curtain', 'a garbage bag'): t['$microwave'] = 2   # (folded smaller than a case of beer, opened out bigger: the user's own rule, over older survey answers)
+    # (a lighter: anything that is sometimes metal and sometimes wood, plastic or cloth, like a chair, a bench or a ladder, is "sometimes")
+    if (t.get('metal', 0) == 2 and (t.get('burn', 0) >= 3 or max(t.get('wood', 0), t.get('plastic', 0), t.get('cloth', 0), t.get('paper', 0)) >= 2)) \
+            or (t.get('metal', 0) >= 3 and max(t.get('wood', 0), t.get('plastic', 0), t.get('cloth', 0)) >= 2): t['burn'] = 2   # (and part metal, part plastic or wood: a stapler, a phone)
+    # (body parts: "could you pick it up?", "would it fit in your pocket?" make no sense for your back or your nose, so neither answer counts against them,
+    #  and once he knows it is a body part he stops asking them)
+    if t.get('body', 0) >= 3:
+        for _k in ('$pickup', '$heavy', 'pocket', '$hold', '$movable', '$duck', '$microwave', '$light', 'shoebox', '$outdoors', '$indoors', 'rolls', 'float', 'envelope', '$steal'): t[_k] = 2
+    if boxy(name): t['box'] = 2   # (a cereal box IS a box: "does it come in a box?" can honestly go either way, so neither answer counts against it)
     g = lambda k: t.get(k, 0); up = lambda k, v: t.__setitem__(k, max(g(k), v))
     # round 3: small home things are used at home
     if name in ('a candle', 'a scale', 'a vase', 'a picture frame', 'a mirror', 'a lamp', 'a pillow', 'a blanket', 'a clock', 'a rug', 'a curtain', 'a towel', 'a plant pot_x', 'a light bulb', 'a remote control', 'a box', 'a basket', 'a hanger', 'a bucket', 'a broom'): t['$home'] = 4; up('$household', 4); up('$indoors', 4)

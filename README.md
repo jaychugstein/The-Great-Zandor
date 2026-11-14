@@ -4,7 +4,7 @@
 
 Look around you. Pick one thing you can see. The Great Zandor will tell you what you are looking at in 21 questions... or fewer.
 
-A 21 questions game hosted by a creepy fortune teller who sees through your eyes. He knows 1,100 things you might be
+A 21 questions game hosted by a creepy fortune teller who sees through your eyes. He knows 1,106 things you might be
 looking at, at home, at work, in a waiting room or down by the lake: animals, food, furniture, clothes, gadgets, tools, vehicles and more.
 
 By **jaychugstein** · MIT License · Made for the **Arduboy FX and FX-C** (it uses the FX flash chip).
@@ -33,8 +33,7 @@ One wrong answer won't throw him off.
 | Button | What it does |
 |---|---|
 | Arrows | Move the highlight between the four answer boxes |
-| B | Choose the highlighted answer · move his speech along |
-| A or B | Start (title screen) |
+| A or B | Choose the highlighted answer · move his speech along · start (both buttons do the same thing) |
 | Left / Right | Sound ON or OFF (title screen) · YES or NO (your future) |
 
 ## Install
@@ -62,8 +61,10 @@ python3 sim.py        # optional: plays thousands of pretend games and reports h
 
 `art/data.py`, `art/more.py`, `art/more2.py`, `art/more3.py` and `art/more4.py` hold the questions and the things he knows, with their answers.
 `art/fortunes.py` holds his fortunes, and `TheGreatZandor/lines.h` everything else he says.
-`art/fixes.py` holds plain-fact corrections (a basketball is a ball, the moon glows).
-`art/learned.json` holds the answers real players gave in the training survey (they override the rest).
+`art/fixes.py` and `art/fill.py` hold plain-fact corrections and extra facts (a basketball is a ball, the moon glows,
+a sweater is usually worn in winter).
+`art/learned.json` holds the answers real players gave in the training survey (they override the rest);
+`art/survey_apply.py` folds a fresh download of survey answers into it.
 `art/fastsim.py` is a quicker copy of the simulator, and `art/mkqueue.py` builds the question list for the training survey.
 `art/worst.py` and `art/audit.py` list the things he misses most.
 

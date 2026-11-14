@@ -24,7 +24,7 @@ def pick(score, asked, rnd):
             if v >= 3: y += w[i]
             elif v <= 1: n += w[i]
             else: s += w[i]
-        tot = y + n + s; g = tot * tot - y * y - n * n - s * s
+        g = 4 * y * n + 3 * (y + n) * s   # (a 'sometimes' thing fits either answer, so it counts for a bit less: as in the Arduboy code)
         g = g * (5 if Q[q][0] in ('green','red','yellow','orange','brown','black','white','colorful','cute','old','everyday','gift') else 8) // 8
         best.append((g, q))
     best.sort(reverse=True)
