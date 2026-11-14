@@ -1025,6 +1025,24 @@ def answers(name, cat, size, tags):
     else: t['parts'] = 0
     if name in ('an egg', 'a seashell', 'a feather', 'a tooth', 'hair', 'a fingernail'): t['grows'] = max(_g('grows'), 3)
     if name in ('a bell pepper', 'a hot pepper', 'a bagel', 'a tomato', 'a cucumber', 'an onion', 'a zucchini'): t['sliced'] = max(_g('sliced'), 3)
+    # "Would it catch fire from a lighter?", re-learned from 400 survey answers (Nov 14). People say yes to far more than paper and wood:
+    # plastic melts and burns, gadgets burn, anything with a gas tank burns, soft furniture burns. Only bare metal, stone and glass are a firm no.
+    _made = t.get('$made', 0) >= 3 and max(_g('eat'), _g('drink'), _g('alive'), _g('body'), _g('place')) < 3
+    if _made and size != 'x':
+        _soft = max(_g('wood'), _g('paper'), _g('cloth')) >= 3
+        _met = _g('metal') >= 3
+        if _soft and not _met: _b = 4                                                     # (a piano, a couch, a kite)
+        elif _g('engine') >= 3: _b = 4                                                     # (a car, a lawn mower: gasoline)
+        elif _g('plastic') >= 3 and not _met: _b = 4                                       # (a comb, a laundry basket, LEGO)
+        elif _g('liquid') >= 3 or _g('hasliquid') >= 3 and max(_g('clean'), _g('grooming')) >= 3: _b = 3   # (glue, lotion, mouthwash; bleach less so)
+        elif max(_g('electric'), _g('$electronic')) >= 3 and not _met: _b = 3              # (a camera, a radio, a monitor)
+        elif _g('ball') >= 3 or _g('bounce') >= 3: _b = 3                                  # (a football, a basketball)
+        elif _met and (_soft or _g('plastic') >= 2 or _g('wood') == 2 or _g('cloth') == 2): _b = 2   # (part metal, part something that burns: a hammer, a rake)
+        elif _g('metal') == 2: _b = 2                                                      # (sometimes metal, sometimes not: a chair, a paddle)
+        elif _met and max(_g('handle'), _g('wear'), _g('wheels')) >= 3: _b = 2             # (a knife, a pot, a bracelet: people often say sometimes)
+        elif _met or max(_g('glass'), _g('rock')) >= 3: _b = 0                             # (a key, a nail, a jar, a brick)
+        else: _b = 2
+        t['burn'] = _b
     for k, v in fixes_for(name, globals().get('DISPLAY', {}).get(name)).items(): t[k] = v   # (plain facts the rules missed: art/fixes.py)
     # (things that fold or roll up, like a tarp or a blanket: smaller than a case of beer folded, bigger opened out, so "sometimes")
     if t.get('fold', 0) >= 3 and size != 'x' and size >= 2 and max(t.get('furniture', 0), t.get('$hard', 0), t.get('metal', 0)) < 3 \
@@ -1040,13 +1058,11 @@ def answers(name, cat, size, tags):
         cur = t.get(k, 0)
         t[k] = (4 if cur >= 3 else 3) if v >= 3 else ((0 if cur <= 1 else 1) if v <= 1 else 2)
     if name in ('a tarp', 'a curtain', 'a coat', 'a parachute', 'a shower curtain', 'a garbage bag'): t['$microwave'] = 2   # (folded smaller than a case of beer, opened out bigger: the user's own rule, over older survey answers)
-    # (a lighter: anything that is sometimes metal and sometimes wood, plastic or cloth, like a chair, a bench or a ladder, is "sometimes")
-    if (t.get('metal', 0) == 2 and (t.get('burn', 0) >= 3 or max(t.get('wood', 0), t.get('plastic', 0), t.get('cloth', 0), t.get('paper', 0)) >= 2)) \
-            or (t.get('metal', 0) >= 3 and max(t.get('wood', 0), t.get('plastic', 0), t.get('cloth', 0)) >= 2): t['burn'] = 2   # (and part metal, part plastic or wood: a stapler, a phone)
     # (body parts: "could you pick it up?", "would it fit in your pocket?" make no sense for your back or your nose, so neither answer counts against them,
     #  and once he knows it is a body part he stops asking them)
     if t.get('body', 0) >= 3:
         for _k in ('$pickup', '$heavy', 'pocket', '$hold', '$movable', '$duck', '$microwave', '$light', 'shoebox', '$outdoors', '$indoors', 'rolls', 'float', 'envelope', '$steal'): t[_k] = 2
+    if (t.get('eat', 0) >= 3 or t.get('drink', 0) >= 3) and 'inhand' not in LEARNED.get(name, {}): t['inhand'] = 2   # (you hold a sandwich or a drink, but is that 'using' it? either answer is fair)
     if boxy(name): t['box'] = 2   # (a cereal box IS a box: "does it come in a box?" can honestly go either way, so neither answer counts against it)
     g = lambda k: t.get(k, 0); up = lambda k, v: t.__setitem__(k, max(g(k), v))
     # round 3: small home things are used at home

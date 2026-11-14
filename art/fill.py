@@ -457,7 +457,8 @@ BURN = {4: 'can_of_hairspray q-tip cotton_ball dryer_sheet painting present boar
         2: 'mop paintbrush doll balloon dental_floss hair_tie rubber_band mask jump_rope boxing_glove purse wallet belt suitcase lawn_chair life_jacket '
            'pool_noodle yoga_mat mouse_pad placemat sewing_kit first_aid_kit pencil_case jack-in-the-box kaleidoscope bottle_of_white-out olive_oil '
            'deodorant vape lipstick lip_balm candy flour sugar a_x',
-        1: 'hot_water_bottle stress_ball whoopee_cushion tub_of_play_dough christmas_lights ornament bath_bomb sunscreen lotion'}
+        1: 'bath_bomb'}
+BURN[3] += ' hot_water_bottle stress_ball whoopee_cushion tub_of_play_dough christmas_lights sunscreen lotion'
 BURNFIX = {}
 for _v, _ns in BURN.items():
     for _n in _ns.split():

@@ -222,7 +222,7 @@ QNEW = [('socket', 'Can you plug something into it?', 'outlet power_bar extensio
 QNEW += [('withtv', 'Do you use it with a TV?', 'remote_control video_game_console game_controller dvd_or_blu-ray_player dvd_or_blu-ray:3 speaker:2 '
           'couch:2 coffee_table:1 popcorn:2 router:1 vr_headset:1 cd:0')]
 # ...and one that splits the made things in two: things you hold while you use them (Nov 14; worked out by a rule in data.py)
-QNEW += [('inhand', 'Do you hold it, not wear it, when using it?', ''), ('parts', 'Does it have moving parts?', '')]
+QNEW += [('inhand', 'Do you hold onto it when you use it?', ''), ('parts', 'Does it have moving parts?', '')]
 # ...and one for hotels and airports, so the luggage cart never looks like the shopping cart (Nov 14)
 QNEW += [('traveller', 'Is it made for people who are travelling?', 'luggage_cart suitcase passport key_card do_not_disturb_sign airplane cruise_ship '
           'ticket:3 map:3 gps:3 taxi:3 train:3 bus:3 subway:3 camper:3 postcard:3 ice_bucket:3 bus_stop:3 helicopter:2 hot_air_balloon:2 '

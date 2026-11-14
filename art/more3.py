@@ -157,7 +157,6 @@ def extra_answers(name, cat, size, t, alias=None):
     out['burn'] = 4 if (g('wood') >= 3 or g('paper') >= 3) else (3 if (g('cloth') >= 3 or g('plant') >= 3) else (2 if (g('plastic') >= 3 or food) else (0 if (g('metal') >= 3 or g('glass') >= 3 or g('rock') >= 3 or g('watery') >= 3 or g('liquid') >= 3) else 1)))
     # (a lighter, held to it: paper and thin wood go up; a big wooden table only chars, so "usually"; food and drink mostly don't,
     #  dry snacks might; liquids, salt and wet fruit never)
-    if out['burn'] == 4 and g('wood') >= 3 and g('paper') < 3 and size != 'x' and size >= 2: out['burn'] = 3
     if food:
         dry = g('crunchy') >= 3 or g('baked') >= 3 or b in ('popcorn', 'cereal', 'a potato chip_x', 'potato chip', 'pretzel', 'cracker', 'toast', 'bread', 'marshmallow', 'tortilla', 'flour', 'sugar', 'trail mix', 'beef jerky', 'cotton candy', 'tea bag')
         out['burn'] = 2 if dry else (0 if (g('liquid') >= 3 or g('drink') >= 3 or g('juicy') >= 3 or g('watery') >= 3) else 1)
