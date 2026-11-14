@@ -3,7 +3,7 @@
 from PIL import Image, ImageDraw
 W, H, S = 48, 64, 6
 def P(*pts): return [(x * S, y * S) for x, y in pts]
-def portrait(glow=True, blink=False):
+def portrait(glow=True, blink=False, squint=False):
     im = Image.new('L', (W * S, H * S), 0); d = ImageDraw.Draw(im)
     cx = 24
     # robe: dark, with a bright collar edge
@@ -38,7 +38,22 @@ def portrait(glow=True, blink=False):
             d.line(P((cx + sd * 20, y + 3), (cx + sd * 11.5, y)), fill=255, width=int(1.6 * S))
         d.polygon(P((cx + sd * 23, 47), (cx + sd * 18, 47), (cx + sd * 18, 60), (cx + sd * 23, 62)), fill=255)
     small = im.resize((W, H), Image.BOX).point(lambda v: 255 if v >= 128 else 0).convert('1')
+    # the turban's jewel, drawn pixel by pixel so it stays crisp: a black diamond with his Z on it
+    px = small.load()
+    for y in range(5, 20):
+        hw = 7 - abs(y - 12)
+        for x in range(cx - hw, cx + hw + 1): px[x, y] = 0
+    Z = ['#####', '...#.', '..#..', '.#...', '#####']
+    for j, row in enumerate(Z):
+        for i, ch in enumerate(row):
+            if ch == '#': px[cx - 2 + i, 10 + j] = 1
+    if squint:                                    # narrowed eyes: the sockets close to a thin slit under a heavy lid, the glow still in them
+        for x0, x1 in ((cx - 9, cx - 3), (cx + 3, cx + 9)):
+            for y in range(25, 30):
+                for x in range(x0, x1 + 1): px[x, y] = 1
+            for x in range(x0, x1 + 1): px[x, 26] = 0; px[x, 27] = 0
+            if glow: px[(x0 + x1) // 2, 27] = 1
     return small
-p = portrait(); p.save('zandor.png'); portrait(blink=True).save('zandor_blink.png')
+p = portrait(); p.save('zandor.png'); portrait(blink=True).save('zandor_blink.png'); portrait(squint=True).save('zandor_squint.png')
 big = Image.new('L', (W * 2 + 8, H), 40); big.paste(p.convert('L'), (0, 0)); big.paste(portrait(False).convert('L'), (W + 8, 0))
 big.resize(((W * 2 + 8) * 5, H * 5), Image.NEAREST).save('zandor_check.png')

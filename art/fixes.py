@@ -38,6 +38,14 @@ SPEC = {
  '$hard': 'toilet bathtub forklift cruise_ship jet_ski chainsaw brick pebble boulder bowling_ball golf_ball hockey_puck urinal chalkboard whiteboard billboard sidewalk road wall ceiling fountain chimney shed pool_table domino chess_set dart ski_pole skis snowboard seesaw sprinkler wagon flower_pot birdbath leaf_blower weed_whacker tire_pump watering_can jewelry_box kaleidoscope spinning_top rake clipboard pencil_sharpener piggy_bank:3 surfboard:3 stroller:3 hockey_net:3 tennis_racket:3 baseball:3 coaster:3 crayon:3 candle:3 bar_of_soap:3 stick_of_chalk:3 pill:3 dollhouse:3 paint_roller:3 fishing_rod:3 suitcase:3 briefcase:3 firework:3 first_aid_kit:3 jack-in-the-box:3 bulletin_board:3 basketball:3 soccer_ball:3 tire:3 incense_stick:3 volleyball:2 football:2 trampoline:2 snowman:2 sponge:0 cotton_ball:0 loofah:0 bean_bag_chair:0 dryer_sheet:0 earplugs:0 hair_tie:0 rubber_band:0 whoopee_cushion:0 bandage:0 stress_ball:1 pool_noodle:1 mattress:1 yoga_mat:1 mouse_pad:1 hot_water_bottle:1 feather_duster:1 life_jacket:1 boxing_glove:1 wallet:1 belt:1 sneakers:1 mop:1 mask:1 tennis_ball:1 bungee_cord:1 jump_rope:1 dreamcatcher:1 pencil_case:1',
 }
 
+# Nov 13: a light switch was being guessed as an outlet (the switch's entry was thin: not white, not in every home, not used today...)
+for _k, _v in {
+ 'white': 'light_switch:3', '$indoors': 'light_switch', 'everyday': 'light_switch', '$household': 'light_switch', '$home': 'light_switch',
+ 'hardware': 'light_switch outlet', 'plugin': 'light_switch:0 outlet:1', 'cord': 'light_switch:0 outlet:0', 'hang': 'light_switch:1 outlet:1',
+ 'dangerous': 'light_switch:1 outlet:3', '$movable': 'light_switch:1 outlet:1', 'light': 'light_switch:1',
+}.items(): SPEC[_k] = (SPEC.get(_k, '') + ' ' + _v).strip()
+SPEC['buttons'] = SPEC['buttons'].replace(' light_switch', '') + ' light_switch outlet:1'
+
 def _bare(n):
     n = n.lower()
     for p in ('a ', 'an ', 'the '):

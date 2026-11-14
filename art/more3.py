@@ -98,6 +98,8 @@ def bare(name):
 
 from more4 import LADD   # (the 134 things added Nov 13)
 Q4 = [(k, t, (spec + ' ' + LADD.get(k, '')).strip()) for k, t, spec in Q4]
+from more4 import QNEW
+Q4 += QNEW
 LISTS = {'burn': {}}
 for key, text, spec in Q4:
     d = {}

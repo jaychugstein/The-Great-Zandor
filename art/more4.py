@@ -197,3 +197,9 @@ LADD = {
  'swimin': 'kiddie_pool:3',
  'bodydoes': '',
 }
+
+# a question to tell an outlet from a light switch (and a power bar from a speaker...): yes for things with a socket you plug into
+QNEW = [('socket', 'Can you plug something into it?', 'outlet power_bar extension_cord laptop:3 computer:3 tv:3 phone:3 tablet:3 video_game_console:3 '
+         'monitor:3 router:3 printer:3 projector:3 dvd_or_blu-ray_player:3 electric_guitar:3 speaker:2 charger:2 car:2 microphone:2 camera:2 '
+         'game_controller:2 record_player:2 baby_monitor:2 vr_headset:2 radio:2 hard_drive:2 smartwatch:1 keyboard:1 headphones:1 drone:1 '
+         'ring_light:1 webcam:1 usb_stick:1 gps:2 cash_register:2 vending_machine:1')]

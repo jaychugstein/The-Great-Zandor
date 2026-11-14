@@ -23,6 +23,8 @@ I made it with hopes of one day seeing it enjoyed on the **POOM** too.
 2. Tell Zandor what kind of thing it is: ANIMAL, PLANT, MAN-MADE or OTHER (OTHER is the rest of nature: a rock, sand, water, snow, a cloud).
 3. Answer his questions: YES, NO, SOMETIMES or UNKNOWN.
 4. He guesses along the way when the spirits are sure. If his guess at question 21 is wrong, he keeps going up to 25.
+5. Win or lose, he then asks if you would like to hear your future. Say yes and he tells you a fortune for the next 24 hours
+   (one of over 450), or now and then today's lucky or unlucky number. Say no and you are back at the booth.
 
 One wrong answer won't throw him off.
 
@@ -32,7 +34,8 @@ One wrong answer won't throw him off.
 |---|---|
 | Arrows | Move the highlight between the four answer boxes |
 | B | Choose the highlighted answer · move his speech along |
-| Left / Right | Sound ON or OFF (title screen) |
+| A or B | Start (title screen) |
+| Left / Right | Sound ON or OFF (title screen) · YES or NO (your future) |
 
 ## Install
 
@@ -58,6 +61,7 @@ python3 sim.py        # optional: plays thousands of pretend games and reports h
 ```
 
 `art/data.py`, `art/more.py`, `art/more2.py`, `art/more3.py` and `art/more4.py` hold the questions and the things he knows, with their answers.
+`art/fortunes.py` holds his fortunes, and `TheGreatZandor/lines.h` everything else he says.
 `art/fixes.py` holds plain-fact corrections (a basketball is a ball, the moon glows).
 `art/learned.json` holds the answers real players gave in the training survey (they override the rest).
 `art/fastsim.py` is a quicker copy of the simulator, and `art/mkqueue.py` builds the question list for the training survey.
