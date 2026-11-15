@@ -761,6 +761,31 @@ MIDMED = set(('a laptop', 'a briefcase', 'a toolbox', 'a frying pan', 'a wok', '
     'a basketball', 'a soccer ball', 'a volleyball', 'a football', 'a helmet', 'a purse', 'a shopping bag', 'a globe', 'a record player', 'a cash register', 'a slow cooker',
     'an air fryer', 'a rice cooker', 'a projector', 'a speaker', 'a gas can', 'a can of paint', 'a watering can', 'a bucket', 'a garbage bag', 'a doll', 'boots'))
 
+INSTRUMENTS = set(('a guitar', 'a trumpet', 'a piano', 'a drum', 'a harmonica', 'a violin', 'a flute', 'a ukulele', 'a xylophone', 'a recorder', 'a whistle'))
+PLAYS = set(('a radio', 'a record player', 'a CD', 'a DVD or Blu-ray', 'a video game console', 'a game controller', 'a music box', 'a speaker', 'a drumstick', 'a rattle'))
+GAMES = set(('a board game', 'a chess set', 'a playing card', 'a pair of dice', 'a domino', 'a puzzle', "a Rubik's cube", 'a pool table', 'a dartboard'))
+PLAYED4 = set(('a video game console','a DVD or Blu-ray','a CD','a record player','a pool table','a dartboard'))
+ODDS = {
+    'an apple': {'gift': 1}, 'a bag of trail mix': {'travel': 0}, 'a flower': {'fragile': 0}, 'a mint leaf': {'sweet': 0},
+    'a nest': {'washable': 0}, 'a spider web': {'washable': 1}, 'a gnome': {'moves': 0},
+    'a sheet of paper': {'fragile': 0}, 'a tissue': {'fragile': 0}, 'a balloon': {'fragile': 2}, 'a bath bomb': {'fragile': 2},
+    'a bag of flour': {'baked': 1}, 'a whisk': {'baked': 0}, 'a toaster': {'baked': 0}, 'a magnet': {'sticky': 2},
+    'a postcard': {'travel': 0}, 'a sleeping bag': {'travel': 0}, 'a water bottle': {'travel': 0}, 'a cooler': {'travel': 0},
+    'a compass': {'info': 0}, 'a thermometer': {'info': 1}, 'a school': {'foodthere': 2}, 'a hot tub': {'comfort': 1},
+    'a printer': {'paper': 1}, 'a smoke alarm': {'rolls': 0}, 'a vacuum cleaner': {'rolls': 0}, 'a watch': {'rolls': 1},
+    'earbuds': {'loud': 0}, 'headphones': {'music': 1}, 'a coat': {'cold': 0}, 'a sled': {'cold': 1},
+    'a stethoscope': {'hardware': 0}, 'a finger': {'rings': 0}, 'a subway': {'underground': 0}, 'a tunnel': {'underground': 0},
+    'dirt': {'underground': 0}, 'a bee': {'flower': 0}, 'a butterfly': {'flower': 0}, 'a polar bear': {'winter': 0},
+    'a bottle of hot sauce': {'dangerous': 1}, 'a bottle of wine': {'expensive': 2}, 'ice skates': {'hospital': 0},
+}
+WILD = {'a goose': 3, 'a parrot': 2, 'a peacock': 2, 'a tree': 4, 'a flower': 3, 'a blade of grass': 4, 'a cactus': 4, 'seaweed': 4, 'a palm tree': 3,
+        'a pine tree': 4, 'a dandelion': 4, 'moss': 4, 'a bush': 3, 'a sunflower': 2, 'a mint leaf': 2, 'a plant': 2, 'a tulip': 1, 'a stalk of wheat': 1}
+NOISE = {'a bird': 4, 'a child': 4, 'a person': 4, 'a wasp': 4, 'an eagle': 4, 'a squirrel': 3, 'a fox': 3, 'a moose': 3, 'a zebra': 3, 'a camel': 3,
+         'an otter': 3, 'a buffalo': 3, 'a llama': 3, 'a swan': 3, 'an alligator': 3, 'a ferret': 3, 'a rat': 3, 'a chipmunk': 3, 'an ostrich': 3,
+         'a flamingo': 3, 'a snake': 3, 'a raccoon': 2, 'a deer': 2, 'a panda': 2, 'a cheetah': 2, 'a rhino': 2, 'a beaver': 2, 'a hamster': 2,
+         'a hedgehog': 2, 'a dragonfly': 2, 'a keychain': 2, 'nail clippers': 2, 'fire': 3, 'a door': 3, 'a key': 2, 'scissors': 2, 'a kettle': 3,
+         'a refrigerator': 3, 'a toaster': 2, 'a pop can': 2, 'a ball': 2, 'a hammer': 2, 'a stapler': 3, 'a can opener': 2, 'a computer': 2, 'a basketball': 2}
+
 def boxy(name):                       # things that are themselves a box or carton (a cereal box, an egg carton, a jewelry box...)
     n = name.lower(); return ('box' in n or 'carton' in n or 'crate' in n) and 'boxing' not in n
 
@@ -1047,6 +1072,37 @@ def answers(name, cat, size, tags):
     # (things that fold or roll up, like a tarp or a blanket: smaller than a case of beer folded, bigger opened out, so "sometimes")
     if t.get('fold', 0) >= 3 and size != 'x' and size >= 2 and max(t.get('furniture', 0), t.get('$hard', 0), t.get('metal', 0)) < 3 \
             and max(t.get('cloth', 0), t.get('paper', 0), t.get('plastic', 0), t.get('soft', 0)) >= 3: t['$microwave'] = 2
+    # (Nov 14, from playing: toasters eaten for breakfast, a vape blown into, honey not in the kitchen, a slide "played", a goose not wild)
+    if t.get('eat', 0) < 3 and t.get('drink', 0) < 3: t['breakfast'] = 0                       # (only food is eaten for breakfast)
+    if (t.get('eat', 0) >= 3 or t.get('drink', 0) >= 3) and t.get('grocery', 0) >= 3 and t.get('alive', 0) < 3: t['kitchen'] = max(t.get('kitchen', 0), 3)
+    # "Can it be played?" means an instrument (or a record, a game): not a slide or a bowling pin
+    # (Jordan: played = an instrument, a board game, a video game, a movie or a record. Not a bowling pin or a ball.)
+    _dn = globals().get('DISPLAY', {}).get(name, name)
+    if {name, _dn} & (INSTRUMENTS | GAMES | PLAYED4): t['played'] = 4
+    elif {name, _dn} & PLAYS: t['played'] = 3
+    elif _dn in ('a baseball cap', 'sneakers', 'a golf cart', 'a zamboni', 'a field', 'a treadmill', 'a headband', 'a stress ball', 'swim goggles', 'a snorkel'): t['played'] = min(t.get('played', 0), 1)
+    elif t.get('ball', 0) >= 3: t['played'] = 4                       # (Jordan: a ball can be played)
+    elif t.get('sport', 0) >= 3 and _dn not in ('a trophy', 'a medal', 'a water bottle', 'a yoga mat', 'a mouthguard'): t['played'] = 2   # (sports gear: sometimes)
+    elif t.get('played', 0) >= 2: t['played'] = 1
+    from thin import THIN as _TH
+    for _k, _v in _TH.get(_dn, {}).items(): t[_k] = _v   # (gaps filled in on the thinnest things: art/thin.py)
+    # (do people ever wash it? pets, farm animals and people yes; wild animals hardly; bugs never)
+    if t.get('alive', 0) >= 3 and t.get('plant', 0) < 3 and t.get('body', 0) < 3 and _dn not in ('a person', 'a baby', 'a child'):
+        if t.get('insect', 0) >= 3 or _dn in ('a worm', 'a snail', 'a spider', 'a bug', 'a jellyfish', 'a starfish', 'an octopus', 'a seahorse'): t['washable'] = 0
+        elif t.get('pet', 0) >= 3: t['washable'] = max(t.get('washable', 0), 3)
+        elif t.get('farm', 0) >= 3 or _dn in ('an elephant',): t['washable'] = 2
+        else: t['washable'] = 1
+    for _k, _v in {**ODDS.get(name, {}), **ODDS.get(_dn, {})}.items(): t[_k] = _v
+    from hamster import LIGHT as _HL, BIG as _HB   # (hot dog weight / hamster size, set one by one: art/hamster.py)
+    if _dn in _HL: t['$light'] = _HL[_dn]
+    if _dn in _HB: t['$small2'] = _HB[_dn]
+    from hamster import HEARSE as _HH
+    if _dn in _HH: t['$car'] = _HH[_dn]   # (one-off oddities found in the Nov 14 sweep)
+    if _dn in WILD or name in WILD: t['wild'] = WILD.get(_dn, WILD.get(name))
+    if _dn in NOISE or name in NOISE: t['noise'] = NOISE.get(_dn, NOISE.get(name))
+    elif t.get('noise', 0) == 2 and t.get('alive', 0) < 3 and max(t.get('electric', 0), t.get('engine', 0), t.get('music', 0)) < 3: t['noise'] = 1   # (a rock, a ring, a plate: they don't make noise)
+    if name in ('a vape',): t['blow'] = 1
+    if name in ('a doll', 'an action figure'): t['two_legs'] = 2
     # (clothes: almost all of it can live in a drawer or a closet, in the bedroom. Shoes and coats less often in a drawer.)
     if name in ('a backpack', 'a lanyard', 'an oven mitt', 'a purse'): t['clothes'] = 0
     if t.get('clothes', 0) >= 3:
@@ -1057,6 +1113,21 @@ def answers(name, cat, size, tags):
     for k, v in LEARNED.get(name, {}).items():
         cur = t.get(k, 0)
         t[k] = (4 if cur >= 3 else 3) if v >= 3 else ((0 if cur <= 1 else 1) if v <= 1 else 2)
+    # (Nov 14, Jordan: questions that ask a thing about itself are confusing, so either answer is fair)
+    if _dn in ('the ocean',): t['ocean'] = 2
+    if _dn == 'a beach': t['ocean'] = 1
+    if _dn == 'a wave': t['ocean'] = 3
+    if _dn == 'a forest': t['forest'] = 2
+    if _dn in ('the ocean', 'a lake', 'a river', 'a pond', 'a waterfall', 'a wave', 'rain'): t['$livewater'] = 2
+    if _dn in ('a leaf', 'a leaf of kale', 'a basil leaf', 'a mint leaf', 'a leaf of spinach'): t['leaves'] = 2
+    if _dn == 'a flower': t['flower'] = 2
+    if _dn == 'a seed': t['seeds'] = 2
+    # (a pop can, a mug: the drink goes in your mouth, the can or mug only touches it)
+    if _dn in ('a pop can', 'a juice box', 'a water bottle', 'a mug', 'a glass', 'a wine glass', 'a bottle', 'a baby bottle', 'a sippy cup', 'a thermos', 'a cup'): t['mouth'] = 2
+    # ("would it burn your hand?": hot food or a pan only burns you when it is just cooked or switched on, not sitting on the counter)
+    if t.get('hot', 0) >= 2 and 'hot' not in LEARNED.get(name, {}) and _dn not in ('the sun', 'a star', 'lightning', 'fire', 'a campfire'): t['hot'] = 2
+    if _dn == 'a hot tub': t['hot'] = 1
+    if name == 'a mouthguard': t['played'] = 0   # (Jordan: a mouthguard cannot be played, over the older survey answer)
     if name in ('a tarp', 'a curtain', 'a coat', 'a parachute', 'a shower curtain', 'a garbage bag'): t['$microwave'] = 2   # (folded smaller than a case of beer, opened out bigger: the user's own rule, over older survey answers)
     # (body parts: "could you pick it up?", "would it fit in your pocket?" make no sense for your back or your nose, so neither answer counts against them,
     #  and once he knows it is a body part he stops asking them)

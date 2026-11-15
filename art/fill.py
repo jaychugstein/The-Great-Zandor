@@ -464,6 +464,14 @@ for _v, _ns in BURN.items():
     for _n in _ns.split():
         if not _n.endswith('_x'): BURNFIX[_n.replace('_', ' ')] = 'burn:%d' % _v
 # ---- "Is it made of water?" for drinks (Nov 14): a glass of water is; tea and coffee mostly are; juice, pop, milk, beer and wine people say no to
-EXTRA = {'coffee': 'watery:2', 'tea': 'watery:2', 'iced tea': 'watery:2', 'a popsicle': 'watery:2',
+EXTRA = {
+         # (pet things are not pets: "Do people keep it as a pet?" is no for the tank, the bowl, the leash...)
+         'a fish tank': 'pet:0', 'a doghouse': 'pet:0', 'a leash': 'pet:0', 'a litter box': 'pet:0', 'a dog bowl': 'pet:0', 'a hamster wheel': 'pet:0', 'a dog bed': 'pet:0', 'a scratching post': 'pet:0', 'a birdcage': 'pet:0',
+         # (Nov 14: peanut butter was guessed as ketchup; a flashlight went wrong)
+         'peanut butter': 'sweet:2 salty:3 snack:2 fingers:0 sauce:2 soft:4 sticky:4 brown:4 breakfast:3 liquid:0 smooth:3 glass:2 plastic:3 lid:4 squeeze_x',
+         'ketchup': 'plastic:3 smell:2 sweet:2 salty:2 red:4 liquid:3 hasliquid:4 tube:4 sticky:2 brown:0 breakfast:1 snack:0 fingers:0',
+         'hot sauce': 'eat:3 mouth:4 grocery:4 kitchen:4 liquid:4 hasliquid:4', 'soy sauce': 'eat:3 mouth:4 grocery:4 kitchen:4 liquid:4 hasliquid:4',
+         'a flashlight': 'glass:3 black:2 long:3 metal:2 plastic:3 noise:1 battery:4 light:4 night:3 hot:2 $electronic:4 buttons:4 inhand:4 camping:4',
+         'coffee': 'watery:2', 'tea': 'watery:2', 'iced tea': 'watery:2', 'a popsicle': 'watery:2',
          'orange juice': 'watery:1', 'apple juice': 'watery:1', 'lemonade': 'watery:1', 'soda': 'watery:1', 'milk': 'watery:1',
          'beer': 'watery:1', 'wine': 'watery:1', 'a smoothie': 'watery:1', 'hot chocolate': 'watery:1', 'water': 'watery:4'}

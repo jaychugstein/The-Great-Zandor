@@ -3,11 +3,11 @@
 #include <ArduboyFX.h>
 constexpr uint16_t FX_DATA_PAGE = 0xFA80;
 constexpr uint16_t FX_SAVE_PAGE = 0xFFF0;
-constexpr uint16_t NOBJ = 1106, NQ = 251, NAMELEN = 24, QLEN = 44, NFORT = 455, FORTLEN = 80;
+constexpr uint16_t NOBJ = 1107, NQ = 251, NAMELEN = 24, QLEN = 44, NFORT = 455, FORTLEN = 80;
 constexpr uint24_t MATQ   = 0x000000;   // answers by question: NOBJ bytes a question (0 no .. 4 yes)
-constexpr uint24_t CATS   = 0x043C66;   // each thing's opening boxes (low 4 bits, one bit a box: animal, plant, man-made, other) and how sparse its answers are (high bits: a small head start taken off, so thin entries do not win by default)
-constexpr uint24_t NAMES  = 0x0440B8;   // names, 24 bytes each (the name he says: one of the thing, never a heap)
-constexpr uint24_t QWT    = 0x04A868;   // how much each question is favoured (8 = fully, less = saved for later)
-constexpr uint24_t QTEXT  = 0x04A963;   // question text, 44 bytes each
-constexpr uint24_t ZANDOR = 0x04D487;   // the fortune teller, 48 x 64, three frames: eyes open, eyes shut, eyes narrowed
-constexpr uint24_t FORTS  = 0x04D90B;   // fortunes, 80 bytes each (a | splits one into two pages)
+constexpr uint24_t CATS   = 0x043D61;   // each thing's opening boxes (low 4 bits, one bit a box: animal, plant, man-made, other) and how sparse its answers are (high bits: a small head start taken off, so thin entries do not win by default)
+constexpr uint24_t NAMES  = 0x0441B4;   // names, 24 bytes each (the name he says: one of the thing, never a heap)
+constexpr uint24_t QWT    = 0x04A97C;   // how much each question is favoured (8 = fully, less = saved for later)
+constexpr uint24_t QTEXT  = 0x04AA77;   // question text, 44 bytes each
+constexpr uint24_t ZANDOR = 0x04D59B;   // the fortune teller, 48 x 64, three frames: eyes open, eyes shut, eyes narrowed
+constexpr uint24_t FORTS  = 0x04DA1F;   // fortunes, 80 bytes each (a | splits one into two pages)

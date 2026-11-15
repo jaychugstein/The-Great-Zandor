@@ -45,6 +45,8 @@ if SWEEP:
         return True
     _sweep = [[t, _qi, int(F.M[t, _qi])] for t in _order if OBJ[t][0] not in _done and _fits(t)]
     queue = _sweep + [c for c in queue if c[1] != _qi]
+if os.environ.get('SHUFFLE', '1') == '1':                    # (completely shuffled: every card in random order)
+    random.Random().shuffle(queue)
 json.dump({'things': [o[0] for o in OBJ], 'show': [DISPLAY.get(o[0], o[0]) for o in OBJ], 'questions': [['burnL' if k == 'burn' else k, t] for k, t in Q],   # (burnL: answers to the lighter wording, kept apart from old match ones)
            'queue': queue}, open(sys.argv[1], 'w'), separators=(',', ':'))
 print(len(queue), 'cards')

@@ -162,6 +162,11 @@ HOTEL = grp('M', 'indoor', [
 ])
 MORE4 += HOTEL
 
+# ---- Nov 14 (Jordan): taxidermy, taking Zandor to 1,107
+MORE4 += grp('M', 'indoor', [
+ ('a taxidermy animal', 2, 'fur ~feathers face $legs ~four_legs ~tail decor scary ~hang ~wall brown ~expensive -$household'),   # (a stuffed deer head, a mounted fish, a stuffed owl)
+])
+
 # "yes" answers to the list questions in more3.py (round 4-6), for the new things only: name = yes, name:3 usually, :2 sometimes, :1 rarely
 LADD = {
  'team': 'mouthguard:3',
