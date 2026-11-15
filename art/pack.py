@@ -1,4 +1,5 @@
 # Packs the questions, the things and the answer table for the FX chip. Writes ../TheGreatZandor/fxdata.h and ../TheGreatZandor/fxdata/*.bin.
+import checks; checks.run()                                  # (stop if a correction could silently wipe out another)
 import os
 from data import Q, OBJ, matrix
 ART = os.path.dirname(os.path.abspath(__file__)); OUT = os.path.join(ART, '..', 'TheGreatZandor')

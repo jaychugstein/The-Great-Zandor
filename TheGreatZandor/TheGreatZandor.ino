@@ -3,7 +3,7 @@
 // Look at something near you. It asks what kind of thing it is (animal, plant, man-made or other), then up to 21 questions, guessing along
 // the way when it's sure. If its guess at 21 is wrong it keeps going to 25. by jaychugstein
 //
-// Controls: the arrows move a highlight between four answer boxes (YES, NO, SOMETIMES, UNKNOWN); A or B (both do the same thing) answers,
+// Controls: the arrows move a highlight between four answer boxes (YES, NO, SOMETIMES, DON'T KNOW); A or B (both do the same thing) answers,
 // starts and moves things along. The first question works the same way: ANIMAL, PLANT, MAN-MADE or OTHER.
 //
 // How it thinks: the FX chip holds a table of how every thing answers every question (no, rarely, sometimes, usually, yes;
@@ -98,10 +98,10 @@ static_assert(NQ < 256 && NOBJ < 2048, "questions are counted in a byte");
 uint8_t asked[(NQ + 7) / 8];                                   // the questions already asked
 bool wasAsked(uint8_t q) { return asked[q >> 3] >> (q & 7) & 1; }
 const int8_t DELTA[4][5] PROGMEM = {                           // how an answer moves a thing's score, by how that thing answers (no, rarely, sometimes, usually, yes)
-  { -4, 0, 0, 3, 4 },                                          // YES (a "rarely" thing is not punished: people often say yes to those)
-  { 4, 3, 0, 0, -4 },                                          // NO
-  { -2, -2, 2, -2, -2 },                                       // UNKNOWN (people say it when a thing is neither one nor the other)
-  { -5, 0, 3, 0, -5 } };                                       // SOMETIMES (tuned in art/fastsim.py)
+  { -4, -1, 0, 3, 4 },                                         // YES
+  { 4, 3, 0, -1, -4 },                                         // NO
+  { 0, 0, 1, 0, 0 },                                           // DON'T KNOW (a skip: it counts against nothing, and only nudges the in-between things)
+  { -2, 1, 3, 1, -2 } };                                       // SOMETIMES (real players say it often, even about a firm yes or no, so it only nudges: tuned in art/fastsim.py with ANS=real)
 const uint8_t MAXH = 26, MAXW = 16;
 uint8_t hq[MAXH], ha[MAXH], nh;                                // the questions answered so far, and the answers
 uint16_t wrong[MAXW]; bool wrongOut[MAXW]; uint8_t nw;         // things he guessed wrongly (ruled out, or just doubted)
@@ -142,7 +142,7 @@ uint8_t pickQuestion() {                                       // the unasked qu
     if (wasAsked(q)) continue;
     uint16_t y = 0, n = 0, s = 0;
     for (uint8_t k = 0; k < nTop; k++) { uint8_t v = answerOf(top[k], q); if (v >= 3) y += w[k]; else if (v <= 1) n += w[k]; else s += w[k]; }
-    uint32_t g = 4 * (uint32_t)y * n + 3 * (uint32_t)(y + n) * s;   // how evenly it splits them (a 'sometimes' thing fits either answer, so it counts for a bit less)
+    uint32_t g = 4 * (uint32_t)y * n + 2 * (uint32_t)(y + n) * s;   // how evenly it splits them (a 'sometimes' thing gets shaky answers, so it counts for half)
     FX::seekData(QWT + q); g = g * FX::readEnd() / 8;            // (some questions, like colours, are saved for later: they feel random early on)
     for (uint8_t j = 0; j < 3; j++) if (g > best[j] || bq[j] == 255) { for (uint8_t m = 2; m > j; m--) { best[m] = best[m - 1]; bq[m] = bq[m - 1]; } best[j] = g; bq[j] = q; break; }
   }
@@ -228,7 +228,7 @@ bool speak(bool prompt) {                                     // what he says, b
   return true;
 }
 
-const char S_YES[] PROGMEM = "YES", S_NO[] PROGMEM = "NO", S_UNK[] PROGMEM = "UNKNOWN", S_SOME[] PROGMEM = "SOMETIMES";
+const char S_YES[] PROGMEM = "YES", S_NO[] PROGMEM = "NO", S_UNK[] PROGMEM = "DON'T KNOW", S_SOME[] PROGMEM = "SOMETIMES";
 const char S_AN[] PROGMEM = "ANIMAL", S_VEG[] PROGMEM = "PLANT", S_MIN[] PROGMEM = "MAN-MADE", S_OTH[] PROGMEM = "OTHER";
 PGM_P const CATL[4] = { S_AN, S_VEG, S_MIN, S_OTH };
 PGM_P const ANS[4] = { S_YES, S_NO, S_SOME, S_UNK };          // (box order: top left, top right, bottom left, bottom right)

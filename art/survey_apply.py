@@ -13,7 +13,7 @@ for f in glob.glob(os.path.join(sys.argv[1] if len(sys.argv) > 1 else 'survey_pu
         n+=1
         if k in('paint','burn'):continue
         if k=='burnL': k='burn'   # (the lighter wording)
-        if v<0: v=2   # (UNKNOWN: a player would say unknown too, so make it the in-between answer that neither helps nor hurts)
+        if v<0: continue   # (DON'T KNOW: no answer, so the rules decide; in the game it's a skip now)
         if nm not in names: unk.add(nm);continue
         if k not in qk: badq.add(k);continue
         if (nm in data.DISPLAY or nm in data.MASS) and k in SIZE:continue

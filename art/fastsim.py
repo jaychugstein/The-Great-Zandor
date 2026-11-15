@@ -5,23 +5,33 @@ from data import Q, OBJ, matrix
 from pack import GROUPS, PRIMARY
 M = np.array(matrix(), dtype=np.int16); N, NQ = M.shape
 E = lambda k, d: int(os.environ.get(k, d))
-K, MG, EA, WB, CS, MG2 = E('K', 48), E('MG', 20), E('EA', 10), E('WB', 12), E('CS', 5), E('MG2', 10); XT = E('XT', 3)
-D = {'Y': np.array([int(x) for x in os.environ.get('DV', '-4,0,0,3,4').split(',')]), 'U': np.array([int(x) for x in os.environ.get('DU', '-2,-2,2,-2,-2').split(',')]), 'S': np.array([int(x) for x in os.environ.get('DS', '-5,0,3,0,-5').split(',')])}
+K, MG, EA, WB, CS, MG2 = E('K', 48), E('MG', 20), E('EA', 10), E('WB', 12), E('CS', 5), E('MG2', 10); XT = E('XT', 3); GS = E('GS', 2)
+D = {'Y': np.array([int(x) for x in os.environ.get('DV', '-4,-1,0,3,4').split(',')]), 'U': np.array([int(x) for x in os.environ.get('DU', '0,0,1,0,0').split(',')]), 'S': np.array([int(x) for x in os.environ.get('DS', '-2,1,3,1,-2').split(',')])}
 D['N'] = D['Y'][::-1].copy()
 SP = np.array([max(0, min(4, (18 - int((M[i] >= 3).sum())) // 3)) for i in range(N)])
 INGRP = {c: np.array([c in GROUPS[i] for i in range(N)]) for c in 'AVMO'}
 LOW = set(('green','red','yellow','orange','brown','black','white','colorful','cute','old','everyday','gift'))
 QW = np.array([5 if k in LOW else 8 for k, _ in Q])
 Y3, N1, S2 = (M >= 3), (M <= 1), (M == 2)
+Y4, Y3s, N0, N1s = (M == 4), (M == 3), (M == 0), (M == 1); SA = E('SA', 4)
 def pick(score, asked, rnd):
     top = np.argsort(-score, kind='stable')[:K]
     if XT: w = np.maximum(1, (64 * np.power(2.0, (score[top] - score[top[0]]) / XT)).astype(np.int64))   # (a leader's say halves for every XT points it trails the best: as in the Arduboy code)
     else: w = np.maximum(1, WB + score[top] - score[top[0]])
-    y = w @ Y3[top]; n = w @ N1[top]; s = w @ S2[top]; tot = y + n + s
-    g = (4 * y * n + 3 * (y + n) * s) * QW // 8; g[asked] = -1   # (a 'sometimes' thing fits either answer, so it counts for a bit less than a firm yes or no: as in the Arduboy code)
+    if SA < 4: y = (w * 4) @ Y4[top] + (w * SA) @ Y3s[top]; n = (w * 4) @ N0[top] + (w * SA) @ N1s[top]; s = (w * 4) @ S2[top] + (w * (4 - SA)) @ (Y3s[top] | N1s[top]); y, n, s = y // 4, n // 4, s // 4
+    else: y = w @ Y3[top]; n = w @ N1[top]; s = w @ S2[top]
+    g = (4 * y * n + GS * (y + n) * s) * QW // 8; g[asked] = -1   # (a 'sometimes' thing fits either answer, so it counts for a bit less than a firm yes or no: as in the Arduboy code)
     o = np.argsort(-g, kind='stable')[:3]; c = [q for q in o if g[q] >= g[o[0]] * 9 // 10 and g[q] >= 0]
     return int(rnd.choice(c))
+REAL = os.environ.get('ANS') == 'real'; UNK = float(os.environ.get('UNK', 0))
+# (Nov 15: what real survey answers look like next to the data. People say SOMETIMES a lot where the data is a firm yes or no,
+#  and flip a firm no to yes now and then. ANS=real plays that kind of player instead of the tidy one below.)
+_RP = {0: 'N' * 88 + 'S' * 8 + 'Y' * 4, 1: 'N' * 58 + 'S' * 30 + 'Y' * 12, 2: 'S' * 50 + 'N' * 23 + 'Y' * 23 + 'U' * 4, 3: 'Y' * 60 + 'S' * 32 + 'N' * 8, 4: 'Y' * 85 + 'S' * 12 + 'N' * 3}
 def answer(v, rnd, noise):
+    if REAL:
+        if v == 0 and rnd.random() < UNK: return 'U'   # (a question that makes no sense for this thing: 'does a toaster have leaves?')
+        if v in (1, 2, 3) and rnd.random() < UNK / 2: return 'U'   # (or one they just don't know)
+        return rnd.choice(_RP[v])
     if rnd.random() < noise: return rnd.choice('YN')
     if v == 4: return 'Y'
     if v == 0: return 'N'

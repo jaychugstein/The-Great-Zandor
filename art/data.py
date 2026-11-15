@@ -168,7 +168,7 @@ Q = [
  ('leaves', 'Does it have leaves?'),
  ('kinds', 'Are there many different sorts?'),
  ('rabbits', 'Do rabbits eat it?'),
- ('smooth', 'Is it smooth?'),
+ ('smooth', 'Does it feel smooth when you touch it?'),
  ('$hard', 'Is it hard?'),
  ('larger', 'Does it come from something larger?'),
  ('rolls', 'Does it roll?'),
@@ -535,6 +535,13 @@ from fixes import fixes_for, FIX
 import json as _json, os as _os
 _lp = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), 'learned.json')
 LEARNED = _json.load(open(_lp)) if _os.path.exists(_lp) else {}
+# (Nov 15, Jordan: "I am only human so sometimes I don't click the right box". Survey answers that go against both the rules and
+#  every similar thing, and that I can't make sense of, are left out so the rules decide. Keyed by the name shown on screen.)
+SLIPS = {'a rolling pin': 'inhand', 'a hand dryer': 'inhand', 'a sunset': '$household', 'a stick': '$household', 'a Christmas stocking': '$steal',
+         'a shadow': '$movable', 'a baguette': '$indoors', 'earplugs': '$indoors', 'the moon': '$heavy', 'a baseball': '$outdoors',
+         'a porcupine': '$pickup', 'a skunk': '$pickup', 'a hippo': '$car', 'a seahorse': 'comfort', 'a wheel': 'vehicle', 'the sun': 'grows',
+         'underwear': 'read', 'a leaf': 'plastic', 'a spoon': 'dangerous', 'a book': 'sharp', 'a cockroach': 'loud', 'a piece of caramel': 'sweet'}
+
 Q = Q + [(k, t) for k, t, _ in Q4]
 MORE = MORE + MORE2
 _NEWNAMES = set(m[0] for m in MORE)
@@ -545,6 +552,9 @@ DROP = ('a toothpaste', 'a mom', 'a dad', 'a grandma', 'a grandpa', 'a brother',
 # Careers and job positions are out too (a teacher, a doctor, a plumber, a clown, a cowboy...). Storybook characters stay: a king, a pirate, a witch.
 DROP += ('a teacher', 'a police officer', 'a doctor', 'a firefighter', 'a chef', 'a nurse', 'a farmer', 'a soldier', 'an astronaut', 'a mailman', 'a pilot', 'a dentist', 'a lawyer', 'a judge', 'a magician', 'a singer', 'an actor', 'a hockey player', 'a referee', 'a coach', 'a waiter', 'a cashier', 'a plumber', 'a mechanic', 'a carpenter', 'a janitor', 'a librarian', 'a scientist', 'an artist', 'a bus driver', 'a lifeguard', 'a president', 'a clown', 'a cowboy', 'a ninja', 'a knight')
 # And the ideas nobody can answer questions about (he missed these more than anything else).
+DROP += ('a hand', 'a finger', 'a thumb', 'a toe', 'a foot', 'an arm', 'a leg', 'a knee', 'an elbow', 'a head', 'hair', 'an eye', 'an ear', 'a nose',
+         'a mouth', 'lips', 'a tongue', 'a tooth', 'a neck', 'a shoulder', 'a back', 'a belly button', 'a stomach', 'skin', 'a fingernail', 'an eyebrow',
+         'a beard', 'a mustache', 'eyelashes')   # (Nov 15, Jordan: body parts out; their questions - carry it, put it in a box - don't fit them)
 DROP += ('a hole', 'an idea', 'pain', 'night', 'air', 'sadness', 'a name', 'a memory', 'anger', 'luck', 'winter', 'summer', 'gravity', 'a color', 'a wish', 'a holiday', 'fear', 'an echo', 'a lie', 'a massage')
 OBJ = [o for o in OBJ if o[0] not in DROP]
 # More answers for things that were thinly filled in and often missed (found with art/worst.py). Same tag format; added to the thing's own tags.
@@ -628,7 +638,7 @@ LEAVE2 = set("""a book|a laptop|a tablet|a charger|a camera|a pen|a pencil|a not
 LEAVE0 = set("""a dartboard|a trophy|a bowling pin|a dumbbell|a punching bag|a pool table|a treadmill|a hockey net|a basketball hoop""".split('|'))
 LEAVE1 = set("""a diamond|skis|a stethoscope|a thimble|earplugs|a snorkel|a medal|a bowling ball|a net|a hockey puck|a dart|a crutch|pajamas|a robe|slippers|an oven mitt|a shower cap|an apron|a costume|a life jacket|roller skates|ice skates|a boxing glove|safety goggles|a mouthguard|a VR headset|a bra_x|a crown|a wig|a cape""".split('|'))
 STAPLES = set("""salt|pepper|sugar|flour|butter|milk|an egg|bread|ketchup|mustard|mayonnaise|rice|noodles|spaghetti|cereal|coffee|tea|olive oil|oil|peanut butter|cheese|water|jam|vinegar|honey|soy sauce|maple syrup|cinnamon""".split('|'))
-QDROP = set("""paint job pretend abstract space royal uniform female male family bodydoes event say famous ontv science songs insidebody room good enjoy $joy kinds
+QDROP = set("""body five paint job pretend abstract space royal uniform female male family bodydoes event say famous ontv science songs insidebody room good enjoy $joy kinds
  tasks $invented $buy africa jungle larger old addictive funny office $huge person
  $home $bring public""".split())   # (Nov 13: 'in your home?' depends on whose home; 'carry it around?' was vague - see $leave; 'in front of strangers?' mixes would and could)
 # The wording Zandor uses. Same meaning as the plain question it replaces, but his own: stranger, funnier, nothing lifted from the old toy.
@@ -640,7 +650,7 @@ QTEXT = {
  '$touch': 'Could you poke it with a finger?', 'moves': 'Does it move on its own?', 'eat': 'Do people eat it on purpose?', 'fur': 'Is it furry?',
  'bites': 'Could it bite or sting you?', 'cute': 'Would you call it cute?', 'dangerous': 'Could it send you to the hospital?',
  'smell': 'Could you smell it with your eyes shut?', 'noise': 'Does it make noise?', 'loud': 'Could it wake the neighbours?',
- 'fragile': 'Would it shatter if you dropped it?', 'soft': 'Is it soft and squishy?', 'sharp': 'Could it cut you?', 'hot': 'Would it burn your hand?',
+ 'fragile': 'Would it shatter if you dropped it?', 'soft': 'Is it soft or squishy?', 'sharp': 'Could it cut or puncture your skin?', 'hot': 'Would it burn your hand?',
  'cold': 'Is it cold to the touch?', 'shiny': 'Is it shiny?', '$steal': 'Would a burglar bother stealing it?', 'expensive': 'Is it worth more than a hundred bucks?',
  'fast': 'Could it outrun you?', 'night': 'Does it come out at night?', 'scary': 'Would it scare a small child?', 'washable': 'Do people ever wash it?',
  'everyday': 'Did you use one today?', 'gift': 'Would it make a decent birthday gift?', '$home': 'Is there one in your home?',
@@ -661,6 +671,8 @@ Q.append(('$leave', 'Do you take it along when you leave home?'))   # (what goes
 # one answer. The name he says is on the right; the plain name on the left is still what the rest of this file calls it.
 DISPLAY = {
  'a recorder': 'a recorder (flute)',   # (the school instrument, not a tape recorder)
+ 'a monitor': 'a computer monitor',   # (Jordan calls it that)
+ 'a crate': 'a wooden crate',        # (not a plastic milk crate)
  'a remote control': 'a TV remote',
  'a crane': 'a crane (machine)',
  'grapes': 'a grape', 'peas': 'a pea', 'french fries': 'a french fry', 'LEGO bricks': 'a LEGO brick', 'green beans': 'a green bean', 'brussels sprouts': 'a brussels sprout',
@@ -690,6 +702,7 @@ DISPLAY = {
  'Christmas lights': 'a string of lights', 'hair': 'a strand of hair', 'skin': 'a patch of skin', 'mud': 'a mud puddle',
 }
 assert all(len(v) < 24 for v in DISPLAY.values()), [v for v in DISPLAY.values() if len(v) >= 24]
+DISPLAY = {k: v for k, v in DISPLAY.items() if k not in DROP}   # (names of things taken out of the game)
 assert all(k in [o[0] for o in OBJ] for k in DISPLAY), [k for k in DISPLAY if k not in [o[0] for o in OBJ]]
 # the size of one of them (0 pocket .. 6 huge), where the old size was for a heap
 _SIZE1 = {'grapes': 0, 'french fries': 0, 'noodles': 0, 'nachos': 0, 'popcorn': 0, 'ice': 0, 'bacon': 0, 'ham': 0, 'toast': 0, 'chocolate': 0, 'corn': 1, 'celery': 1,
@@ -1084,8 +1097,19 @@ def answers(name, cat, size, tags):
     elif t.get('ball', 0) >= 3: t['played'] = 4                       # (Jordan: a ball can be played)
     elif t.get('sport', 0) >= 3 and _dn not in ('a trophy', 'a medal', 'a water bottle', 'a yoga mat', 'a mouthguard'): t['played'] = 2   # (sports gear: sometimes)
     elif t.get('played', 0) >= 2: t['played'] = 1
+    from smooth import SMOOTH as _SM, guess as _sg      # ("is it smooth?" by feel: art/smooth.py)
+    _sv = _SM.get(_dn)
+    if _sv is None and t.get('alive', 0) < 3 and t.get('eat', 0) < 3 and t.get('drink', 0) < 3: _sv = _sg(t)
+    if _sv is not None: t['smooth'] = _sv
+    from soft import SOFT as _SF, guess as _fg          # ("is it soft or squishy?": art/soft.py)
+    _fv = _SF.get(_dn)
+    if _fv is None and t.get('alive', 0) < 3 and t.get('eat', 0) < 3 and t.get('drink', 0) < 3: _fv = _fg(t)
+    if _fv is not None: t['soft'] = _fv
     from thin import THIN as _TH
     for _k, _v in _TH.get(_dn, {}).items(): t[_k] = _v   # (gaps filled in on the thinnest things: art/thin.py)
+    # (Jordan: a farm has a farmhouse with a kitchen, so food is found on a farm; food straight from farm animals or fields, yes)
+    if t.get('eat', 0) >= 3 or t.get('drink', 0) >= 3:
+        t['farm'] = max(t.get('farm', 0), 4 if (t.get('dairy', 0) >= 3 or t.get('ismeat', 0) >= 3 or t.get('veg', 0) >= 3 or t.get('fruit', 0) >= 3 or t.get('eggs', 0) >= 3) else 3)
     # (do people ever wash it? pets, farm animals and people yes; wild animals hardly; bugs never)
     if t.get('alive', 0) >= 3 and t.get('plant', 0) < 3 and t.get('body', 0) < 3 and _dn not in ('a person', 'a baby', 'a child'):
         if t.get('insect', 0) >= 3 or _dn in ('a worm', 'a snail', 'a spider', 'a bug', 'a jellyfish', 'a starfish', 'an octopus', 'a seahorse'): t['washable'] = 0
@@ -1110,7 +1134,54 @@ def answers(name, cat, size, tags):
         t['drawer'] = max(t.get('drawer', 0), 2 if _shoe else 3)
         if name in ('socks', 'underwear', 'a bra', 'pajamas'): t['drawer'] = 4
         t['bedroom'] = max(t.get('bedroom', 0), 3 if name != 'an apron' else 0)
+    # (Nov 15, from 2,000 new survey answers: patterns that held across many things, spread to the look-alikes nobody answered yet)
+    _g = lambda k: t.get(k, 0); _A = _g('alive') >= 3 and _g('plant') < 3
+    if _A and (_g('mammal') >= 3 or _g('fur') >= 3) and _dn not in ('a person', 'a baby', 'a child', 'a gorilla', 'a chimpanzee', 'an orangutan', 'a koala', 'a guinea pig', 'a frog', 'a toad'):
+        t['tail'] = max(_g('tail'), 4)                       # (a bear, a hamster, a sloth, a walrus: all have tails, even short ones)
+    if _A and (_g('mammal') >= 3 or _g('bird') >= 3):
+        t['noise'] = max(_g('noise'), 2)                     # (a giraffe, a kangaroo, a rabbit: every animal makes some noise)
+        if _dn not in ('a baby', 'a child'): t['bites'] = max(_g('bites'), 2)   # (a chipmunk, an owl, a parrot can all bite)
+    if _g('bathroom') >= 3: t['water'] = max(_g('water'), 3)  # (a toothbrush, a razor, soap: the sink is right there)
+    if _g('drink') >= 3 or (_g('liquid') >= 3 and _g('eat') < 3): t['soft'] = 0   # (juice, coffee, beer: a liquid isn't soft or squishy)
+    if (_g('drink') >= 3 or (_g('eat') >= 3 and (_g('cooked') >= 3 or _g('baked') >= 3 or _g('snack') >= 3 or _g('dessert') >= 3 or _g('sauce') >= 3)))\
+            and _g('plant') < 3 and _g('fruit') < 3 and _g('veg') < 3:
+        t['$indoors'] = max(_g('$indoors'), 4); t['$outdoors'] = min(_g('$outdoors'), 1)   # (cereal, soup, a pie: kept and eaten inside)
+    if _g('sharp') >= 4: t['dangerous'] = max(_g('dangerous'), 3)   # (a screwdriver, a can opener, a needle: yes, a hospital trip)
+    elif _g('sharp') >= 2: t['dangerous'] = max(_g('dangerous'), 2)
+    # (Nov 15, second pass over 8,700 survey answers: wherever one kind of thing kept getting the same correction, the kind gets it)
+    _made = _g('$made') >= 3 and _g('place') < 3 and not _A
+    if _A:
+        t['wild'] = {0: 2, 1: 2, 2: 3}.get(_g('wild'), _g('wild'))          # (a dog, a goat, a parrot: all live wild somewhere)
+        if _dn not in ('a baby', 'a child'): t['zoo'] = {0: 3, 1: 3, 2: 4}.get(_g('zoo'), _g('zoo'))   # (petting zoos, bird houses, bug houses)
+        if _g('dangerous') == 2: t['dangerous'] = 3
+        if _g('mammal') >= 3 and _dn not in ('a baby', 'a child'): t['bites'] = max(_g('bites'), 3)
+    if _g('place') >= 3: t['noise'] = max(_g('noise'), 2)                    # (a beach, a school, a barn: noisy places)
+    if _g('plugin') >= 3 and _g('cloth') < 3: t['$hard'] = 4
+    if _g('$electronic') >= 3 or _g('appliance') >= 3:
+        t['writing'] = 4 if _g('writing') >= 2 else 3                        # (a brand name, the dial markings)
+        if _g('appliance') < 3 and _g('$pickup') >= 3: t['tool'] = max(_g('tool'), 3)   # (a camera, a calculator, a USB stick)
+    if _g('writing') >= 3: t['read'] = max(_g('read'), 2)
+    if _made and _g('$person') == 2 and _g('vehicle') < 3: t['$person'] = 1  # (a dresser, a ladder, a dishwasher: not bigger than a coffin)
+    if _made and _g('$small') >= 3 and _g('eat') < 3 and _g('drink') < 3:
+        t['drawer'] = {0: 2, 1: 2, 3: 2, 4: 3}.get(_g('drawer'), _g('drawer'))   # (most small things end up in a drawer sometimes)
+    if _g('pocket') >= 3 and _g('liquid') < 3 and _g('drink') < 3: t['envelope'] = 4 if _g('envelope') >= 2 else 3
+    if _g('clothes') >= 3:
+        if _g('$small') >= 3 and _g('pocket') < 3: t['$small'] = 2           # (a shoe, a T-shirt, a scarf: about a head, folded or not)
+        t['colorful'] = max(_g('colorful'), 3)
+    if _g('wear') >= 3: t['inhand'] = max(_g('inhand'), 2)
+    if _g('sweet') >= 3 and (_g('eat') >= 3 or _g('drink') >= 3): t['sticky'] = max(_g('sticky'), 3)   # (candy, juice, pop)
+    if _g('furniture') >= 3 and _g('$movable') == 2: t['$movable'] = 3
+    if _g('$outdoors') >= 3 and not _A and _g('wet') < 2: t['wet'] = 2       # (it rains on it)
+    if _g('electric') >= 3 and _g('building') < 3 and _g('vehicle') < 3: t['box'] = 4 if _g('box') >= 2 else max(_g('box'), 3)   # (a blender, a GPS, a ceiling fan: sold in a box)
+    if _g('comfort') == 2: t['comfort'] = 1                                  # ("would you cuddle up with it?": the maybes were nearly all no)
+    if _g('plugin') >= 3 and _g('metal') < 2: t['metal'] = 2
+    if _made and _g('moves') == 2: t['moves'] = 1                            # (a scooter, a fire truck, a pinwheel: not on their own)
+    if _A and (_g('mammal') >= 3 or _g('bird') >= 3) and _g('loud') == 2: t['loud'] = 3
+    if _g('played') >= 3 and _g('$small') == 2: t['$small'] = 1              # (a trumpet, a violin, a board game: bigger than a head)
+    if _made and _g('$hard') >= 3 and _g('dangerous') == 2: t['dangerous'] = 3
+    if _g('sharp') == 2: t['sharp'] = 3
     for k, v in LEARNED.get(name, {}).items():
+        if SLIPS.get(_dn) == k or SLIPS.get(name) == k: continue
         cur = t.get(k, 0)
         t[k] = (4 if cur >= 3 else 3) if v >= 3 else ((0 if cur <= 1 else 1) if v <= 1 else 2)
     # (Nov 14, Jordan: questions that ask a thing about itself are confusing, so either answer is fair)
@@ -1126,7 +1197,16 @@ def answers(name, cat, size, tags):
     if _dn in ('a pop can', 'a juice box', 'a water bottle', 'a mug', 'a glass', 'a wine glass', 'a bottle', 'a baby bottle', 'a sippy cup', 'a thermos', 'a cup'): t['mouth'] = 2
     # ("would it burn your hand?": hot food or a pan only burns you when it is just cooked or switched on, not sitting on the counter)
     if t.get('hot', 0) >= 2 and 'hot' not in LEARNED.get(name, {}) and _dn not in ('the sun', 'a star', 'lightning', 'fire', 'a campfire'): t['hot'] = 2
+    if 'hot' not in LEARNED.get(name, {}) and (t.get('hotwhen', 0) >= 3 or (t.get('hot', 0) >= 2 and (t.get('drink', 0) >= 3 or t.get('sauce', 0) >= 3 or _dn.startswith(('a bowl of soup', 'soup', 'gravy'))))): t['hot'] = 3   # (Nov 15 survey: a kettle, a curling iron, coffee, soup: yes, it burns you; that is what it's for)
     if _dn == 'a hot tub': t['hot'] = 1
+    # (Nov 15, Jordan: liquids aren't squishy, but jello, whipped cream and pudding are; a pig and a hippo aren't soft;
+    #  a cranberry or a cherry sometimes still has its leaves; a diary can sometimes hurt you, a paper cut)
+    if t.get('liquid', 0) >= 3 or t.get('drink', 0) >= 3: t['soft'] = 0
+    if _dn in ('jello', 'a bowl of jello', 'whipped cream', 'a can of whipped cream', 'pudding', 'a cup of pudding'): t['soft'] = 4
+    if _dn in ('a pig', 'a hippo'): t['soft'] = 0
+    if _dn in ('a cranberry', 'a cherry'): t['leaves'] = 2
+    if _dn == 'a diary': t['sharp'] = 2; t['dangerous'] = max(t.get('dangerous', 0), 1)
+    if name == 'a crate': t['$household'] = 1   # (Jordan: his earlier survey answer was about a milk crate; this is a wooden crate)
     if name == 'a mouthguard': t['played'] = 0   # (Jordan: a mouthguard cannot be played, over the older survey answer)
     if name in ('a tarp', 'a curtain', 'a coat', 'a parachute', 'a shower curtain', 'a garbage bag'): t['$microwave'] = 2   # (folded smaller than a case of beer, opened out bigger: the user's own rule, over older survey answers)
     # (body parts: "could you pick it up?", "would it fit in your pocket?" make no sense for your back or your nose, so neither answer counts against them,

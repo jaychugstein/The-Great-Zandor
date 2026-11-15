@@ -3,9 +3,9 @@ import random, sys, os
 from data import Q, OBJ, matrix
 M = matrix(); N = len(OBJ); NQ = len(Q)
 CATS = 'AVMO'
-DV = os.environ.get('DV','-4,0,0,3,4'); _d=[int(x) for x in DV.split(',')]
+DV = os.environ.get('DV','-4,-1,0,3,4'); _d=[int(x) for x in DV.split(',')]
 _n=[int(x) for x in os.environ.get('DN',','.join(str(v) for v in _d[::-1])).split(',')]
-D = {'Y': _d, 'N': _n, 'U': [-2, -2, 2, -2, -2], 'S': [-5, 0, 3, 0, -5]}   # (as in the Arduboy code)
+D = {'Y': _d, 'N': _n, 'U': [0, 0, 1, 0, 0], 'S': [-2, 1, 3, 1, -2]}   # (as in the Arduboy code)
 import os
 K, MARGIN, EARLY = int(os.environ.get('K',48)), int(os.environ.get('MG',20)), int(os.environ.get('EA',10))
 WB = int(os.environ.get('WB',12))
@@ -24,7 +24,7 @@ def pick(score, asked, rnd):
             if v >= 3: y += w[i]
             elif v <= 1: n += w[i]
             else: s += w[i]
-        g = 4 * y * n + 3 * (y + n) * s   # (a 'sometimes' thing fits either answer, so it counts for a bit less: as in the Arduboy code)
+        g = 4 * y * n + 2 * (y + n) * s   # (a 'sometimes' thing fits either answer, so it counts for a bit less: as in the Arduboy code)
         g = g * (5 if Q[q][0] in ('green','red','yellow','orange','brown','black','white','colorful','cute','old','everyday','gift') else 8) // 8
         best.append((g, q))
     best.sort(reverse=True)

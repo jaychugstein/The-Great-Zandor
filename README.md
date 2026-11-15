@@ -4,7 +4,7 @@
 
 Look around you. Pick one thing you can see. The Great Zandor will tell you what you are looking at in 21 questions... or fewer.
 
-A 21 questions game hosted by a creepy fortune teller who sees through your eyes. He knows 1,107 things you might be
+A 21 questions game hosted by a creepy fortune teller who sees through your eyes. He knows 1,078 things you might be
 looking at, at home, at work, in a waiting room or down by the lake: animals, food, furniture, clothes, gadgets, tools, vehicles and more.
 
 By **jaychugstein** · MIT License · Made for the **Arduboy FX and FX-C** (it uses the FX flash chip).
@@ -21,7 +21,7 @@ I made it with hopes of one day seeing it enjoyed on the **POOM** too.
 
 1. Look at something near you. It has to be a real thing you can see.
 2. Tell Zandor what kind of thing it is: ANIMAL, PLANT, MAN-MADE or OTHER (OTHER is the rest of nature: a rock, sand, water, snow, a cloud).
-3. Answer his questions: YES, NO, SOMETIMES or UNKNOWN.
+3. Answer his questions: YES, NO, SOMETIMES or DON'T KNOW. DON'T KNOW skips the question: it never counts against what you're thinking of.
 4. He guesses along the way when the spirits are sure. If his guess at question 21 is wrong, he keeps going up to 25.
 5. Win or lose, he then asks if you would like to hear your future. Say yes and he tells you a fortune for the next 24 hours
    (one of over 450), or now and then today's lucky or unlucky number. Say no and you are back at the booth.

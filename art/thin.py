@@ -34,7 +34,7 @@ a magnet: toy:2 decor:2 school:2 flat:2 sticky:2 metal:4
 a nest: feathers:2 wood:2 forest:3 burn:4 sky:2 tree_grow:1
 a parking lot: everyday:2 writing:2 white:2 shop:0 place:4 payuse:2
 a pinata: container:4 sweet:2 gift:1 wall:2 scary:0 holiday:2 hit:4 colorful:4
-a pole: sky:3 cord:2 long:4
+a pole: sky:3 cord:0 long:4
 a pond: swimin:2 liquid:3 green:2 cold:2 winter:2 wild:2 water:4
 a rock: round:2 forest:2 smooth:2 water:2 rock:4 $hard:4
 a rocking chair: parts:3 moves:1 comfort:2 $outdoors:2 baby:2 furniture:4
@@ -191,7 +191,7 @@ a cloud: sky:4 white:4 weather:4 soft:2 flies:2 fallsky:0 watery:3 seethrough:1
 a coloring book: paper:4 colorful:3 write:4 read:2 school:3 toy:2
 a compass: round:3 metal:2 travel:4 camping:4 info:2 glass:2
 a cooler: cold:3 container:4 camping:4 beach:4 lid:4 handle:4 plastic:4
-a crate: wood:4 container:4 farm:3 brown:3 garage:3 carry:3
+a wooden crate: wood:4 container:4 farm:3 brown:3 garage:3 carry:3
 a dartboard: round:4 game:4 played:4 wall:4 hang:4 sport:3
 a dollhouse: toy:4 container:3 opens:3 colorful:3 wood:3 plastic:3 decor:2
 a doormat: floor:4 flat:4 $outdoors:3 brown:3 writing:2 everyday:3
@@ -646,11 +646,448 @@ a guinea pig: expensive:2
 a snail: float:2
 a battery: cord:1
 a taxidermy animal: alive:0 moves:0 $made:4 mammal:2 bird:1 fish:1 fur:3 feathers:1 face:4 teeth:2 horns:2 tail:2 $legs:2 four_legs:2 decor:4 scary:3 hang:3 wall:3 brown:3 expensive:3 $steal:1 $indoors:4 $outdoors:0 pet:0 farm:0 zoo:0 wild:2 eat:0 mouth:0 cute:1 soft:2 $hard:2 glass:1 wood:2 burn:3 washable:0 everyday:0 gift:1 smell:1 noise:0 sharp:0 dangerous:0 container:0 fragile:1 $household:0 hardware:0 grocery:0 drugstore:0 toy:0 played:0 comfort:0 bedroom:1 garage:1 $pickup:3 $movable:4 $small2:4 $car:0 $person:0 $light:0 $pound:3 $duck:2 $microwave:2 shoebox:1 pocket:0 $hold:2 $small:1 forest:0 $livewater:0 ocean:0 grows:0 cold:0 hot:0 smooth:1 shiny:0 colorful:0 rolls:0 float:1 floor:1 info:0 writing:0
+an ice cube: winter:1
+a cup of tea: winter:2
+a pine cone: winter:2 fallsky:1
+a butter dish: cold:0
+a water cooler: cold:2
+a wine glass: hasliquid:2
+a rock: beach:2
+a polar bear: ocean:2
+sand: ocean:2
+a bird: beach:2
+rain: night:2
+a Christmas stocking: white:2
+a pillow: white:2
+a pillowcase: white:2
+an icicle: fallsky:2
+a pine tree: holiday:2
+a gas station: night:2
+a sheet of paper: sharp:2
+an envelope: sharp:2
+a can: sharp:2
+a glass: sharp:2
+a wine glass: sharp:2
+a mirror: sharp:2
+a seashell: sharp:2
+a toaster oven: box:4
+a slow cooker: box:4
+an iron: box:4
+a curling iron: box:4
+a heater: box:4
+a drill: box:4
+a chainsaw: box:4
+a projector: box:4
+a record player: box:4
+earbuds: box:4
+a hard drive: box:4
+a speaker: box:4
+a smartwatch: box:4
+a thermostat: box:4
+a baby monitor: box:4
+a label maker: box:4
+a leaf blower: box:4
+a weed whacker: box:4
+an air conditioner: box:4
+a car seat: box:4
+a stroller: box:4
+a telescope: box:4
+an alarm clock: box:4
+a microphone: box:3
+a smoke alarm: box:3
+a scale: box:3
+a string of lights: box:3
+binoculars: box:3
+a makeup kit: box:3
+a dollhouse: box:3
+a toy car: box:3
+a slinky: box:3
+a dartboard: box:3
+a pool table: box:3
+a baby bottle: box:3
+a wagon: box:3
+a crib: box:3
+a high chair: box:3
+a desk: box:3
+a bookshelf: box:3
+a nightstand: box:3
+a coffee table: box:3
+a lawn mower: box:3
+a trampoline: box:3
+a tent: box:3
+a kiddie pool: box:3
+a treadmill: box:3
+a barbecue: box:3
+a water heater: box:3
+sandals: box:3
+a bottle of perfume: box:3
+a ukulele: box:2
+a chair: box:2
+a table: box:2
+a dresser: box:2
+a stool: box:2
+a lawn chair: box:2
+slippers: box:2
+a toilet: box:2
+a sink: box:2
+a swing: box:2
+a hammock: box:2
+a furnace: box:2
+a bed: box:2
+a USB stick: box:2
+a charger: box:2
+a pacifier: box:2
+a yo-yo: box:2
+a fidget spinner: box:2
+a rattle: box:2
+a sippy cup: box:2
+a jump rope: box:2
+a kite: box:2
+an extension cord: box:2
+a shower head: box:2
+a toolbox: box:2
+a guitar: box:2
+a violin: box:2
+a tube of lipstick: box:2
+a frisbee: box:1
+a bottle of shampoo: box:1
+a bottle of lotion: box:1
+a bottle of sunscreen: box:1
+a bottle of nail polish: box:1
+a hula hoop: box:1
+a bed sheet: box:1
+a flashlight: kitchen:3
+a battery: kitchen:3
+a pen: kitchen:3
+a pencil: kitchen:3
+a roll of tape: kitchen:3
+scissors: kitchen:3
+a rubber band: kitchen:3
+a key: kitchen:3
+a lighter: kitchen:3
+a match: kitchen:3
+a screwdriver: kitchen:3
+a tape measure: kitchen:3
+a sticky note: kitchen:3
+a marker: kitchen:3
+a paper clip: kitchen:3
+a bottle of glue: kitchen:3
+a piece of string: kitchen:3
+a candle: kitchen:3
+a menu: kitchen:3
+a charger: kitchen:3
+a zip tie: kitchen:3
+a keychain: kitchen:3
+a highlighter: kitchen:3
+a stamp: kitchen:3
+a coin: kitchen:3
+a safety pin: kitchen:3
+a bobby pin: kitchen:3
+an envelope: kitchen:3
+a receipt: kitchen:3
+a USB stick: kitchen:3
+a light bulb: kitchen:3
+a nail: kitchen:3
+a screw: kitchen:3
+a calculator: kitchen:3
+a crayon: kitchen:3
+an eraser: kitchen:3
+a hair tie: kitchen:3
+a pair of dice: kitchen:3
+a playing card: kitchen:3
+a pocket knife: kitchen:3
+a pill bottle: kitchen:3
+a bandage: kitchen:3
+a whistle: kitchen:3
+a tube of lip balm: kitchen:3
+a glow stick: kitchen:3
+a watch: smooth:3
+a dog: meat:4 eats_plants:2 night:1 smooth:2 cute:4
+a cat: meat:4 eats_plants:1 night:3 smooth:2 cute:4
+a horse: meat:0 eats_plants:4 night:1 smooth:4 cute:2
+a cow: meat:0 eats_plants:4 night:1 smooth:4 cute:2
+a pig: meat:1 eats_plants:4 night:1 smooth:2 cute:2
+a sheep: meat:0 eats_plants:4 night:1 smooth:0 cute:2
+a goat: meat:0 eats_plants:4 night:1 smooth:3 cute:2
+a chicken: meat:2 eats_plants:4 night:0 smooth:1 cute:2
+a duck: meat:2 eats_plants:4 night:1 smooth:3 cute:3
+a turkey: meat:2 eats_plants:4 night:0 smooth:1 cute:1
+a rabbit: meat:0 eats_plants:4 night:2 smooth:0 cute:4
+a hamster: meat:1 eats_plants:4 night:4 smooth:2 cute:4
+a mouse: meat:2 eats_plants:4 night:4 smooth:2 cute:3
+a rat: meat:3 eats_plants:4 night:4 smooth:2 cute:1
+a squirrel: meat:1 eats_plants:4 night:0 smooth:0 cute:3
+a raccoon: meat:4 eats_plants:4 night:4 smooth:0 cute:2
+a skunk: meat:4 eats_plants:4 night:4 smooth:0 cute:2
+a fox: meat:4 eats_plants:2 night:3 smooth:0 cute:3
+a wolf: meat:4 eats_plants:1 night:3 smooth:0 cute:2
+a deer: meat:0 eats_plants:4 night:2 smooth:3 cute:3
+a moose: meat:0 eats_plants:4 night:2 smooth:2 cute:1
+a bear: meat:4 eats_plants:4 night:2 smooth:0 cute:2
+a polar bear: meat:4 eats_plants:1 night:2 smooth:0 cute:3
+a panda: meat:1 eats_plants:4 night:1 smooth:0 cute:4
+a koala: meat:0 eats_plants:4 night:4 smooth:0 cute:4
+a kangaroo: meat:0 eats_plants:4 night:3 smooth:3 cute:2
+a monkey: meat:2 eats_plants:4 night:0 smooth:0 cute:3
+a gorilla: meat:1 eats_plants:4 night:0 smooth:0 cute:1
+an elephant: meat:0 eats_plants:4 night:2 smooth:1 cute:2
+a giraffe: meat:0 eats_plants:4 night:1 smooth:4 cute:2
+a zebra: meat:0 eats_plants:4 night:1 smooth:4 cute:2
+a lion: meat:4 eats_plants:0 night:3 smooth:2 cute:2
+a tiger: meat:4 eats_plants:0 night:3 smooth:2 cute:2
+a cheetah: meat:4 eats_plants:0 night:1 smooth:3 cute:3
+a hippo: meat:0 eats_plants:4 night:4 smooth:4 cute:1
+a rhino: meat:0 eats_plants:4 night:2 smooth:2 cute:1
+a camel: meat:0 eats_plants:4 night:1 smooth:2 cute:1
+a bat: meat:3 eats_plants:3 night:4 smooth:1 cute:1
+a beaver: meat:0 eats_plants:4 night:3 smooth:1 cute:2
+an otter: meat:4 eats_plants:1 night:2 smooth:3 cute:4
+a hedgehog: meat:4 eats_plants:2 night:4 smooth:0 cute:4
+a sloth: meat:0 eats_plants:4 night:3 smooth:0 cute:4
+a whale: meat:4 eats_plants:1 night:2 smooth:4 cute:2
+a dolphin: meat:4 eats_plants:0 night:2 smooth:4 cute:4
+a seal: meat:4 eats_plants:0 night:2 smooth:4 cute:4
+a shark: meat:4 eats_plants:0 night:2 smooth:3 cute:0
+a penguin: meat:4 eats_plants:0 night:1 smooth:4 cute:4
+an octopus: meat:4 eats_plants:0 night:3 smooth:4 cute:1
+a jellyfish: meat:4 eats_plants:0 night:2 smooth:4 cute:0
+a crab: meat:3 eats_plants:3 night:3 smooth:1 cute:1
+a lobster: meat:4 eats_plants:2 night:4 smooth:1 cute:0
+a starfish: meat:4 eats_plants:1 night:2 smooth:1 cute:2
+a goldfish: meat:2 eats_plants:4 night:1 smooth:4 cute:3
+a frog: meat:4 eats_plants:0 night:3 smooth:4 cute:2
+a turtle: meat:3 eats_plants:3 night:1 smooth:3 cute:2
+a snake: meat:4 eats_plants:0 night:2 smooth:4 cute:0
+a lizard: meat:4 eats_plants:2 night:1 smooth:2 cute:1
+an owl: meat:4 eats_plants:0 night:4 smooth:2 cute:3
+an eagle: meat:4 eats_plants:0 night:0 smooth:2 cute:1
+a parrot: meat:1 eats_plants:4 night:0 smooth:3 cute:3
+a flamingo: meat:3 eats_plants:2 night:1 smooth:3 cute:2
+an ostrich: meat:2 eats_plants:4 night:1 smooth:0 cute:1
+a peacock: meat:2 eats_plants:4 night:0 smooth:3 cute:2
+a swan: meat:1 eats_plants:4 night:1 smooth:3 cute:2
+a bee: meat:0 eats_plants:4 night:0 smooth:0 cute:2
+an ant: meat:3 eats_plants:3 night:2 smooth:3 cute:1
+a butterfly: meat:0 eats_plants:4 night:0 smooth:3 cute:3
+a spider: meat:4 eats_plants:0 night:3 smooth:1 cute:0
+a mosquito: meat:1 eats_plants:3 night:4 smooth:1 cute:0
+a fly: meat:2 eats_plants:3 night:0 smooth:1 cute:0
+a ladybug: meat:4 eats_plants:0 night:0 smooth:4 cute:4
+a worm: meat:0 eats_plants:4 night:4 smooth:4 cute:0
+a snail: meat:0 eats_plants:4 night:4 smooth:2 cute:1
+a grasshopper: meat:0 eats_plants:4 night:1 smooth:3 cute:0
+a cockroach: meat:3 eats_plants:4 night:4 smooth:4 cute:0
+a person: meat:3 eats_plants:4 night:1 smooth:2 cute:2
+a baby: meat:1 eats_plants:2 night:2 smooth:4 cute:4
+a child: meat:3 eats_plants:4 night:1 smooth:3 cute:3
+a donkey: meat:0 eats_plants:4 night:1 smooth:4 cute:2
+a llama: meat:0 eats_plants:4 night:1 smooth:0 cute:3
+a buffalo: meat:0 eats_plants:4 night:1 smooth:0 cute:1
+a chipmunk: meat:1 eats_plants:4 night:0 smooth:0 cute:4
+a porcupine: meat:0 eats_plants:4 night:4 smooth:0 cute:2
+a ferret: meat:4 eats_plants:0 night:3 smooth:2 cute:4
+a guinea pig: meat:0 eats_plants:4 night:1 smooth:2 cute:4
+a goose: meat:1 eats_plants:4 night:0 smooth:3 cute:2
+a walrus: meat:4 eats_plants:0 night:2 smooth:3 cute:1
+a seahorse: meat:4 eats_plants:0 night:1 smooth:2 cute:4
+a stingray: meat:4 eats_plants:0 night:3 smooth:4 cute:1
+a dragonfly: meat:4 eats_plants:0 night:0 smooth:3 cute:2
+a wasp: meat:3 eats_plants:3 night:0 smooth:3 cute:0
+a beetle: meat:2 eats_plants:3 night:3 smooth:4 cute:1
+a caterpillar: meat:0 eats_plants:4 night:2 smooth:2 cute:2
+a moth: meat:0 eats_plants:3 night:4 smooth:0 cute:1
+a fish: meat:3 eats_plants:3 night:2 smooth:4 cute:2
+a bird: meat:2 eats_plants:3 night:1 smooth:2 cute:3
+a bug: meat:2 eats_plants:3 night:2 smooth:2 cute:1
+an alligator: meat:4 eats_plants:0 night:3 smooth:1 cute:0
+a baby: $legs:4 two_legs:4
+a bat: $legs:4
+a tarp: garage:3
+a roll of tape: garage:3
+a glue gun: garage:3
+an extension cord: garage:3
+a garbage can: garage:3
+a sled: garage:3
+skis: garage:3
+a snowboard: garage:3
+a toboggan: garage:3
+a tent: garage:3
+a sleeping bag: garage:3
+a fishing rod: garage:3
+a cooler: garage:3
+a basketball: garage:3
+a soccer ball: garage:3
+a football: garage:3
+a baseball bat: garage:3
+a hockey stick: garage:3
+a hockey net: garage:3
+a golf club: garage:3
+a lawn chair: garage:3
+a freezer: garage:3
+a shelf: garage:3
+a snow brush: garage:3
+a snowmobile: garage:3
+a kayak: garage:3
+a canoe: garage:3
+a paddle: garage:3
+a life jacket: garage:3
+a helmet: garage:3
+a jump rope: garage:3
+a ball: garage:3
+a mop: garage:3
+an axe: garage:3
+a watering can: garage:3
+a sprinkler: garage:3
+a barbecue: garage:3
+a battery: garage:3
+a light bulb: garage:3
+a string of lights: garage:3
+a Christmas tree: garage:3
+an ornament: garage:3
+a bag of trail mix: garage:3
+a refrigerator: garage:2
+a bell: shoebox:2 pocket:2 $small2:2 $pickup:2 $hold:2 $heavy:2 $light:2 holiday:3 school:2 desk:2 hit:3 hang:2 rings:4 noise:4 metal:4 music:3 shiny:3 expensive:2 decor:2 $household:2 $car:1 $person:1 inhand:2 shop:2 office2:2
+a fish: smooth:1
+a goldfish: smooth:1
+a snake: smooth:1
+a lizard: smooth:1
+an alligator: smooth:1
+a turtle: smooth:1
+a shark: smooth:2
+a seahorse: smooth:1
+a watch: smooth:4
+a plate of spaghetti: smooth:3
+seaweed: smooth:3
+a drum: smooth:4
+the sun: smooth:2
+the moon: smooth:2
+a star: smooth:2
+lightning: smooth:2
+a rainbow: smooth:2
+a park: smooth:2
+a hedgehog: soft:0
+a tree: soft:0
+a cactus: soft:0
+a plate: soft:0
+a mug: soft:0
+a boat: soft:0
+a pinch of salt: soft:0
+the sun: soft:0
+a star: soft:0
+lightning: soft:0
+a rainbow: soft:0
+fire: soft:0
+a shadow: soft:0
+a porcupine: soft:0
+a palm tree: soft:0
+a pine tree: soft:0
+a bowl: soft:0
+roller skates: soft:0
+a level: soft:0
+an egg: soft:0
+a teapot: soft:0
+a fireplace: soft:0
+a salt shaker: soft:0
+a roller coaster: soft:0
+a campfire: soft:0
+a dartboard: soft:0
+a gnome: soft:0
+an icicle: soft:0
+a sunset: soft:0
+the sky: soft:0
+a gas station: soft:0
+a garage: soft:0
+a closet: soft:0
+a tunnel: soft:0
+a parking lot: soft:0
+a bus stop: soft:0
+a wheel: soft:0
+a nail file: soft:0
+a butter dish: soft:0
+a serving tray: soft:0
+a music box: soft:0
+a buoy: soft:0
+a sunflower seed: soft:0
+a cinnamon stick: soft:0
+a pinch of pepper: soft:0
+a jack-o-lantern: soft:0
+a beehive: soft:0
+a sewing kit: soft:0
+a bath bomb: soft:0
+a bee: soft:1
+an ant: soft:1
+a mosquito: soft:1
+a fly: soft:1
+a ladybug: soft:1
+a grasshopper: soft:1
+a cockroach: soft:1
+a dragonfly: soft:1
+a wasp: soft:1
+a beetle: soft:1
+a bug: soft:1
+a drum: soft:1
+a clove of garlic: soft:1
+a spoonful of sugar: soft:1
+a swing: soft:1
+a forest: soft:1
+a knee: soft:1
+an elbow: soft:1
+a brussels sprout: soft:1
+a piece of ginger: soft:1
+a slice of pepperoni: soft:1
+a popsicle: soft:1
+a nest: soft:1
+a doormat: soft:1
+a stalk of wheat: soft:1
+a field: soft:1
+a hill: soft:1
+a park: soft:1
+a garden: soft:1
+a backyard: soft:1
+a butterfly: soft:2
+a spider: soft:2
+a moth: soft:2
+a sunflower: soft:2
+rain: soft:2
+the ocean: soft:2
+a river: soft:2
+smoke: soft:2
+a jump rope: soft:2
+a lake: soft:2
+fog: soft:2
+a wreath: soft:2
+a Christmas tree: soft:2
+a plant: soft:2
+a bush: soft:2
+a net: soft:2
+a pond: soft:2
+a wave: soft:2
+a cattail: soft:2
+a spider web: soft:2
+a pie: soft:3
+a salad: soft:3
+a beach: soft:3
+a snowman: soft:3
+a mouth: soft:3
+a leaf of spinach: soft:4
+a stick of gum: soft:4
+a milkshake: soft:4
+a smoothie: soft:4
+a leaf of kale: soft:4
+a mint leaf: soft:4
+a basil leaf: soft:4
+a baby: soft:4
+a fish: smooth:2
+a snake: smooth:2
+a turtle: smooth:2
+a lizard: smooth:2
+an alligator: smooth:0
+a frog: smooth:4
 '''
 def table():
     out = {}
     for line in RAW.strip().splitlines():
         n, rest = line.split(':', 1)
-        out[n.strip()] = {k: int(v) for k, v in (p.rsplit(':', 1) for p in rest.split())}
+        out.setdefault(n.strip(), {}).update({k: int(v) for k, v in (p.rsplit(':', 1) for p in rest.split())})   # (a name listed again adds to / corrects its earlier line)
     return out
 THIN = table()
