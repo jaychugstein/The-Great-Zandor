@@ -33,7 +33,7 @@ One wrong answer won't throw him off.
 | Button | What it does |
 |---|---|
 | Arrows | Move the highlight between the four answer boxes |
-| A or B | Choose the highlighted answer · move his speech along · start (both buttons do the same thing) |
+| B | Choose the highlighted answer · move his speech along · start |
 | Left / Right | Sound ON or OFF (title screen) · YES or NO (your future) |
 
 ## Install

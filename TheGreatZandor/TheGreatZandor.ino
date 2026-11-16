@@ -3,7 +3,7 @@
 // Look at something near you. It asks what kind of thing it is (animal, plant, man-made or other), then up to 21 questions, guessing along
 // the way when it's sure. If its guess at 21 is wrong it keeps going to 25. by jaychugstein
 //
-// Controls: the arrows move a highlight between four answer boxes (YES, NO, SOMETIMES, DON'T KNOW); A or B (both do the same thing) answers,
+// Controls: the arrows move a highlight between four answer boxes (YES, NO, SOMETIMES, DON'T KNOW); B answers (A goes back a question),
 // starts and moves things along. The first question works the same way: ANIMAL, PLANT, MAN-MADE or OTHER.
 //
 // How it thinks: the FX chip holds a table of how every thing answers every question (no, rarely, sometimes, usually, yes;
@@ -102,7 +102,7 @@ const int8_t DELTA[4][5] PROGMEM = {                           // how an answer 
   { 4, 3, 0, -1, -4 },                                         // NO
   { 0, 0, 1, 0, 0 },                                           // DON'T KNOW (a skip: it counts against nothing, and only nudges the in-between things)
   { -2, 1, 3, 1, -2 } };                                       // SOMETIMES (real players say it often, even about a firm yes or no, so it only nudges: tuned in art/fastsim.py with ANS=real)
-const uint8_t MAXH = 26, MAXW = 16;
+const uint8_t MAXH = 26, MAXW = 25;                           // (room for every answer and every guess there could be)
 uint8_t hq[MAXH], ha[MAXH], nh;                                // the questions answered so far, and the answers
 uint16_t wrong[MAXW]; bool wrongOut[MAXW]; uint8_t nw;         // things he guessed wrongly (ruled out, or just doubted)
 uint8_t cat;                                                   // the group picked at the start (0 animal .. 3 other)
@@ -180,7 +180,23 @@ void next() {                                                  // after an answe
     if (qn == 6 || qn == 11 || qn == 16) { st = S_SAY; tmr = 0; page = 0; uint8_t l; do l = random(N_MUTTERS); while (l == lastMutter); lastMutter = line_ = l; line2_ = random(2); } }   // now and then he mutters something first (never the same one twice in a row)
 }
 
-// the four answers in four boxes, two by two: the arrows move the highlight between them, A or B answers.
+// A goes back: each answer is remembered as a step (what kind of screen it was, and which box was picked), so a slip of the
+// thumb can be undone, one question at a time, all the way back to the first one. The answers after it are forgotten.
+uint8_t steps[25];                                             // for question n: what it was (0 the first question, 1 a question, 2 a wrong guess) times 4, plus the box picked
+void step(uint8_t k) { steps[qn - 1] = k << 2 | sel; }
+void back() {
+  if (st != S_MORE && qn <= 1) return;                         // (the first question: nowhere further back to go)
+  if (st == S_ASK || st == S_SAY) asked[curQ >> 3] &= ~(1 << (curQ & 7));   // (the question coming up hasn't been answered: it can be asked again)
+  if (st != S_MORE) qn--;                                      // (after a wrong 21st guess, back goes to that guess)
+  uint8_t k = steps[qn - 1] >> 2; sel = steps[qn - 1] & 3;   // (the box you picked last time is lit)
+  if (k == 0) st = S_CAT;
+  else if (k == 1) { nh--; curQ = hq[nh]; st = S_ASK; }
+  else { nw--; guessObj = wrong[nw]; finalGuess = (qn == 21 || qn == 25);
+    FX::readDataBytes(NAMES + (uint24_t)guessObj * NAMELEN, (uint8_t*)nm, NAMELEN); st = S_GUESS; }
+  beep();
+}
+
+// the four answers in four boxes, two by two: the arrows move the highlight between them, B answers.
 void choices(PGM_P const* L) {
   for (uint8_t i = 0; i < 4; i++) {
     int16_t x = (i & 1) ? 65 : 0, y = (i & 2) ? 51 : 37;
@@ -189,10 +205,11 @@ void choices(PGM_P const* L) {
     at(x + 32 - (int16_t)strlen_P(L[i]) * 3, y + 3); pp(L[i]); tc_ = WHITE;
   }
 }
+bool B_;                                                       // (B pressed this frame, and not cancelled by going back)
 bool picked(uint8_t ar) {                                      // arrows move between the boxes; B picks the lit one
   if (ar == 0 || ar == 1) { sel ^= 2; beep(); }                // up / down: the other row
   if (ar == 2 || ar == 3) { sel ^= 1; beep(); }                // left / right: the other column
-  return ab.justPressed(B_BUTTON) || ab.justPressed(A_BUTTON);   // (A and B do the same thing)
+  return B_;                                                   // (B, the outer button, answers; A goes back a question)
 }
 uint8_t arrowPressed() {                                       // which arrow was just pressed (255: none)
   if (ab.justPressed(UP_BUTTON)) return 0; if (ab.justPressed(DOWN_BUTTON)) return 1;
@@ -223,7 +240,7 @@ bool speak(bool prompt) {                                     // what he says, b
   ab.drawRoundRect(50, 0, 78, 64, 4, WHITE); ab.drawRoundRect(51, 1, 76, 62, 3, WHITE);
   uint8_t n = pages(); bool last = page >= n - 1;
   wrap(54, 5, 12, (prompt && last) ? 5 : 6, page);         // (12 letters a line, x 54 to 125, inside the bubble's border)
-  if (!last) { if (tmr > 100 || ((ab.justPressed(B_BUTTON) || ab.justPressed(A_BUTTON)) && tmr > 6)) { page++; tmr = 0; } return false; }   // the next page comes by itself after a little over 3 seconds (or on a button)
+  if (!last) { if (tmr > 100 || (ab.justPressed(B_BUTTON) && tmr > 6)) { page++; tmr = 0; } return false; }   // the next page comes by itself after a little over 3 seconds (or on a button)
   if (prompt) { at(84, 53); pp(PSTR("PRESS")); button3d(116, 53, pushed()); }   // PRESS and a button, pushed in now and then
   return true;
 }
@@ -241,7 +258,9 @@ void setup() {
 void loop() {
   if (!ab.nextFrame()) return;
   ab.pollButtons(); if (tmr < 255) tmr++;
-  bool B = ab.justPressed(B_BUTTON) || ab.justPressed(A_BUTTON); uint8_t ar = arrowPressed();   // (B: either button - they do the same thing)
+  bool B = ab.justPressed(B_BUTTON); uint8_t ar = arrowPressed();   // (B, the outer button, is enter everywhere)
+  if (ab.justPressed(A_BUTTON) && (st == S_ASK || st == S_GUESS || st == S_SAY || st == S_PONDER || st == S_MORE)) { back(); B = false; }   // (A, the inner one, only ever goes back a question)
+  B_ = B;
   switch (st) {
     case S_TITLE:
       // Zandor in his booth on the right: a framed cabinet window with a curtain swag in each top corner, each pinned with a jewel,
@@ -279,7 +298,7 @@ void loop() {
       tiny(8, 56, PSTR("PRESS"));
       button3d(30, 55, pushed());
       tiny(40, 56, PSTR("TO ENTER"));
-      if (B) { randomSeed(micros()); if (!luckyN) { luckyN = 1 + random(99); do unluckyN = 1 + random(99); while (unluckyN == luckyN); } newGame(); eerie(); }   // (either button starts)
+      if (B) { randomSeed(micros()); if (!luckyN) { luckyN = 1 + random(99); do unluckyN = 1 + random(99); while (unluckyN == luckyN); } newGame(); eerie(); }   // (B starts)
       break;
     case S_THINK:
       zandor(); tclear();
@@ -306,12 +325,12 @@ void loop() {
     case S_CAT:                                                // question 1: what kind of thing are you looking at? Four boxes.
       frame(35); tclear(); taddP(PSTR("WHAT HOLDS YOUR GAZE? IS IT...")); wrap(5, 4, 19, 3); qlabel(26);
       choices(CATL);
-      if (picked(ar)) { cat = sel; blip(); next(); }           // (the boxes are bits 0 animal, 1 plant, 2 man-made, 3 other in the table; a few things sit in two)
+      if (picked(ar)) { cat = sel; step(0); blip(); next(); }           // (the boxes are bits 0 animal, 1 plant, 2 man-made, 3 other in the table; a few things sit in two)
       break;
     case S_ASK:
       frame(35); tclear(); { char q[QLEN]; FX::readDataBytes(QTEXT + (uint24_t)curQ * QLEN, (uint8_t*)q, QLEN); tadd(q); } wrap(5, 4, 19, 3); qlabel(26);
       choices(ANS);
-      if (picked(ar)) { apply(curQ, ANSV[sel]); blip(); next(); }
+      if (picked(ar)) { apply(curQ, ANSV[sel]); step(1); blip(); next(); }
       break;
     case S_GUESS:
       tclear(); if (finalGuess) taddP(PSTR("I SEE IT CLEARLY... IT IS ")); else taddP(PSTR("YOUR EYES SAY... IS IT "));
@@ -319,7 +338,7 @@ void loop() {
       choices(ANS);
       if (picked(ar)) {
         if (sel == 0) { st = S_WIN; tmr = 0; page = 0; line_ = random(N_WINS); line2_ = random(N_WINEND); snd.tone(330, 90, 311, 90, 494, 300); }
-        else { if (nw < MAXW) { wrong[nw] = guessObj; wrongOut[nw] = sel == 1; nw++; } blip(); if (qn == 21) { st = S_MORE; tmr = 0; page = 0; line_ = random(N_MOREA); } else next(); }   // (sometimes / unknown: not ruled out, just doubted)
+        else { wrong[nw] = guessObj; wrongOut[nw] = sel == 1; nw++; step(2); blip(); if (qn == 21) { st = S_MORE; tmr = 0; page = 0; line_ = random(N_MOREA); } else next(); }   // (sometimes / unknown: not ruled out, just doubted)
       }
       break;
     case S_MORE:                                               // wrong at 21: it keeps going
